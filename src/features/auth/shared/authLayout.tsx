@@ -14,7 +14,7 @@ const AuthLayout = () => {
       </div>
 
       {/* Right side - Fixed width with background image */}
-      <div className="w-[650px] h-full bg-cover bg-center shrink-0">
+      <div className="w-[675px] h-full bg-cover bg-center shrink-0">
         <img
           src="/src/assets/images/auth-background.png"
           alt="Auth Background"
