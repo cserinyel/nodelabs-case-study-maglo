@@ -1,0 +1,92 @@
+@import "tailwindcss";
+
+@theme {
+  --font-family-sans: "Kumbh Sans", sans-serif;
+  /* Primary color */
+  --color-primary: oklch(89.221% 0.19198 121.52);
+  --color-primary-50: oklch(98.722% 0.02248 114.93);
+  --color-primary-100: oklch(97.628% 0.04515 118);
+  --color-primary-200: oklch(95.177% 0.08878 118.23);
+  --color-primary-300: oklch(93.107% 0.12958 119.38);
+  --color-primary-400: oklch(90.97% 0.16468 120.2);
+  --color-primary-500: oklch(89.221% 0.19198 121.52);
+  --color-primary-600: oklch(85.838% 0.20771 123.22);
+  --color-primary-700: oklch(71.126% 0.17134 123.14);
+  --color-primary-800: oklch(55.35% 0.1316 122.65);
+  --color-primary-900: oklch(38.621% 0.08921 122.21);
+  --color-primary-950: oklch(29.363% 0.06638 121.68);
+  /* Accent color */
+  --accent-color: #363a3f;
+  --light-color: ##f8f8f8;
+  --text-color-1: #1b212d;
+  --text-color-2: #929eae;
+  --text-color-3: #78778b;
+  --border-color: #f2f2f2;
+  --border-color-2: #e0e0e0;
+}
+
+body {
+  font-family: "Kumbh Sans", sans-serif;
+  font-synthesis: none;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+}
+
+.font-\[100\] {
+  font-weight: 100 !important;
+  font-variation-settings: "wght" 100;
+}
+.font-\[200\] {
+  font-weight: 200 !important;
+  font-variation-settings: "wght" 200;
+}
+.font-\[300\] {
+  font-weight: 300 !important;
+  font-variation-settings: "wght" 300;
+}
+.font-\[400\] {
+  font-weight: 400 !important;
+  font-variation-settings: "wght" 400;
+}
+.font-\[500\] {
+  font-weight: 500 !important;
+  font-variation-settings: "wght" 500;
+}
+.font-\[600\] {
+  font-weight: 600 !important;
+  font-variation-settings: "wght" 600;
+}
+.font-\[700\] {
+  font-weight: 700 !important;
+  font-variation-settings: "wght" 700;
+}
+.font-\[800\] {
+  font-weight: 800 !important;
+  font-variation-settings: "wght" 800;
+}
+.font-\[900\] {
+  font-weight: 900 !important;
+  font-variation-settings: "wght" 900;
+}
+
+@layer utilities {
+  .text-title-1 {
+    color: var(--text-color-1);
+    font-size: 30px;
+    font-weight: 600;
+    line-height: 100%;
+    letter-spacing: 0%;
+  }
+  .text-input-label {
+    color: var(--text-color-1);
+    font-weight: 500;
+    font-size: 14px;
+    line-height: 100%;
+    letter-spacing: 0%;
+  }
+  .text-size-14 {
+    font-size: 14px;
+    line-height: 17px;
+  }
+}
