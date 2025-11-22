@@ -4,6 +4,7 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { RouterProvider } from "react-router";
 import "./Main.css";
 import AppRouter from "./routes/AppRouter.tsx";
+import ToastManager from "./features/toast/toastManager.tsx";
 
 // Create a query client
 const queryClient = new QueryClient({
@@ -21,8 +22,10 @@ const queryClient = new QueryClient({
 
 createRoot(document.getElementById("root")!).render(
   <StrictMode>
-    <QueryClientProvider client={queryClient}>
-      <RouterProvider router={AppRouter} />
-    </QueryClientProvider>
+    <ToastManager>
+      <QueryClientProvider client={queryClient}>
+        <RouterProvider router={AppRouter} />
+      </QueryClientProvider>
+    </ToastManager>
   </StrictMode>
 );

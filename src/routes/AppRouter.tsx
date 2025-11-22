@@ -1,36 +1,49 @@
-import { createBrowserRouter, Navigate } from "react-router";
+import { createBrowserRouter, Navigate, type RouteObject } from "react-router";
 import AuthLayout from "../features/auth/shared/authLayout";
-import SignIn from "../features/auth/pages/signIn";
-import Dashboard from "../features/dashboard/pages/dashboard";
-import SignUp from "../features/auth/pages/signUp";
+import ProtectedRoute from "./ProtectedRoute";
+import { authLoader } from "./utils/loaders";
+import { ROUTES } from "./utils/constants";
+import { lazy } from "react";
 
-const AppRouter = createBrowserRouter([
+const SignIn = lazy(() => import("../features/auth/pages/signIn"));
+const SignUp = lazy(() => import("../features/auth/pages/signUp"));
+const Dashboard = lazy(() => import("../features/dashboard/pages/dashboard"));
+
+const routes: RouteObject[] = [
   {
-    path: "/",
-    element: <Navigate to="/auth/signin" replace />,
+    path: ROUTES.ROOT,
+    element: <Navigate to={ROUTES.AUTH.SIGNIN} replace />,
   },
   {
-    path: "/auth",
+    path: ROUTES.AUTH.BASE,
     Component: AuthLayout,
+    loader: authLoader,
     children: [
       {
         index: true,
-        element: <Navigate to="/auth/signin" replace />,
+        element: <Navigate to={ROUTES.AUTH.SIGNIN} replace />,
       },
       {
-        path: "signin",
+        path: ROUTES.AUTH.SIGNIN,
         Component: SignIn,
       },
       {
-        path: "signup",
+        path: ROUTES.AUTH.SIGNUP,
         Component: SignUp,
       },
     ],
   },
   {
-    path: "/dashboard",
-    Component: Dashboard,
+    element: <ProtectedRoute />,
+    children: [
+      {
+        path: ROUTES.DASHBOARD,
+        Component: Dashboard,
+      },
+    ],
   },
-]);
+];
+
+const AppRouter = createBrowserRouter(routes);
 
 export default AppRouter;

@@ -7,6 +7,7 @@ const Input = ({
   className,
   label,
   labelClassName,
+  error,
   ...props
 }: InputProps) => {
   const classes = twMerge(
@@ -14,6 +15,7 @@ const Input = ({
     "text-[var(--text-color-3)]",
     "pt-[15px] pr-[25px] pb-[16px] pl-[20px]",
     "border border-[var(--border-color)] rounded-[10px]",
+    "disabled:opacity-50 disabled:cursor-not-allowed",
     className
   );
   const labelClasses = twMerge(
@@ -29,6 +31,11 @@ const Input = ({
         </label>
       )}
       <input type={type} id={id} className={classes} {...props} />
+      {error && (
+        <p className="text-error-1 text-[12px] font-normal">
+          {Array.isArray(error) ? error.join(", ") : error}
+        </p>
+      )}
     </div>
   );
 };

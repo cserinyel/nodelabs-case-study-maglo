@@ -20,9 +20,9 @@ const Button = ({
   const classes = twMerge(
     "w-full",
     buttonTypeClass[variant],
-    "flex items-center justify-center gap-[10px]",
-    "text-[var(--text-color-1)] text-[600]",
-    "pt-[15px] pr-[25px] pb-[16px] pl-[20px]",
+    "flex items-center justify-center gap-[10px] max-h-[48px]",
+    "text-[var(--text-color-1)] font-[600] text-[16px]/[100%]",
+    "py-[14px] px-[20px]",
     "rounded-[10px]",
     "cursor-pointer",
     "transition-all duration-300",

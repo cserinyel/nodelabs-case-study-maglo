@@ -3,6 +3,10 @@ export interface LoginCredentials {
   password: string;
 }
 
+export interface RegisterCredentials extends LoginCredentials {
+  fullName: string;
+}
+
 export interface UserResponse {
   id: string;
   fullName: string;
@@ -21,5 +25,15 @@ export interface LoginResponse {
   data: {
     user: UserResponse;
     accessToken: string;
+  };
+}
+
+export interface RegisterResponse {
+  success: boolean;
+  message: string;
+  data: {
+    id: string;
+    fullName: string;
+    email: string;
   };
 }

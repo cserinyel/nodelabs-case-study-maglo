@@ -5,4 +5,5 @@ export interface InputProps
   label?: string;
   className?: string;
   labelClassName?: string;
+  error?: string | string[];
 }

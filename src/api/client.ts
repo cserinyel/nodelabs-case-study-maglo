@@ -1,4 +1,5 @@
 import axios from "axios";
+import { delay } from "../utils/helpers";
 
 const API_BASE_URL = "https://case.nodelabs.dev/api";
 
@@ -25,8 +26,12 @@ apiClient.interceptors.request.use(
 
 // Response interceptor for error handling
 apiClient.interceptors.response.use(
-  (response) => response,
-  (error) => {
+  async (response) => {
+    await delay(1000); // Simulate network delay
+    return response;
+  },
+  async (error) => {
+    await delay(1000); // Simulate network delay
     if (error.response?.status === 401) {
       // Handle unauthorized - clear token, redirect to login, etc.
       localStorage.removeItem("token");
