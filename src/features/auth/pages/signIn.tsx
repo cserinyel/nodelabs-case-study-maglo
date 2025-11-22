@@ -5,15 +5,17 @@ import Input from "../../../shared/components/input/input";
 import SignActionButton from "../components/signActionButton";
 import type { LoginCredentials } from "../../../types/auth";
 import { validateEmail, validatePasswordEntry } from "../utils/helpers";
+import toast from "react-hot-toast";
+import Spinner from "../../../shared/components/spinner/spinner";
 
 const SignIn = () => {
-  const { mutate: loginMutation, isPending } = useLogin();
+  const { mutateAsync: loginMutation, isPending } = useLogin();
   const [formData, setFormData] = useState<LoginCredentials>({
     email: "can@example.com",
     password: "Pa$w0rd123",
   });
   const [validationError, setValidationError] =
-    useState<Record<string, string | string[] | undefined>>();
+    useState<Record<string, string[] | undefined>>();
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { id, value } = e.target;
@@ -30,8 +32,8 @@ const SignIn = () => {
       isValid
         ? undefined
         : {
-            email: emailResult.error,
-            password: passwordResult.error,
+            email: emailResult.errors,
+            password: passwordResult.errors,
           }
     );
 
@@ -44,11 +46,18 @@ const SignIn = () => {
     if (!isValid) {
       return;
     }
-    loginMutation(formData);
+    toast.promise(loginMutation(formData), {
+      loading: "Signing in...",
+      success: "Signed in successfully!",
+      error: (err) => (
+        <b>{err?.message || "Failed to sign in. Please try again."}</b>
+      ),
+    });
   };
 
   return (
-    <div className="flex flex-1 flex-col gap-[25px] justify-center w-full max-w-[404px]">
+    <div className="relative flex flex-1 flex-col gap-[25px] justify-center w-full max-w-[404px]">
+      {isPending && <Spinner mode="coverContent" />}
       <div className="flex flex-col gap-2">
         <h1 className="text-title-1">Sign In</h1>
         <p className="text-[16px] font-normal text-3">
@@ -69,12 +78,8 @@ const SignIn = () => {
             value={formData.email}
             onChange={(e) => handleInputChange(e)}
             disabled={isPending}
+            error={validationError?.email}
           />
-          {validationError?.email && (
-            <p className="text-error-1 text-[14px] font-normal">
-              {validationError.email}
-            </p>
-          )}
           <Input
             type="password"
             id="password"
@@ -83,12 +88,8 @@ const SignIn = () => {
             value={formData.password}
             onChange={(e) => handleInputChange(e)}
             disabled={isPending}
+            error={validationError?.password}
           />
-          {validationError?.password && (
-            <p className="text-error-1 text-[14px] font-normal">
-              {validationError.password}
-            </p>
-          )}
         </div>
         <Button type="submit" disabled={isPending}>
           {isPending ? "Signing in..." : "Sign In"}

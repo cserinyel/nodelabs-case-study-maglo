@@ -1,12 +1,12 @@
 import React from "react";
-import { Link, NavLink } from "react-router";
+import { NavLink } from "react-router";
 import { twMerge } from "tailwind-merge";
 
 interface SignActionButtonProps
   extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   mode: "signIn" | "signUp";
 }
-const SignActionButton = ({ mode, ...props }: SignActionButtonProps) => {
+const SignActionButton = ({ mode }: SignActionButtonProps) => {
   const swooshSvg = (
     <svg
       width="45"

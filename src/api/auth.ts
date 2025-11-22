@@ -9,7 +9,6 @@ import type {
   RegisterCredentials,
   RegisterResponse,
 } from "../types/auth";
-import toast from "react-hot-toast";
 
 // API function
 export const loginUser = async (
@@ -50,12 +49,10 @@ export const useLogin = (
     onSuccess: (data) => {
       // Store token if provided
       localStorage.setItem("accessToken", data?.data.accessToken);
-      toast.success(`Welcome back! ${data?.data.user.fullName}`);
       navigate(ROUTES.DASHBOARD);
     },
     onError: (error) => {
       console.error("Login failed:", error);
-      toast.error("Login failed. Please try again.");
     },
     ...options,
   });
@@ -72,12 +69,10 @@ export const useRegister = (
     mutationFn: registerUser,
     onSuccess: () => {
       console.log("Register successful");
-      toast.success("Account created successfully. Please login to continue.");
       navigate(ROUTES.AUTH.SIGNIN);
     },
     onError: (error) => {
       console.error("Register failed:", error);
-      toast.error("Account creation failed. Please try again.");
     },
     ...options,
   });
@@ -92,12 +87,10 @@ export const useLogout = () => {
     onSuccess: () => {
       localStorage.removeItem("accessToken");
       queryClient.clear(); // Clear all React Query cache
-      toast.success("Logged out successfully.");
       navigate(ROUTES.AUTH.SIGNIN, { replace: true });
     },
     onError: (error) => {
       console.error("Logout failed:", error);
-      toast.error("Logout failed. Please try again.");
     },
   });
 };

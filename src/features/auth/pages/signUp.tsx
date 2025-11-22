@@ -9,16 +9,18 @@ import {
   validateName,
   validatePasswordCreation,
 } from "../utils/helpers";
+import toast from "react-hot-toast";
+import Spinner from "../../../shared/components/spinner/spinner";
 
 const SignUp = () => {
-  const { mutate: registerMutation, isPending } = useRegister();
+  const { mutateAsync: registerMutation, isPending } = useRegister();
   const [formData, setFormData] = useState<RegisterCredentials>({
     fullName: "",
     email: "",
-    password: "",
+    password: "Pa$w0rd123",
   });
   const [validationError, setValidationError] =
-    useState<Record<string, string | string[] | undefined>>();
+    useState<Record<string, string[] | undefined>>();
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { id, value } = e.target;
@@ -37,8 +39,8 @@ const SignUp = () => {
       isValid
         ? undefined
         : {
-            fullName: nameResult.error,
-            email: emailResult.error,
+            fullName: nameResult.errors,
+            email: emailResult.errors,
             password: passwordResult.errors,
           }
     );
@@ -52,13 +54,21 @@ const SignUp = () => {
     if (!isValid) {
       return;
     }
-    registerMutation(formData);
+
+    toast.promise(registerMutation(formData), {
+      loading: "Creating account...",
+      success: <b>Account created successfully! Redirecting to sign in...</b>,
+      error: (err) => (
+        <b>{err?.message || "Account creation failed. Please try again."}</b>
+      ),
+    });
   };
 
   return (
-    <div className="flex flex-1 flex-col gap-[25px] justify-center w-full max-w-[404px]">
+    <div className="relative flex flex-1 flex-col gap-[25px] justify-center w-full max-w-[404px]">
+      {isPending && <Spinner mode="coverContent" />}
       <div className="flex flex-col gap-2">
-        <h1 className="text-title-1">Sign In</h1>
+        <h1 className="text-title-1">Create new account</h1>
         <p className="text-[16px] font-normal text-3">
           Welcome back! Please enter your details
         </p>

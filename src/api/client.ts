@@ -13,9 +13,9 @@ export const apiClient = axios.create({
 // Request interceptor for adding auth tokens
 apiClient.interceptors.request.use(
   (config) => {
-    const token = localStorage.getItem("token"); // or your token storage method
-    if (token) {
-      config.headers.Authorization = `Bearer ${token}`;
+    const accessToken = localStorage.getItem("accessToken"); // or your token storage method
+    if (accessToken) {
+      config.headers.Authorization = `Bearer ${accessToken}`;
     }
     return config;
   },
@@ -28,6 +28,20 @@ apiClient.interceptors.request.use(
 apiClient.interceptors.response.use(
   async (response) => {
     await delay(1000); // Simulate network delay
+
+    // Simulate error with 10% chance
+    if (Math.random() < 0.5) {
+      const simulatedError = {
+        response: {
+          status: 500,
+          statusText: "Internal Server Error",
+          data: { message: "Simulated server error" },
+        },
+        message: "Request failed with simulated error",
+      };
+      return Promise.reject(simulatedError);
+    }
+
     return response;
   },
   async (error) => {

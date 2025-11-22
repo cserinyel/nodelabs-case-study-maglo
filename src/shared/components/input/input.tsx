@@ -15,7 +15,9 @@ const Input = ({
     "text-[var(--text-color-3)]",
     "pt-[15px] pr-[25px] pb-[16px] pl-[20px]",
     "border border-[var(--border-color)] rounded-[10px]",
+    "outline-[var(--color-primary)]",
     "disabled:opacity-50 disabled:cursor-not-allowed",
+    error?.length && "border-red-500 outline-red-500",
     className
   );
   const labelClasses = twMerge(
@@ -23,6 +25,20 @@ const Input = ({
     "h-[36px] flex items-center",
     labelClassName
   );
+
+  const getErrorList = (errors: string[]) => {
+    if (!errors || errors.length === 0) return null;
+    return (
+      <ul className="flex flex-col gap-1">
+        {errors.map((error) => (
+          <li key={error}>
+            <p className="text-red-500 text-[12px] font-normal">{error}</p>
+          </li>
+        ))}
+      </ul>
+    );
+  };
+
   return (
     <div>
       {label && (
@@ -31,11 +47,7 @@ const Input = ({
         </label>
       )}
       <input type={type} id={id} className={classes} {...props} />
-      {error && (
-        <p className="text-error-1 text-[12px] font-normal">
-          {Array.isArray(error) ? error.join(", ") : error}
-        </p>
-      )}
+      {error && getErrorList(error)}
     </div>
   );
 };

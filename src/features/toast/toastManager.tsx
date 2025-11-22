@@ -3,7 +3,7 @@ import { Toaster, type ToasterProps } from "react-hot-toast";
 
 const ToastManager = ({ children }: { children: React.ReactNode }) => {
   const toastOptions: ToasterProps = {
-    position: "top-center",
+    position: "top-right",
     reverseOrder: false,
   };
 
