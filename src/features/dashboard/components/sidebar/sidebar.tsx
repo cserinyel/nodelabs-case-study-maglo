@@ -1,0 +1,64 @@
+import toast from "react-hot-toast";
+import { useLogout } from "../../../../api/auth";
+import { twMerge } from "tailwind-merge";
+import { sidebarMainMenuItems } from "./utils/constants";
+import MenuItem from "./components/menuItem/menuItem";
+import { HelpIcon, LogoutIcon } from "../../../../assets/icons/icons";
+
+const Sidebar = () => {
+  const { mutateAsync: logoutMutation, isPending } = useLogout();
+  const handleLogout = () => {
+    toast.promise(logoutMutation(), {
+      loading: "Logging out...",
+      success: "Logged out successfully!",
+      error: (err) => (
+        <b>{err?.message || "Failed to log out. Please try again."}</b>
+      ),
+    });
+  };
+
+  const sidebarClasses = twMerge(
+    "flex flex-col items-baseline justify-between",
+    "h-screen w-[250px] px-[25px] pt-[30px] pb-[100px]",
+    "bg-[var(--bg-color-1)]"
+  );
+
+  return (
+    <div className={sidebarClasses}>
+      <div className="flex flex-col w-full gap-[30px]">
+        {/* Logo */}
+        <div className="flex flex-row gap-[10px]">
+          <img
+            src="/src/assets/images/maglo-logo.svg"
+            alt="logo"
+            className="min-w-[122px] h-auto"
+          />
+        </div>
+
+        {/* Navigation Menu */}
+        <nav className="flex flex-col gap-[8px] w-full">
+          {sidebarMainMenuItems.map((item) => (
+            <MenuItem key={item.label} {...item} />
+          ))}
+        </nav>
+      </div>
+
+      <div className="w-[200px]">
+        {/* <Button variant="primary" onClick={handleLogout} disabled={isPending}>
+          {isPending ? "Logging out..." : "Log Out"}
+        </Button> */}
+        <nav className="flex flex-col gap-[8px] w-full">
+          <MenuItem label="Help" path="/" icon={HelpIcon} />
+          <MenuItem
+            label={isPending ? "Logging out..." : "Log Out"}
+            onClick={handleLogout}
+            disabled={isPending}
+            icon={LogoutIcon}
+          />
+        </nav>
+      </div>
+    </div>
+  );
+};
+
+export default Sidebar;

@@ -1,14 +1,14 @@
-import { Navigate, Outlet } from "react-router";
+import { Navigate } from "react-router";
 import { ROUTES } from "./utils/constants";
 
-const ProtectedRoute = () => {
+const ProtectedRoute = ({ children }: { children: React.ReactNode }) => {
   const isAuthenticated = localStorage.getItem("accessToken");
 
   if (!isAuthenticated) {
     return <Navigate to={ROUTES.AUTH.SIGNIN} replace />;
   }
 
-  return <Outlet />;
+  return children;
 };
 
 export default ProtectedRoute;

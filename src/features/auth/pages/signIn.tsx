@@ -7,6 +7,8 @@ import type { LoginCredentials } from "../../../types/auth";
 import { validateEmail, validatePasswordEntry } from "../utils/helpers";
 import toast from "react-hot-toast";
 import Spinner from "../../../shared/components/spinner/spinner";
+import { GoogleIcon } from "../../../assets/icons/icons";
+import GoogleSignIn from "../components/googleSignIn";
 
 const SignIn = () => {
   const { mutateAsync: loginMutation, isPending } = useLogin();
@@ -94,15 +96,7 @@ const SignIn = () => {
         <Button type="submit" disabled={isPending}>
           {isPending ? "Signing in..." : "Sign In"}
         </Button>
-        <Button
-          icon="/src/assets/icons/google.svg"
-          iconSize="small"
-          variant="border"
-          type="button"
-          disabled={isPending}
-        >
-          Sign In with Google
-        </Button>
+        <GoogleSignIn isPending={isPending} />
         <SignActionButton mode="signIn" />
       </form>
     </div>

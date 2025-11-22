@@ -11,6 +11,7 @@ import {
 } from "../utils/helpers";
 import toast from "react-hot-toast";
 import Spinner from "../../../shared/components/spinner/spinner";
+import GoogleSignIn from "../components/googleSignIn";
 
 const SignUp = () => {
   const { mutateAsync: registerMutation, isPending } = useRegister();
@@ -113,15 +114,7 @@ const SignUp = () => {
         <Button type="submit" disabled={isPending}>
           {isPending ? "Creating account..." : "Create Account"}
         </Button>
-        <Button
-          icon="/src/assets/icons/google.svg"
-          iconSize="small"
-          variant="border"
-          type="button"
-          disabled={isPending}
-        >
-          Sign In with Google
-        </Button>
+        <GoogleSignIn isPending={isPending} />
         <SignActionButton mode="signUp" />
       </form>
     </div>

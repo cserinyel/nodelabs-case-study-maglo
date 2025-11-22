@@ -4,6 +4,7 @@ import ProtectedRoute from "./ProtectedRoute";
 import { authLoader } from "./utils/loaders";
 import { ROUTES } from "./utils/constants";
 import { lazy } from "react";
+import DashboardTemplate from "../features/dashboard/shared/dashboardTemplate";
 
 const SignIn = lazy(() => import("../features/auth/pages/signIn"));
 const SignUp = lazy(() => import("../features/auth/pages/signUp"));
@@ -34,7 +35,11 @@ const routes: RouteObject[] = [
     ],
   },
   {
-    element: <ProtectedRoute />,
+    element: (
+      <ProtectedRoute>
+        <DashboardTemplate />
+      </ProtectedRoute>
+    ),
     children: [
       {
         path: ROUTES.DASHBOARD,

@@ -1,0 +1,61 @@
+import { NavLink } from "react-router";
+import { twMerge } from "tailwind-merge";
+import type { SidebarMenuItem } from "../../utils/types";
+import Icon from "../../../../../../shared/components/icon/icon";
+
+const MenuItem = ({
+  path,
+  label,
+  disabled,
+  onClick,
+  icon,
+}: SidebarMenuItem) => {
+  if (path) {
+    return (
+      <NavLink
+        key={label}
+        to={path}
+        className={({ isActive }) =>
+          twMerge(
+            "h-[48px]",
+            "flex items-center justify-start gap-2",
+            "px-[12px] py-[10px] rounded-[8px]",
+            "text-[14px] font-medium",
+            "transition-all duration-200",
+            "hover:bg-primary-50",
+            isActive
+              ? "text-1 bg-(--color-primary) hover:bg-primary-600 fill-(--text-color-1)"
+              : "text-2 hover:bg-(--border-color-2) hover:text-1] fill-(--text-color-2) hover:text-1 hover:fill-(--text-color-1)",
+            disabled && "opacity-50 cursor-default pointer-events-none"
+          )
+        }
+      >
+        {icon && <Icon src={icon} size="xsmall" className="" />}
+        {label}
+      </NavLink>
+    );
+  }
+
+  return (
+    <button
+      onClick={onClick}
+      disabled={disabled}
+      className={twMerge(
+        "flex items-center justify-start gap-2",
+        "cursor-pointer",
+        "px-[12px] py-[10px] rounded-[8px]",
+        "text-[14px] font-medium",
+        "transition-all duration-200",
+        "fill-(--text-color-2) hover:bg-primary-50",
+        "transition-all duration-200",
+        "text-2 hover:bg-(--border-color-2) hover:text-1 hover:fill-(--text-color-1)",
+        disabled && "opacity-50 cursor-default pointer-events-none"
+      )}
+    >
+      {icon && <Icon src={icon} size="xsmall" className="" />}
+      {label}
+    </button>
+  );
+};
+
+export default MenuItem;

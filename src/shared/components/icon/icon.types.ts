@@ -1,7 +1,7 @@
-export type IconSize = "small" | "medium" | "large";
+export type IconSize = "xsmall" | "small" | "medium" | "large";
 
-export interface IconProps extends React.ImgHTMLAttributes<HTMLImageElement> {
-  src: string;
+export interface IconProps {
+  src: React.ReactNode;
   size?: IconSize;
   className?: string;
 }

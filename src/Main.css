@@ -23,6 +23,7 @@
   --text-color-3: #78778b;
   --border-color: #f2f2f2;
   --border-color-2: #e0e0e0;
+  --bg-color-1: #f8f8f8;
 }
 
 body {
@@ -76,7 +77,12 @@ body {
     font-size: 30px;
     font-weight: 600;
     line-height: 100%;
-    letter-spacing: 0%;
+  }
+  .text-title-2 {
+    color: var(--text-color-1);
+    font-size: 25px;
+    font-weight: 600;
+    line-height: 100%;
   }
   .text-input-label {
     color: var(--text-color-1);

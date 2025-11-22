@@ -30,7 +30,7 @@ apiClient.interceptors.response.use(
     await delay(1000); // Simulate network delay
 
     // Simulate error with 10% chance
-    if (Math.random() < 0.5) {
+    if (Math.random() < 0.1) {
       const simulatedError = {
         response: {
           status: 500,
