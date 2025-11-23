@@ -3,7 +3,8 @@ import type { IconProps } from "./icon.types";
 
 const Icon = ({ src, size = "small", className }: IconProps) => {
   const sizeClass = {
-    xsmall: "w-[20px] h-[20px]",
+    xxs: "w-[18px] h-[18px]",
+    xs: "w-[20px] h-[20px]",
     small: "w-[24px] h-[24px]",
     medium: "w-[32px] h-[32px]",
     large: "w-[40px] h-[40px]",

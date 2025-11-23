@@ -30,7 +30,7 @@ const MenuItem = ({
           )
         }
       >
-        {icon && <Icon src={icon} size="xsmall" className="" />}
+        {icon && <Icon src={icon} size="xs" className="" />}
         {label}
       </NavLink>
     );
@@ -52,7 +52,7 @@ const MenuItem = ({
         disabled && "opacity-50 cursor-default pointer-events-none"
       )}
     >
-      {icon && <Icon src={icon} size="xsmall" className="" />}
+      {icon && <Icon src={icon} size="xs" className="" />}
       {label}
     </button>
   );

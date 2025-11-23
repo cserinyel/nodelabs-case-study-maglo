@@ -17,14 +17,17 @@
   --color-primary-950: oklch(29.363% 0.06638 121.68);
   /* Accent color */
   --accent-color: #363a3f;
-  --accent-color-2: #4E5257;
-  --light-color: ##f8f8f8;
+  --accent-color-2: #4e5257;
+  --color-secondary: #29a073;
+  --light-color: #f8f8f8;
   --text-color-1: #1b212d;
   --text-color-2: #929eae;
   --text-color-3: #78778b;
   --border-color: #f2f2f2;
   --border-color-2: #e0e0e0;
   --bg-color-1: #f8f8f8;
+  --bg-color-2: #e0e0e0;
+  --tooltip-bg-color: #f3f6f8;
 }
 
 body {
@@ -95,5 +98,40 @@ body {
   .text-size-14 {
     font-size: 14px;
     line-height: 17px;
+  }
+  .widget-header-title {
+    color: var(--text-color-1);
+    font-size: 18px;
+    font-weight: 600;
+    line-height: 100%;
+  }
+  .line-chart svg {
+    overflow: visible;
+  }
+  .line-chart-column-bg,
+  .line-chart-point {
+    animation: fadeIn 0.1s ease-in-out;
+  }
+  .line-chart-toottip {
+    animation: fadeInFromTop 0.1s ease-in-out;
+  }
+}
+
+@keyframes fadeInFromTop {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
   }
 }

@@ -1,4 +1,3 @@
-import Skeleton from "../../../../shared/components/skeleton/skeleton";
 import Button from "../../../../shared/components/button/button";
 import { useFinancialSummary } from "../../../../hooks/useFinancialData";
 import SummaryCard from "./components/summaryCard/summaryCard";

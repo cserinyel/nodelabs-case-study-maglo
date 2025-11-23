@@ -23,8 +23,8 @@ const ScheduledTransfers = () => {
   }
   if (isLoading || !scheduledTransfers) {
     return (
-      <div className="space-y-4">
-        <Skeleton variant="text" width="200px" height="24px" />
+      <div className="w-full h-full flex-1">
+        <Skeleton variant="rectangular" width="100%" height="100%" />
       </div>
     );
   }
