@@ -8,14 +8,14 @@ import TopBar from "../components/topbar/topBar";
 const DashboardTemplate = () => {
   const { fetchAll } = useFinancialStore();
 
-  /* useEffect(() => {
+  useEffect(() => {
     // fetch all financial data once on mount
     toast.promise(fetchAll(), {
       loading: "Fetching all financial data...",
       success: "All financial data fetched successfully!",
       error: "Error fetching all financial data",
     });
-  }, []); */
+  }, []);
 
   return (
     <div className="flex flex-row h-screen">

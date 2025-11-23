@@ -17,6 +17,7 @@
   --color-primary-950: oklch(29.363% 0.06638 121.68);
   /* Accent color */
   --accent-color: #363a3f;
+  --accent-color-2: #4E5257;
   --light-color: ##f8f8f8;
   --text-color-1: #1b212d;
   --text-color-2: #929eae;
