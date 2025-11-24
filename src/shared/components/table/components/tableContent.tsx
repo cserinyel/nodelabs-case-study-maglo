@@ -24,7 +24,7 @@ const TableContent = ({ props }: TableContentProps) => {
   } = props;
   const classes = twMerge(
     "h-full flex flex-row justify-center items-center gap-[14px] min-w-[120px]",
-    "pt-[15px] pb-[13px]",
+    "pt-[15px] pb-[12px]",
     align === "left" && "justify-start",
     align === "right" && "justify-end"
   );

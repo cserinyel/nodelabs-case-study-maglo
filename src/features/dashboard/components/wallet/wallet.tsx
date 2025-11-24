@@ -43,28 +43,14 @@ const Wallet = () => {
       <div className="flex flex-col w-full flex-1 min-h-0 relative items-start">
         {wallet.cards
           .sort((a, b) => (a.isDefault ? 1 : 0) - (b.isDefault ? 1 : 0))
-          .map((card, sortedIndex) => {
-            const isDefault = card.isDefault;
-            const totalCards = wallet.cards.length;
-
-            return (
-              <div
-                key={card.id}
-                className={twMerge(
-                  "w-full flex justify-center",
-                  isDefault ? "relative" : "absolute"
-                )}
-                style={{
-                  zIndex: isDefault ? totalCards - sortedIndex : totalCards + 1,
-                  transform: !isDefault
-                    ? `translateY(65%) scale(0.9)`
-                    : undefined,
-                }}
-              >
-                <CreditCard cardData={card} />
-              </div>
-            );
-          })}
+          .map((card, sortedIndex) => (
+            <CreditCard
+              key={card.id}
+              cardData={card}
+              totalCards={wallet.cards.length}
+              sortedIndex={sortedIndex}
+            />
+          ))}
       </div>
     </div>
   );

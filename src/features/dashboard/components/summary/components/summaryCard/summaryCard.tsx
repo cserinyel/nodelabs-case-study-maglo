@@ -22,7 +22,7 @@ const SummaryCard = ({
   const cardClasses = twMerge(
     "min-h-[105px] w-full",
     "px-[20px]",
-    "flex flex-row justify-between items-center gap-[15px]",
+    "flex flex-row items-center gap-[15px]",
     "p-4 bg-(--bg-color-1) rounded-[10px]",
     isFocused && "bg-(--accent-color)"
   );
