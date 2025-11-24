@@ -1,9 +1,16 @@
+import { twMerge } from "tailwind-merge";
 import { useFinancialWallet } from "../../../../hooks/useFinancialData";
 import Button from "../../../../shared/components/button/button";
 import Skeleton from "../../../../shared/components/skeleton/skeleton";
+import CreditCard from "./components/creditCard/creditCard";
 
 const Wallet = () => {
   const { wallet, isLoading, error, refetchWallet } = useFinancialWallet();
+
+  const widgetClasses = twMerge(
+    "flex flex-col flex-1 gap-[15px] min-h-0",
+    "w-full"
+  );
 
   if (error) {
     return (
@@ -28,16 +35,37 @@ const Wallet = () => {
     );
   }
   return (
-    <div>
-      <h1 className="text-2xl font-bold mb-4">Wallet</h1>
-      {wallet.cards.map((card) => (
-        <div key={card.id}>
-          <p className="text-lg">{card.name}</p>
-          <p className="text-lg">{card.type}</p>
-          <p className="text-lg">{card.cardNumber}</p>
-          <p className="text-lg">{card.bank}</p>
-        </div>
-      ))}
+    <div className={widgetClasses}>
+      <div className="flex flex-row justify-between items-center gap-[20px] w-full shrink-0 h-[22px]">
+        <h1 className="widget-header-title">Wallet</h1>
+        <div className="flex flex-row items-center justify-end gap-[10px] shrink-0"></div>
+      </div>
+      <div className="flex flex-col w-full flex-1 min-h-0 relative items-start">
+        {wallet.cards
+          .sort((a, b) => (a.isDefault ? 1 : 0) - (b.isDefault ? 1 : 0))
+          .map((card, sortedIndex) => {
+            const isDefault = card.isDefault;
+            const totalCards = wallet.cards.length;
+
+            return (
+              <div
+                key={card.id}
+                className={twMerge(
+                  "w-full flex justify-center",
+                  isDefault ? "relative" : "absolute"
+                )}
+                style={{
+                  zIndex: isDefault ? totalCards - sortedIndex : totalCards + 1,
+                  transform: !isDefault
+                    ? `translateY(65%) scale(0.9)`
+                    : undefined,
+                }}
+              >
+                <CreditCard cardData={card} />
+              </div>
+            );
+          })}
+      </div>
     </div>
   );
 };

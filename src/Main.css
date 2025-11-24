@@ -1,3 +1,19 @@
+@font-face {
+  font-family: "Gordita";
+  src: url("./assets/fonts/Gordita-Medium.otf") format("opentype");
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Gordita";
+  src: url("./assets/fonts/Gordita-Bold.otf") format("opentype");
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+
 @import "tailwindcss";
 
 @theme {
@@ -36,6 +52,16 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-rendering: optimizeLegibility;
+}
+.font-gordita-medium {
+  font-family: "Gordita", sans-serif;
+  font-weight: 500;
+  font-style: normal;
+}
+.font-gordita-bold {
+  font-family: "Gordita", sans-serif;
+  font-weight: 700;
+  font-style: normal;
 }
 
 .font-\[100\] {
@@ -135,5 +161,3 @@ body {
     opacity: 1;
   }
 }
-
-

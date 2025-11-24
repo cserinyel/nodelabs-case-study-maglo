@@ -12,7 +12,6 @@ export const FinancialWalletCardType = {
 export const FinancialWalletCardNetwork = {
   VISA: "Visa",
   MASTERCARD: "Mastercard",
-  AMERICAN_EXPRESS: "American Express",
 } as const;
 
 export const FinancialTransactionStatus = {
