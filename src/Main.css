@@ -141,6 +141,12 @@ body {
   .line-chart-toottip {
     animation: fadeInFromTop 0.1s ease-in-out;
   }
+  .width-90 {
+    width: 90%;
+  }
+  .width-95 {
+    width: 95%;
+  }
 }
 
 @keyframes fadeInFromTop {

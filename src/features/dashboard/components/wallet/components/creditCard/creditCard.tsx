@@ -10,11 +10,9 @@ import { MagloLogotype } from "../../../../../../assets/images/logos";
 
 interface CreditCardProps {
   cardData: FinancialWalletCard;
-  totalCards: number;
-  sortedIndex: number;
 }
 
-const CreditCard = ({ cardData, totalCards, sortedIndex }: CreditCardProps) => {
+const CreditCard = ({ cardData }: CreditCardProps) => {
   const { expiryMonth, expiryYear, cardNumber, bank, network, isDefault } =
     cardData;
   const expiryDate = `${String(expiryMonth).padStart(2, "0")}/${expiryYear
@@ -29,12 +27,11 @@ const CreditCard = ({ cardData, totalCards, sortedIndex }: CreditCardProps) => {
   // Calculate wrapper styles and classes
   const wrapperClasses = twMerge(
     "w-full flex justify-center",
-    isDefault ? "relative" : "absolute"
+    "relative",
+    "transition-all duration-300",
+    !isDefault &&
+      "cursor-pointer absolute bottom-[-10px] scale-[0.9] z-10 hover:scale-[0.925]"
   );
-  const wrapperStyle = {
-    zIndex: isDefault ? totalCards - sortedIndex : totalCards + 1,
-    transform: !isDefault ? `translateY(65%) scale(0.9)` : undefined,
-  };
 
   const containerClasses = twMerge(
     "w-full flex justify-center items-center",
@@ -55,7 +52,7 @@ const CreditCard = ({ cardData, totalCards, sortedIndex }: CreditCardProps) => {
       : "bg-gradient-to-br from-[#4A4A49] to-[#20201F] shadow-lg"
   );
   return (
-    <div className={wrapperClasses} style={wrapperStyle}>
+    <div className={wrapperClasses}>
       <div className={containerClasses}>
         <div className={cardClasses}>
           <div className="flex flex-col justify-between items-center gap-[20px] w-full h-full">

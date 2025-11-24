@@ -9,6 +9,7 @@ interface TableContentProps {
     align?: "left" | "center" | "right";
     isBold?: boolean;
     circularImage?: boolean;
+    smallImage?: boolean;
   };
 }
 
@@ -21,6 +22,7 @@ const TableContent = ({ props }: TableContentProps) => {
     align = "center",
     isBold = false,
     circularImage = false,
+    smallImage = false,
   } = props;
   const classes = twMerge(
     "h-full flex flex-row justify-center items-center gap-[14px] min-w-[120px]",
@@ -42,6 +44,7 @@ const TableContent = ({ props }: TableContentProps) => {
   );
   const imageClasses = twMerge(
     "w-[40px] h-[40px] rounded-[5px] object-cover",
+    smallImage && "w-[33px] h-[33px]",
     circularImage && "rounded-full"
   );
   return (

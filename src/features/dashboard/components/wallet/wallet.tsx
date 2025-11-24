@@ -40,17 +40,10 @@ const Wallet = () => {
         <h1 className="widget-header-title">Wallet</h1>
         <div className="flex flex-row items-center justify-end gap-[10px] shrink-0"></div>
       </div>
-      <div className="flex flex-col w-full flex-1 min-h-0 relative items-start">
-        {wallet.cards
-          .sort((a, b) => (a.isDefault ? 1 : 0) - (b.isDefault ? 1 : 0))
-          .map((card, sortedIndex) => (
-            <CreditCard
-              key={card.id}
-              cardData={card}
-              totalCards={wallet.cards.length}
-              sortedIndex={sortedIndex}
-            />
-          ))}
+      <div className="flex flex-col w-full flex-1 min-h-0 relative items-center justify-start">
+        {wallet.cards.map((card) => (
+          <CreditCard key={card.id} cardData={card} />
+        ))}
       </div>
     </div>
   );
