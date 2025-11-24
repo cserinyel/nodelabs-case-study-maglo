@@ -13,8 +13,8 @@ const Dashboard = () => {
         <RecentTransactions />
       </div>
       <div className="flex flex-col w-[354px] gap-[30px] h-full min-h-0">
-        {/* <Wallet />
-        <ScheduledTransfers /> */}
+        {/* <Wallet /> */}
+        <ScheduledTransfers />
       </div>
     </div>
   );

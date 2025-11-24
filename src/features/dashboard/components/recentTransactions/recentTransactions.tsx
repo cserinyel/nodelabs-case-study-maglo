@@ -3,7 +3,7 @@ import { useFinancialRecentTransactions } from "../../../../hooks/useFinancialDa
 import Button from "../../../../shared/components/button/button";
 import Skeleton from "../../../../shared/components/skeleton/skeleton";
 import {
-  columnHelper,
+  recentTransactionsColumnHelper,
   recentTransactionsTableItemPicker,
 } from "./utils/helpers";
 import TableHeading from "../../../../shared/components/table/components/tableHeading";
@@ -17,7 +17,7 @@ import { formatDate } from "../../../../utils/helpers";
 import { getCurrencyWithSymbol } from "../../../finance/utils/helpers";
 
 const recentTransactionsTableColumns = [
-  columnHelper.accessor("name", {
+  recentTransactionsColumnHelper.accessor("name", {
     header: () => <TableHeading heading="NAME/BUSINESS" align="left" />,
     cell: (info) => {
       return (
@@ -32,7 +32,7 @@ const recentTransactionsTableColumns = [
       );
     },
   }),
-  columnHelper.accessor("type", {
+  recentTransactionsColumnHelper.accessor("type", {
     size: 100,
     header: () => <TableHeading heading="TYPE" />,
     cell: (info) => (
@@ -41,22 +41,22 @@ const recentTransactionsTableColumns = [
       />
     ),
   }),
-  columnHelper.accessor("amount", {
+  recentTransactionsColumnHelper.accessor("amount", {
     size: 100,
     header: () => <TableHeading heading="AMOUNT" />,
     cell: (info) => (
       <TableContent
         props={{
-          title: getCurrencyWithSymbol(
-            info.row.original.currency,
-            info.getValue()
-          ),
+          title: getCurrencyWithSymbol({
+            currency: info.row.original.currency,
+            value: info.getValue(),
+          }),
           isBold: true,
         }}
       />
     ),
   }),
-  columnHelper.accessor("date", {
+  recentTransactionsColumnHelper.accessor("date", {
     size: 100,
     header: () => <TableHeading heading="DATE" />,
     cell: (info) => (

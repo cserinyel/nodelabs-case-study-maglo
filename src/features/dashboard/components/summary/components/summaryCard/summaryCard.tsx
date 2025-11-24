@@ -57,7 +57,11 @@ const SummaryCard = ({
                 isFocused && "text-white"
               )}
             >
-              {getCurrencyWithSymbol(data.currency, data.amount)}
+              {getCurrencyWithSymbol({
+                currency: data.currency,
+                value: data.amount,
+                removeZeroDecimals: true,
+              })}
             </p>
           </div>
         </div>

@@ -104,7 +104,11 @@ export const LineChart = ({ graphData, currency }: LineGraphData) => {
         </defs>
         <g>
           {pointsToShow.map((point: any) => {
-            const tooltipText = getCurrencyWithSymbol(currency, point.data.y);
+            const tooltipText = getCurrencyWithSymbol({
+              currency,
+              value: point.data.y,
+              removeZeroDecimals: true,
+            });
             const tooltipPadding = 10;
             const tooltipWidth = tooltipText.length * 6 + tooltipPadding * 2;
             const tooltipHeight = 30;

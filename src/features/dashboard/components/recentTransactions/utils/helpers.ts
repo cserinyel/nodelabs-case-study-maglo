@@ -1,7 +1,8 @@
 import { createColumnHelper } from "@tanstack/react-table";
 import type { FinancialTransaction } from "../../../../../types/financial";
 
-export const columnHelper = createColumnHelper<FinancialTransaction>();
+export const recentTransactionsColumnHelper =
+  createColumnHelper<FinancialTransaction>();
 
 export const recentTransactionsTableItemPicker = (
   data: FinancialTransaction[],
