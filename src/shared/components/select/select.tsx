@@ -44,7 +44,7 @@ const Select = ({ options, name, label, selectedOptionKey }: SelectProps) => {
     "flex items-center justify-between gap-[10px]",
     "text-[12px]/[100%] font-[400] text-(--text-color-1)",
     "bg-(--bg-color-1)",
-    "shadow-md rounded-md",
+    "rounded-md",
     "cursor-pointer",
     "pl-[10px] pr-[8px] py-[6px] w-full",
     "transition-all duration-200",

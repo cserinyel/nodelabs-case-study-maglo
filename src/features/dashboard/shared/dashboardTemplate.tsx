@@ -18,13 +18,13 @@ const DashboardTemplate = () => {
   }, []);
 
   return (
-    <div className="flex flex-row h-screen">
+    <div className="flex flex-row h-screen w-full">
       <Sidebar />
-      <div className="flex flex-1 flex-col py-[30px] gap-[30px]">
+      <div className="flex flex-1 flex-col pt-[30px] pb-[43px] gap-[30px]">
         <div className="px-[40px]">
           <TopBar />
         </div>
-        <div className="flex-1 overflow-y-auto h-screen px-[40px]">
+        <div className="flex-1 overflow-y-auto h-full w-full px-[40px]">
           <Outlet />
         </div>
       </div>

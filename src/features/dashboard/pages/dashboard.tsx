@@ -6,13 +6,13 @@ import ScheduledTransfers from "../components/scheduledTransfers/scheduledTransf
 
 const Dashboard = () => {
   return (
-    <div className="flex flex-1 flex-row gap-[40px] h-full">
-      <div className="flex flex-col flex-1 gap-[30px] h-full">
+    <div className="flex flex-1 flex-row gap-[40px] h-full min-h-0">
+      <div className="flex flex-col flex-1 gap-[30px] h-full min-h-0">
         <Summary />
         <WorkingCapital />
         <RecentTransactions />
       </div>
-      <div className="flex flex-col w-[354px] gap-[30px] h-full">
+      <div className="flex flex-col w-[354px] gap-[30px] h-full min-h-0">
         {/* <Wallet />
         <ScheduledTransfers /> */}
       </div>

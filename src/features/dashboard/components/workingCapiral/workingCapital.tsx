@@ -4,6 +4,7 @@ import { useFinancialWorkingCapital } from "../../../../hooks/useFinancialData";
 import { LineChart } from "./components/lineChart/lineChart";
 import { workingCapitalDataConverter } from "./utils/helpers";
 import Select from "../../../../shared/components/select/select";
+import { twMerge } from "tailwind-merge";
 
 const WorkingCapital = () => {
   const { workingCapital, isLoading, error, refetchWorkingCapital } =
@@ -33,10 +34,16 @@ const WorkingCapital = () => {
     );
   }
 
-  const realData = workingCapitalDataConverter(workingCapital);
+  const convertedData = workingCapitalDataConverter(workingCapital);
+
+  const widgetClasses = twMerge(
+    "flex flex-col flex-1 shrink-0 gap-[20px]",
+    "w-full pt-[15px] pb-[20px] pl-[25px] pr-[20px]",
+    " border border-gray-200 rounded-md"
+  );
 
   return (
-    <div className="flex flex-col gap-[20px] w-full border border-gray-200 rounded-md py-[20px] px-[25px]">
+    <div className={widgetClasses}>
       <div className="flex flex-row justify-between items-center gap-[20px] w-full">
         <h1 className="widget-header-title">Working Capital</h1>
         <div className="flex flex-row items-center justify-between gap-[10px] w-[340px] shrink-0">
@@ -68,8 +75,8 @@ const WorkingCapital = () => {
           />
         </div>
       </div>
-      <div className="w-full h-[200px] overflow-visible">
-        <LineChart {...realData} />
+      <div className="w-full flex-1 overflow-visible">
+        <LineChart {...convertedData} />
       </div>
     </div>
   );
