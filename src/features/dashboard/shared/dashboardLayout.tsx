@@ -8,7 +8,7 @@ import { twMerge } from "tailwind-merge";
 import useCommonStore from "../../../store/commonStore";
 import { useMediaQuery } from "../../../hooks/useMediaQuery";
 
-const DashboardTemplate = () => {
+const DashboardLayout = () => {
   const { fetchAll } = useFinancialStore();
   const { isSidebarOpen } = useCommonStore();
   const isXlOrAbove = useMediaQuery("xl");
@@ -69,4 +69,4 @@ const DashboardTemplate = () => {
   );
 };
 
-export default DashboardTemplate;
+export default DashboardLayout;

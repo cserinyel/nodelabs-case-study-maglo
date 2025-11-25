@@ -7,12 +7,14 @@ interface ErrorOverlayProps {
   error: Error;
   onClick: () => void;
   buttonText: string;
+  title?: string;
   orientation?: "vertical" | "horizontal";
 }
 
 const ErrorOverlay = ({
   error,
   onClick,
+  title = "Error",
   buttonText,
   orientation = "vertical",
 }: ErrorOverlayProps) => {
@@ -43,7 +45,7 @@ const ErrorOverlay = ({
       <div className={contentClasses}>
         <div className={textContainerClasses}>
           <h1 className="text-red-600 text-[14px]/[100%] font-bold mb-[10px]">
-            Error
+            {title}
           </h1>
           <p
             className={twMerge(

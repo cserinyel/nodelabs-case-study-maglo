@@ -43,7 +43,7 @@ const Button = ({
     default: twMerge(
       "font-[600] text-[16px]/[100%]",
       "py-[14px] px-[20px]",
-      "max-h-[48px]",
+      "max-h-[48px] h-[48px]",
       variant === "text" && "max-h-[24px]"
     ),
   };

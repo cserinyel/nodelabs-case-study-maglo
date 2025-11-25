@@ -4,7 +4,7 @@ import ProtectedRoute from "./ProtectedRoute";
 import { authLoader } from "./utils/loaders";
 import { ROUTES } from "./utils/constants";
 import { lazy } from "react";
-import DashboardTemplate from "../features/dashboard/shared/dashboardTemplate";
+import DashboardLayout from "../features/dashboard/shared/dashboardLayout";
 import ErrorPage from "./ErrorPage";
 
 const SignIn = lazy(() => import("../features/auth/pages/signIn"));
@@ -41,7 +41,7 @@ const routes: RouteObject[] = [
   {
     element: (
       <ProtectedRoute>
-        <DashboardTemplate />
+        <DashboardLayout />
       </ProtectedRoute>
     ),
     errorElement: <ErrorPage />,

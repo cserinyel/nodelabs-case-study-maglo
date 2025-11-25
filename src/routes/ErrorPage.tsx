@@ -13,7 +13,9 @@ export default function ErrorPage() {
     errorMessage =
       error.status === 404
         ? "The page you're looking for doesn't exist."
-        : error.statusText || error.data?.message || "An unexpected error occurred";
+        : error.statusText ||
+          error.data?.message ||
+          "An unexpected error occurred";
   } else if (error instanceof Error) {
     errorMessage = error.message;
   } else if (typeof error === "string") {
@@ -33,9 +35,9 @@ export default function ErrorPage() {
           error={new Error(errorMessage)}
           onClick={handleGoHome}
           buttonText="Go Home"
+          title={errorTitle}
         />
       </div>
     </div>
   );
 }
-
