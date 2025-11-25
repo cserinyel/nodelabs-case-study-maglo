@@ -10,6 +10,7 @@ import ErrorPage from "./ErrorPage";
 const SignIn = lazy(() => import("../features/auth/pages/signIn"));
 const SignUp = lazy(() => import("../features/auth/pages/signUp"));
 const Dashboard = lazy(() => import("../features/dashboard/pages/dashboard"));
+const Settings = lazy(() => import("../features/settings/settings"));
 
 const routes: RouteObject[] = [
   {
@@ -46,8 +47,12 @@ const routes: RouteObject[] = [
     errorElement: <ErrorPage />,
     children: [
       {
-        path: ROUTES.DASHBOARD,
+        path: ROUTES.DASHBOARD.BASE,
         Component: Dashboard,
+      },
+      {
+        path: ROUTES.DASHBOARD.SETTINGS,
+        Component: Settings,
       },
     ],
   },

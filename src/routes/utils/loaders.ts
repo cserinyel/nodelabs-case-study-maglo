@@ -5,7 +5,7 @@ export const authLoader = (): Response | null => {
   try {
     const token = localStorage.getItem("accessToken");
     if (token) {
-      return redirect(ROUTES.DASHBOARD);
+      return redirect(ROUTES.DASHBOARD.BASE);
     }
     return null;
   } catch (error) {

@@ -6,13 +6,6 @@ import ScheduledTransfers from "../components/scheduledTransfers/scheduledTransf
 import { twMerge } from "tailwind-merge";
 
 const Dashboard = () => {
-  const dashboardWrapperClasses = twMerge(
-    "flex flex-col gap-[40px] overflow-y-auto px-[20px]",
-    "h-full w-full",
-    "overflow-x-hidden",
-    "md:gap-[40px]",
-    "xl:flex-row xl:px-[40px]"
-  );
   const dashboardLeftContentClasses = twMerge(
     "flex flex-col gap-[30px]",
     "w-full",
@@ -25,7 +18,7 @@ const Dashboard = () => {
     "xl:flex-col xl:w-[354px]"
   );
   return (
-    <div className={dashboardWrapperClasses}>
+    <>
       <div className={dashboardLeftContentClasses}>
         <div className="flex shrink-0 flex-col gap-[30px]">
           <Summary />
@@ -45,7 +38,7 @@ const Dashboard = () => {
           <ScheduledTransfers />
         </div>
       </div>
-    </div>
+    </>
   );
 };
 

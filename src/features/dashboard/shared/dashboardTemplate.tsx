@@ -45,6 +45,13 @@ const DashboardTemplate = () => {
     "opacity-0",
     isSidebarOpen && !isXlOrAbove && "opacity-100 pointer-events-auto"
   );
+  const dashboarContentdWrapperClasses = twMerge(
+    "flex flex-col gap-[40px] overflow-y-auto px-[20px]",
+    "h-full w-full",
+    "overflow-x-hidden",
+    "md:gap-[40px]",
+    "xl:flex-row xl:px-[40px]"
+  );
 
   return (
     <div className={dashboardTemplateWrapperClasses}>
@@ -54,7 +61,9 @@ const DashboardTemplate = () => {
       </div>
       <div className={dashboardTemplateRightPanelClasses}>
         <TopBar />
-        <Outlet />
+        <div className={dashboarContentdWrapperClasses}>
+          <Outlet />
+        </div>
       </div>
     </div>
   );

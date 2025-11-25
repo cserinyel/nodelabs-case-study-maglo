@@ -10,32 +10,36 @@ import type { SidebarMenuItem } from "./types";
 
 export const sidebarMainMenuItems: SidebarMenuItem[] = [
   {
-    path: ROUTES.DASHBOARD,
     label: "Dashboard",
     icon: HomeIcon,
+    to: ROUTES.DASHBOARD.BASE,
+    end: true,
   },
   {
-    path: "/",
     label: "Transactions",
     icon: TransactionsIcon,
+    disabled: true,
+    to: "/",
   },
   {
-    path: "/",
+    to: "/",
     label: "Invoices",
     icon: InvoicesIcon,
+    disabled: true,
   },
   {
-    path: "/",
+    to: "/",
     label: "My Wallets",
     icon: MyWalletsIcon,
+    disabled: true,
   },
   {
-    path: "/",
+    to: ROUTES.DASHBOARD.SETTINGS,
     label: "Settings",
     icon: SettingsIcon,
   },
   {
-    path: "/",
+    to: "/",
     label: "Disabled",
     disabled: true,
     icon: SettingsIcon,

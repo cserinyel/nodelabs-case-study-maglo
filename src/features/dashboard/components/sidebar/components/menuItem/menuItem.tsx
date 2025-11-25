@@ -1,21 +1,23 @@
-import { NavLink } from "react-router";
+import { NavLink, useMatch } from "react-router";
 import { twMerge } from "tailwind-merge";
 import type { SidebarMenuItem } from "../../utils/types";
 import Icon from "../../../../../../shared/components/icon/icon";
 
 const MenuItem = ({
-  path,
+  to,
   label,
   disabled,
   onClick,
   icon,
   className,
+  end,
 }: SidebarMenuItem) => {
-  if (path) {
+  if (to) {
     return (
       <NavLink
         key={label}
-        to={path}
+        to={to}
+        end={end}
         className={({ isActive }) =>
           twMerge(
             "h-[48px]",

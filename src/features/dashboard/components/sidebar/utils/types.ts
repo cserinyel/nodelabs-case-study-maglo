@@ -1,8 +1,7 @@
-import type { To } from "react-router";
+import type { NavLinkProps } from "react-router";
 
-export interface SidebarMenuItem {
+export interface SidebarMenuItem extends NavLinkProps {
   label: string;
-  path?: To;
   disabled?: boolean;
   onClick?: () => void;
   icon?: React.ReactNode;
