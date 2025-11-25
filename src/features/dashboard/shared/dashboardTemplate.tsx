@@ -26,7 +26,7 @@ const DashboardTemplate = () => {
 
   const dashboardTemplateWrapperClasses = twMerge("flex flex-row");
   const dashboardTemplateLeftPanelClasses = twMerge(
-    "flex w-[250px] h-full absolute",
+    "flex w-[250px] h-full fixed top-0 left-0",
     "transition-all duration-300",
     "translate-x-[-100%]",
     "z-[100]",

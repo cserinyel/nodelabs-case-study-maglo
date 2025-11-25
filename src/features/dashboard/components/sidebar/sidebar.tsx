@@ -39,7 +39,7 @@ const Sidebar = () => {
             alt="logo"
             className="min-w-[122px] h-auto"
           />
-          <MenuButton />
+          <MenuButton className="xl:hidden" />
         </div>
 
         {/* Navigation Menu */}
