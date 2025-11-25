@@ -1,11 +1,15 @@
 import useCommonStore from "../../../../store/commonStore";
+import { closeIcon, menuIcon } from "../../../../assets/icons/icons";
+import type { IconSize } from "../../../../shared/components/icon/icon.types";
 import IconButton from "../../../../shared/components/iconButton/iconButton";
-import {
-  closeIcon,
-  menuIcon,
-} from "../../../../assets/icons/icons";
 
-const MenuButton = () => {
+const MenuButton = ({
+  size = "medium",
+  className,
+}: {
+  size?: IconSize;
+  className?: string;
+}) => {
   const { isSidebarOpen, setIsSidebarOpen } = useCommonStore();
 
   const icon = isSidebarOpen ? closeIcon : menuIcon;
@@ -15,9 +19,12 @@ const MenuButton = () => {
   };
 
   return (
-    <div className="flex items-center justify-center text-2 xl:hidden">
-      <IconButton icon={icon} size="medium" onClick={handleClick} />
-    </div>
+    <IconButton
+      icon={icon}
+      size={size}
+      onClick={handleClick}
+      className={className}
+    />
   );
 };
 

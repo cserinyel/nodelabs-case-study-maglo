@@ -4,26 +4,25 @@ import RecentTransactions from "../components/recentTransactions/recentTransacti
 import Wallet from "../components/wallet/wallet";
 import ScheduledTransfers from "../components/scheduledTransfers/scheduledTransfers";
 import { twMerge } from "tailwind-merge";
-import { mediaQueryMerger } from "../../../utils/helpers";
 
 const Dashboard = () => {
   const dashboardWrapperClasses = twMerge(
     "flex flex-col gap-[40px] overflow-y-auto px-[20px]",
     "h-full w-full",
     "overflow-x-hidden",
-    mediaQueryMerger("md", "gap-[40px]"),
-    mediaQueryMerger("xl", "flex-row px-[40px]")
+    "md:gap-[40px]",
+    "xl:flex-row xl:px-[40px]"
   );
   const dashboardLeftContentClasses = twMerge(
     "flex flex-col gap-[30px]",
     "w-full",
-    mediaQueryMerger("md", "flex-1")
+    "md:flex-1"
   );
   const dashboardRightContentClasses = twMerge(
     "flex flex-col gap-[30px]",
     "w-full",
-    mediaQueryMerger("md", "flex-row"),
-    mediaQueryMerger("xl", "flex-col w-[354px]")
+    "md:flex-row",
+    "xl:flex-col xl:w-[354px]"
   );
   return (
     <div className={dashboardWrapperClasses}>

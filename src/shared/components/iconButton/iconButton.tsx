@@ -11,6 +11,7 @@ const IconButton = ({
   ...props
 }: IconButtonProps) => {
   const sizeClass = {
+    xxs: "w-[18px] h-[18px]",
     xs: "w-[20px] h-[20px]",
     small: "w-[24px] h-[24px]",
     medium: "w-[32px] h-[32px]",
@@ -21,7 +22,7 @@ const IconButton = ({
     sizeClass[size],
     "flex items-center justify-center",
     "transition-all duration-300 cursor-pointer",
-    "rounded-full bg-transparent hover:bg-[var(--bg-color-1)]",
+    "rounded-full text-2 bg-[var(--bg-color-1)] hover:bg-[var(--bg-color-2)] hover:text-1",
     className
   );
 

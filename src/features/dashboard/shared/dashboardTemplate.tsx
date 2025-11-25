@@ -5,7 +5,6 @@ import { useEffect } from "react";
 import Sidebar from "../components/sidebar/sidebar";
 import TopBar from "../components/topbar/topBar";
 import { twMerge } from "tailwind-merge";
-import { mediaQueryMerger } from "../../../utils/helpers";
 import useCommonStore from "../../../store/commonStore";
 import { useMediaQuery } from "../../../hooks/useMediaQuery";
 
@@ -22,7 +21,7 @@ const DashboardTemplate = () => {
       error: "Error fetching all financial data",
     });
   }, []);
-  
+
   const shouldShowSidebar = isXlOrAbove || isSidebarOpen;
 
   const dashboardTemplateWrapperClasses = twMerge("flex flex-row");
@@ -32,13 +31,13 @@ const DashboardTemplate = () => {
     "translate-x-[-100%]",
     "z-[100]",
     shouldShowSidebar && "translate-x-0",
-    mediaQueryMerger("xl", "translate-x-0 flex")
+    "xl:translate-x-0 xl:flex"
   );
   const dashboardTemplateRightPanelClasses = twMerge(
     "flex flex-col pt-[30px] pb-[43px] gap-[30px] relative",
     "w-full h-screen",
     "transition-all duration-300",
-    mediaQueryMerger("xl", "ml-[250px]")
+    "xl:ml-[250px]"
   );
   const dashboardTemplateOverlayClasses = twMerge(
     "fixed top-0 left-0 w-screen h-screen bg-(--accent-color-2)/80 z-8 pointer-events-none",

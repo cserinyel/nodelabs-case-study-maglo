@@ -4,7 +4,6 @@ import { LineChart } from "./components/lineChart/lineChart";
 import { workingCapitalDataConverter } from "./utils/helpers";
 import Select from "../../../../shared/components/select/select";
 import { twMerge } from "tailwind-merge";
-import { mediaQueryMerger } from "../../../../utils/helpers";
 import ErrorOverlay from "../../../../shared/components/errorOverlay/errorOverlay";
 
 const WorkingCapital = () => {
@@ -39,7 +38,7 @@ const WorkingCapital = () => {
 
   const contentClasses = twMerge(
     "flex flex-col justify-between items-start gap-[20px] w-full",
-    mediaQueryMerger("lg", "flex-row items-center")
+    "lg:flex-row lg:items-center"
   );
 
   return (
