@@ -15,13 +15,11 @@ const TopBar = () => {
           <div className="flex items-center justify-center text-2">
             <IconButton icon={searchIcon} size="medium" />
           </div>
-          <div className="hidden items-center justify-center text-2 md:flex">
+          <div className="hidden items-center justify-center text-2 lg:flex">
             <IconButton icon={notificationIcon} size="medium" />
           </div>
         </div>
-        <div className="hidden md:flex">
-          <ProfileMenu />
-        </div>
+        <ProfileMenu />
       </div>
     </div>
   );

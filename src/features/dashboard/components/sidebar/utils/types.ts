@@ -6,4 +6,5 @@ export interface SidebarMenuItem {
   disabled?: boolean;
   onClick?: () => void;
   icon?: React.ReactNode;
+  className?: string;
 }

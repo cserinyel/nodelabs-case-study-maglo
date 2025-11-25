@@ -38,7 +38,7 @@ const DashboardTemplate = () => {
   );
   const dashboardTemplateOverlayClasses = twMerge(
     "fixed top-0 left-0 w-screen h-screen bg-(--accent-color-2)/80 z-8 pointer-events-none",
-    "transition-all duration-300",
+    "transition-[opacity] duration-300",
     "opacity-0",
     isSidebarOpen && "opacity-100"
   );

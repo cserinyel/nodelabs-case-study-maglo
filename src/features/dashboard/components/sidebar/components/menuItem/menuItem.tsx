@@ -9,6 +9,7 @@ const MenuItem = ({
   disabled,
   onClick,
   icon,
+  className,
 }: SidebarMenuItem) => {
   if (path) {
     return (
@@ -26,7 +27,8 @@ const MenuItem = ({
             isActive
               ? "text-1 bg-(--color-primary) hover:bg-primary-600 fill-(--text-color-1)"
               : "text-2 hover:bg-(--border-color-2) hover:text-1] fill-(--text-color-2) hover:text-1 hover:fill-(--text-color-1)",
-            disabled && "opacity-50 cursor-default pointer-events-none"
+            disabled && "opacity-50 cursor-default pointer-events-none",
+            className
           )
         }
       >

@@ -56,7 +56,7 @@ const Button = ({
     buttonSizeClass[buttonSize],
     buttonTypeClass[variant],
     className,
-    "hover:brightness-60"
+    variant === "text" && "hover:brightness-60"
   );
 
   const iconClasses = twMerge(

@@ -3,7 +3,11 @@ import { useLogout } from "../../../../api/auth";
 import { twMerge } from "tailwind-merge";
 import { sidebarMainMenuItems } from "./utils/constants";
 import MenuItem from "./components/menuItem/menuItem";
-import { HelpIcon, LogoutIcon } from "../../../../assets/icons/icons";
+import {
+  HelpIcon,
+  LogoutIcon,
+  notificationIcon,
+} from "../../../../assets/icons/icons";
 import MenuButton from "../menuButton/menuButton";
 
 const Sidebar = () => {
@@ -51,6 +55,12 @@ const Sidebar = () => {
           {isPending ? "Logging out..." : "Log Out"}
         </Button> */}
         <nav className="flex flex-col gap-[8px] w-full">
+          <MenuItem
+            label="Notifications"
+            path="/"
+            icon={notificationIcon}
+            className="flex lg:hidden"
+          />
           <MenuItem label="Help" path="/" icon={HelpIcon} />
           <MenuItem
             label={isPending ? "Logging out..." : "Log Out"}

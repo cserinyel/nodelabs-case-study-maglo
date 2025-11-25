@@ -61,7 +61,12 @@ const CreditCard = ({ cardData }: CreditCardProps) => {
                 <div className="w-[56px] h-[18px] text-white">
                   {MagloLogotype}
                 </div>
-                <p className="font-gordita-medium text-[12px]/[100%] text-[#626260]">
+                <p
+                  className={twMerge(
+                    "font-gordita-medium text-[12px]/[20px] text-[#626260] border-l border-l-[#626260] pl-[10px]",
+                    !isDefault && "text-white border-l-white"
+                  )}
+                >
                   {bankName}
                 </p>
               </div>
