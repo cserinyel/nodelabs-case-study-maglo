@@ -21,12 +21,15 @@ const Button = ({
     ),
     border: twMerge(
       "text-[var(--text-color-3)] bg-[var(--light-color)] border border-[var(--border-color)]",
-      "hover:border-[var(--border-color-2)]"
+      "hover:border-[var(--border-color-2)]",
+      textColor === "danger" &&
+        "text-red-500 border-red-500 hover:border-red-600 hover:text-red-600"
     ),
     text: twMerge(
       "bg-transparent",
       "text-(--text-color-1)",
-      textColor === "secondary" && "text-(--color-secondary)"
+      textColor === "secondary" && "text-(--color-secondary)",
+      textColor === "danger" && "text-red-600"
     ),
   };
   const buttonSizeClass = {

@@ -11,6 +11,7 @@ import { formatDate } from "../../../../utils/helpers";
 import { scheduledTransfersColumnHelper } from "./utils/helpers";
 import { ArrowDownIcon } from "../../../../assets/icons/icons";
 import Table from "../../../../shared/components/table/table";
+import ErrorOverlay from "../../../../shared/components/errorOverlay/errorOverlay";
 
 const scheduledTransfersTableColumns = [
   scheduledTransfersColumnHelper.accessor("name", {
@@ -69,17 +70,11 @@ const ScheduledTransfers = () => {
 
   if (error) {
     return (
-      <div className="p-4 bg-red-50 border border-red-200 rounded">
-        <p className="text-red-600">Error: {error.message}</p>
-        <Button
-          variant="border"
-          onClick={refetchScheduledTransfers}
-          disabled={isLoading}
-          className="mt-4 w-auto"
-        >
-          Retry
-        </Button>
-      </div>
+      <ErrorOverlay
+        error={error}
+        onClick={refetchScheduledTransfers}
+        buttonText="Retry"
+      />
     );
   }
   if (isLoading || !scheduledTransfers) {

@@ -4,7 +4,7 @@ export type ButtonType = "primary" | "border" | "text";
 export type ButtonSize = "small" | "default";
 export type ButtonIconPosition = "left" | "right";
 export type ButtonIconRotation = "0" | "90" | "180" | "270";
-export type ButtonTextColor = "primary" | "secondary";
+export type ButtonTextColor = "primary" | "secondary" | "danger";
 
 export interface ButtonProps
   extends React.ButtonHTMLAttributes<HTMLButtonElement> {

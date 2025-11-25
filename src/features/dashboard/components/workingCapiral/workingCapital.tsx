@@ -1,11 +1,11 @@
 import Skeleton from "../../../../shared/components/skeleton/skeleton";
-import Button from "../../../../shared/components/button/button";
 import { useFinancialWorkingCapital } from "../../../../hooks/useFinancialData";
 import { LineChart } from "./components/lineChart/lineChart";
 import { workingCapitalDataConverter } from "./utils/helpers";
 import Select from "../../../../shared/components/select/select";
 import { twMerge } from "tailwind-merge";
 import { mediaQueryMerger } from "../../../../utils/helpers";
+import ErrorOverlay from "../../../../shared/components/errorOverlay/errorOverlay";
 
 const WorkingCapital = () => {
   const { workingCapital, isLoading, error, refetchWorkingCapital } =
@@ -13,17 +13,11 @@ const WorkingCapital = () => {
 
   if (error) {
     return (
-      <div className="p-4 bg-red-50 border border-red-200 rounded">
-        <p className="text-red-600">Error: {error.message}</p>
-        <Button
-          variant="border"
-          onClick={refetchWorkingCapital}
-          disabled={isLoading}
-          className="mt-4 w-auto"
-        >
-          Retry
-        </Button>
-      </div>
+      <ErrorOverlay
+        error={error}
+        onClick={refetchWorkingCapital}
+        buttonText="Retry"
+      />
     );
   }
 

@@ -1,24 +1,19 @@
-import Button from "../../../../shared/components/button/button";
 import { useFinancialSummary } from "../../../../hooks/useFinancialData";
 import SummaryCard from "./components/summaryCard/summaryCard";
 import { WalletAddIcon, WalletIcon } from "../../../../assets/icons/icons";
+import ErrorOverlay from "../../../../shared/components/errorOverlay/errorOverlay";
 
 const Summary = () => {
   const { summary, isLoading, error, refetchSummary } = useFinancialSummary();
 
   if (error) {
     return (
-      <div className="p-4 bg-red-50 border border-red-200 rounded">
-        <p className="text-red-600">Error: {error.message}</p>
-        <Button
-          variant="border"
-          onClick={refetchSummary}
-          disabled={isLoading}
-          className="mt-4 w-auto"
-        >
-          Retry
-        </Button>
-      </div>
+      <ErrorOverlay
+        error={error}
+        onClick={refetchSummary}
+        buttonText="Retry"
+        orientation="horizontal"
+      />
     );
   }
 

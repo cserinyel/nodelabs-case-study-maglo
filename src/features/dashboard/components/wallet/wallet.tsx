@@ -1,8 +1,8 @@
 import { twMerge } from "tailwind-merge";
 import { useFinancialWallet } from "../../../../hooks/useFinancialData";
-import Button from "../../../../shared/components/button/button";
 import Skeleton from "../../../../shared/components/skeleton/skeleton";
 import CreditCard from "./components/creditCard/creditCard";
+import ErrorOverlay from "../../../../shared/components/errorOverlay/errorOverlay";
 
 const Wallet = () => {
   const { wallet, isLoading, error, refetchWallet } = useFinancialWallet();
@@ -14,17 +14,7 @@ const Wallet = () => {
 
   if (error) {
     return (
-      <div className="p-4 bg-red-50 border border-red-200 rounded">
-        <p className="text-red-600">Error: {error.message}</p>
-        <Button
-          variant="border"
-          onClick={refetchWallet}
-          disabled={isLoading}
-          className="mt-4 w-auto"
-        >
-          Retry
-        </Button>
-      </div>
+      <ErrorOverlay error={error} onClick={refetchWallet} buttonText="Retry" />
     );
   }
   if (isLoading || !wallet) {

@@ -15,6 +15,7 @@ import { twMerge } from "tailwind-merge";
 import { ArrowDownIcon } from "../../../../assets/icons/icons";
 import { formatDate } from "../../../../utils/helpers";
 import { getCurrencyWithSymbol } from "../../../finance/utils/helpers";
+import ErrorOverlay from "../../../../shared/components/errorOverlay/errorOverlay";
 
 const recentTransactionsTableColumns = [
   recentTransactionsColumnHelper.accessor("name", {
@@ -97,17 +98,11 @@ const RecentTransactions = () => {
 
   if (error) {
     return (
-      <div className="p-4 bg-red-50 border border-red-200 rounded">
-        <p className="text-red-600">Error: {error.message}</p>
-        <Button
-          variant="border"
-          onClick={refetchRecentTransactions}
-          disabled={isLoading}
-          className="mt-4 w-auto"
-        >
-          Retry
-        </Button>
-      </div>
+      <ErrorOverlay
+        error={error}
+        onClick={refetchRecentTransactions}
+        buttonText="Retry"
+      />
     );
   }
   if (isLoading || !recentTransactions || !recentTransactions.transactions) {
