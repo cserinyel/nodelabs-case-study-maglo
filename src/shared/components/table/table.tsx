@@ -11,7 +11,7 @@ function Table<T>({ tableObject, showHeader = true }: TableProps<T>) {
     <div className="w-full">
       <table className="w-full">
         {showHeader && (
-          <thead className="sticky top-0 bg-white z-10 h-[15px]">
+          <thead className="sticky top-0 bg-white z-1 h-[15px]">
             {tableObject.getHeaderGroups().map((headerGroup) => (
               <tr key={headerGroup.id}>
                 {headerGroup.headers.map((header) => (

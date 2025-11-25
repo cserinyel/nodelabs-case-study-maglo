@@ -4,6 +4,7 @@ import { twMerge } from "tailwind-merge";
 import { sidebarMainMenuItems } from "./utils/constants";
 import MenuItem from "./components/menuItem/menuItem";
 import { HelpIcon, LogoutIcon } from "../../../../assets/icons/icons";
+import MenuButton from "../menuButton/menuButton";
 
 const Sidebar = () => {
   const { mutateAsync: logoutMutation, isPending } = useLogout();
@@ -20,19 +21,21 @@ const Sidebar = () => {
   const sidebarClasses = twMerge(
     "flex flex-col items-baseline justify-between",
     "h-screen w-[250px] px-[25px] pt-[30px] pb-[100px]",
-    "bg-[var(--bg-color-1)]"
+    "bg-[var(--bg-color-1)]",
+    "z-9"
   );
 
   return (
     <div className={sidebarClasses}>
       <div className="flex flex-col w-full gap-[30px]">
         {/* Logo */}
-        <div className="flex flex-row gap-[10px]">
+        <div className="flex flex-row gap-[10px] w-full justify-between">
           <img
             src="/src/assets/images/maglo-logo.svg"
             alt="logo"
             className="min-w-[122px] h-auto"
           />
+          <MenuButton />
         </div>
 
         {/* Navigation Menu */}

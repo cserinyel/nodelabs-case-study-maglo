@@ -8,8 +8,10 @@ import { mediaQueryMerger } from "../../../utils/helpers";
 
 const Dashboard = () => {
   const dashboardWrapperClasses = twMerge(
-    "flex flex-col gap-[40px]",
-    "w-full",
+    "flex flex-col gap-[40px] overflow-y-auto px-[20px]",
+    "h-full w-full",
+    "overflow-x-hidden",
+    mediaQueryMerger("md", "gap-[40px]"),
     mediaQueryMerger("xl", "flex-row")
   );
   const dashboardLeftContentClasses = twMerge(
