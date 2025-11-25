@@ -84,7 +84,7 @@ const ScheduledTransfers = () => {
   }
   if (isLoading || !scheduledTransfers) {
     return (
-      <div className="w-full h-full flex-1">
+      <div className={twMerge("w-full h-full flex-1 min-h-[300px] xl:min-h-0")}>
         <Skeleton variant="rectangular" width="100%" height="100%" />
       </div>
     );
@@ -108,7 +108,7 @@ const ScheduledTransfers = () => {
           </Button>
         </div>
       </div>
-      <div className="w-full flex-1 overflow-y-auto min-h-0 relative">
+      <div className="w-full flex-1 overflow-y-auto relative ">
         <Table<FinancialTransfer>
           tableObject={scheduledTransfersTable}
           showHeader={false}

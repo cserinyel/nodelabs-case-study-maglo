@@ -4,6 +4,8 @@ import { useFinancialStore } from "../../../store/financialStore";
 import { useEffect } from "react";
 import Sidebar from "../components/sidebar/sidebar";
 import TopBar from "../components/topbar/topBar";
+import { twMerge } from "tailwind-merge";
+import { mediaQueryMerger } from "../../../utils/helpers";
 
 const DashboardTemplate = () => {
   const { fetchAll } = useFinancialStore();
@@ -17,14 +19,33 @@ const DashboardTemplate = () => {
     });
   }, []);
 
+  const dashboardTemplateWrapperClasses = twMerge("flex flex-row");
+  const dashboardTemplateLeftPanelClasses = twMerge(
+    "flex w-[250px] h-full absolute",
+    "transition-all duration-300",
+    "translate-x-[-100%]",
+    mediaQueryMerger("xl", "translate-x-0 flex")
+  );
+  const dashboardTemplateRightPanelClasses = twMerge(
+    "flex flex-col pt-[30px] pb-[43px] gap-[30px] relative",
+    "w-full h-screen",
+    "transition-all duration-300",
+    mediaQueryMerger("xl", "ml-[250px]")
+  );
+  const dashboardTemplateMainContentClasses = twMerge(
+    "flex overflow-y-auto h-full w-full px-[20px] md:px-[40px]"
+  );
+
   return (
-    <div className="flex flex-row h-screen w-full">
-      <Sidebar />
-      <div className="flex flex-1 flex-col pt-[30px] pb-[43px] gap-[30px]">
+    <div className={dashboardTemplateWrapperClasses}>
+      <div className={dashboardTemplateLeftPanelClasses}>
+        <Sidebar />
+      </div>
+      <div className={dashboardTemplateRightPanelClasses}>
         <div className="px-[40px]">
           <TopBar />
         </div>
-        <div className="flex-1 overflow-y-auto h-full w-full px-[40px]">
+        <div className={dashboardTemplateMainContentClasses}>
           <Outlet />
         </div>
       </div>

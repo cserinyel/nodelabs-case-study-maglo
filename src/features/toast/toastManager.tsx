@@ -8,7 +8,7 @@ const ToastManager = ({ children }: { children: React.ReactNode }) => {
   };
 
   return (
-    <div className="fixed top-0 right-0 w-full h-full">
+    <div>
       <Toaster {...toastOptions} />
       {children}
     </div>

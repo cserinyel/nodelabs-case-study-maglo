@@ -5,6 +5,7 @@ import { LineChart } from "./components/lineChart/lineChart";
 import { workingCapitalDataConverter } from "./utils/helpers";
 import Select from "../../../../shared/components/select/select";
 import { twMerge } from "tailwind-merge";
+import { mediaQueryMerger } from "../../../../utils/helpers";
 
 const WorkingCapital = () => {
   const { workingCapital, isLoading, error, refetchWorkingCapital } =
@@ -28,7 +29,7 @@ const WorkingCapital = () => {
 
   if (isLoading || !workingCapital) {
     return (
-      <div className="w-full h-full flex-1">
+      <div className={twMerge("w-full h-full flex-1 min-h-[300px] xl:min-h-0")}>
         <Skeleton variant="rectangular" width="100%" height="100%" />
       </div>
     );
@@ -39,14 +40,19 @@ const WorkingCapital = () => {
   const widgetClasses = twMerge(
     "flex flex-col flex-1 shrink-0 gap-[20px]",
     "w-full pt-[15px] pb-[20px] pl-[25px] pr-[20px]",
-    " border border-gray-200 rounded-md"
+    "border border-gray-200 rounded-md"
+  );
+
+  const contentClasses = twMerge(
+    "flex flex-col justify-between items-start gap-[20px] w-full",
+    mediaQueryMerger("lg", "flex-row items-center")
   );
 
   return (
     <div className={widgetClasses}>
-      <div className="flex flex-row justify-between items-center gap-[20px] w-full">
+      <div className={contentClasses}>
         <h1 className="widget-header-title">Working Capital</h1>
-        <div className="flex flex-row items-center justify-between gap-[10px] w-[340px] shrink-0">
+        <div className="flex flex-row items-center justify-between shrink-0 w-full gap-[10px] lg:w-[340px]">
           <div className="flex flex-row items-center justify-between gap-[30px]">
             <div className="flex flex-row items-center gap-[10px] text-[12px]/[100%]">
               <svg width={10} height={10}>
@@ -75,7 +81,7 @@ const WorkingCapital = () => {
           />
         </div>
       </div>
-      <div className="w-full flex-1 overflow-visible">
+      <div className="w-full flex-1 overflow-visible min-h-[200px]">
         <LineChart {...convertedData} />
       </div>
     </div>

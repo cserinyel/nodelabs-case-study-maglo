@@ -112,7 +112,7 @@ const RecentTransactions = () => {
   }
   if (isLoading || !recentTransactions || !recentTransactions.transactions) {
     return (
-      <div className="w-full h-full flex-1">
+      <div className={twMerge("w-full h-full flex-1 min-h-[300px] xl:min-h-0")}>
         <Skeleton variant="rectangular" width="100%" height="100%" />
       </div>
     );

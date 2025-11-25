@@ -34,7 +34,12 @@ const SummaryCard = ({
       "bg-(--accent-color-2) fill-(--color-primary) text-(--color-primary)"
   );
   return (
-    <div className="flex flex-1 min-h-[105px] w-full">
+    <div
+      className={twMerge(
+        "flex flex-1 min-h-[105px] w-full",
+        isFocused && "basis-full md:basis-0"
+      )}
+    >
       {isLoading || !data ? (
         <Skeleton variant="rectangular" width="100%" height="100%" />
       ) : (

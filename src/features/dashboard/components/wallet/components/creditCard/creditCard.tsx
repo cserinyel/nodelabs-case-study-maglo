@@ -26,7 +26,7 @@ const CreditCard = ({ cardData }: CreditCardProps) => {
 
   // Calculate wrapper styles and classes
   const wrapperClasses = twMerge(
-    "w-full flex justify-center",
+    "w-full flex justify-center max-w-[360px]",
     "relative",
     "transition-all duration-300",
     !isDefault &&
