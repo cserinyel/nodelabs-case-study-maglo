@@ -12,7 +12,7 @@ const Dashboard = () => {
     "h-full w-full",
     "overflow-x-hidden",
     mediaQueryMerger("md", "gap-[40px]"),
-    mediaQueryMerger("xl", "flex-row")
+    mediaQueryMerger("xl", "flex-row px-[40px]")
   );
   const dashboardLeftContentClasses = twMerge(
     "flex flex-col gap-[30px]",

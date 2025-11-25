@@ -15,5 +15,5 @@ export const formatDate = (
 export const mediaQueryMerger = (query: string, classes: string): string => {
   const classesArray = classes.split(" ");
   const classesArrayWithQuery = classesArray.map((cls) => `${query}:${cls}`);
-  return twMerge(classesArrayWithQuery);
+  return twMerge(...classesArrayWithQuery);
 };
