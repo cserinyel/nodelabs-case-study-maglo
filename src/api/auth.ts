@@ -49,7 +49,7 @@ export const useLogin = (
     onSuccess: (data) => {
       // Store token if provided
       localStorage.setItem("accessToken", data?.data.accessToken);
-      navigate(ROUTES.DASHBOARD);
+      navigate(ROUTES.DASHBOARD.BASE);
     },
     onError: (error) => {
       console.error("Login failed:", error);
