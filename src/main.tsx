@@ -4,6 +4,7 @@ import { RouterProvider } from "react-router";
 import "./Main.css";
 import AppRouter from "./routes/AppRouter.tsx";
 import ToastManager from "./features/toast/toastManager.tsx";
+import ErrorBoundary from "./shared/components/errorBoundary/errorBoundary.tsx";
 
 // Create a query client
 const queryClient = new QueryClient({
@@ -20,9 +21,11 @@ const queryClient = new QueryClient({
 });
 
 createRoot(document.getElementById("root")!).render(
-  <ToastManager>
-    <QueryClientProvider client={queryClient}>
-      <RouterProvider router={AppRouter} />
-    </QueryClientProvider>
-  </ToastManager>
+  <ErrorBoundary>
+    <ToastManager>
+      <QueryClientProvider client={queryClient}>
+        <RouterProvider router={AppRouter} />
+      </QueryClientProvider>
+    </ToastManager>
+  </ErrorBoundary>
 );
