@@ -63,10 +63,8 @@ export const useLogin = (
     mutationFn: loginUser,
     retry: false,
     onSuccess: (data) => {
-      // Store token if provided
-      localStorage.setItem(ACCESS_TOKEN_KEY, data?.data.accessToken);
-      // Store user in Zustand
-      setUser(data?.data.user);
+      localStorage.setItem(ACCESS_TOKEN_KEY, data.data.accessToken);
+      setUser(data.data.user);
       navigate(ROUTES.DASHBOARD.BASE);
     },
     onError: (error) => {
