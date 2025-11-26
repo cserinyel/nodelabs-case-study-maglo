@@ -59,7 +59,7 @@ const WorkingCapital = () => {
           </ul>
           <Select
             name="timeRange"
-            selectedOptionKey="lastSevenDays"
+            defaultValue="lastSevenDays"
             options={[
               { key: "lastSevenDays", value: "Last 7 Days" },
               { key: "lastTwoWeeks", value: "Last 2 Weeks" },

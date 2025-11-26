@@ -34,6 +34,9 @@ export const workingCapitalDataConverter = (
   data: FinancialWorkingCapital
 ): LineGraphData => {
   const initialData = data.data;
+  if (!initialData || initialData.length === 0) {
+    return { graphData: [], currency: data.currency };
+  }
 
   const currency = data.currency;
   const graphData: LineSeries[] = [];

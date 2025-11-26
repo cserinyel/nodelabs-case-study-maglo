@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect, useRef } from "react";
 import { twMerge } from "tailwind-merge";
 import { ArrowDownIcon } from "../../../assets/icons/icons";
 import Icon from "../icon/icon";
@@ -9,27 +9,62 @@ type SelectOption = {
   disabled?: boolean;
 };
 
-interface SelectProps extends React.SelectHTMLAttributes<HTMLSelectElement> {
+interface SelectProps {
   options: SelectOption[];
-  selectedOptionKey?: SelectOption["key"];
+  value?: SelectOption["key"];
+  defaultValue?: SelectOption["key"];
   className?: string;
   name: string;
   label?: string;
   error?: string[];
+  onChange?: (key: string, option: SelectOption) => void;
+  placeholder?: string;
 }
 
-const Select = ({ options, name, label, selectedOptionKey }: SelectProps) => {
+const Select = ({
+  options,
+  name,
+  label,
+  value,
+  defaultValue,
+  onChange,
+  placeholder = "Select an option",
+}: SelectProps) => {
   const [isOpen, setIsOpen] = useState(false);
-  const [selectedOption, setSelectedOption] = useState<
-    SelectOption | undefined
-  >(options.find((option) => option.key === selectedOptionKey));
+  const [internalValue, setInternalValue] = useState<string | undefined>(
+    defaultValue
+  );
+  const containerRef = useRef<HTMLDivElement>(null);
+
+  // Determine if controlled or uncontrolled
+  const isControlled = value !== undefined;
+  const selectedKey = isControlled ? value : internalValue;
+  const selectedOption = options.find((option) => option.key === selectedKey);
 
   const listboxId = `${name}-listbox`;
 
+  // Close dropdown when clicking outside
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (
+        containerRef.current &&
+        !containerRef.current.contains(event.target as Node)
+      ) {
+        setIsOpen(false);
+      }
+    };
+
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => document.removeEventListener("mousedown", handleClickOutside);
+  }, []);
+
   const handleChange = (key: string) => {
-    const selectedOption = options.find((option) => option.key === key);
-    if (selectedOption) {
-      setSelectedOption(selectedOption);
+    const option = options.find((opt) => opt.key === key);
+    if (option && !option.disabled) {
+      if (!isControlled) {
+        setInternalValue(key);
+      }
+      onChange?.(key, option);
       setIsOpen(false);
     }
   };
@@ -82,13 +117,14 @@ const Select = ({ options, name, label, selectedOptionKey }: SelectProps) => {
     "data-[selected=true]:text-(--text-color-1)"
   );
   return (
-    <div className={classes}>
+    <div className={classes} ref={containerRef}>
       {label && (
         <label id={`${name}-label`} className={labelClasses}>
           {label}
         </label>
       )}
       <div className="relative">
+        <input type="hidden" name={name} value={selectedKey || ""} />
         <button
           type="button"
           className={selectClasses}
@@ -99,7 +135,7 @@ const Select = ({ options, name, label, selectedOptionKey }: SelectProps) => {
           aria-labelledby={label ? `${name}-label` : undefined}
           aria-controls={listboxId}
         >
-          <span>{selectedOption?.value || "Select an option"}</span>
+          <span>{selectedOption?.value || placeholder}</span>
           <Icon src={ArrowDownIcon} size="xxs" aria-hidden="true" />
         </button>
         {isOpen && (
@@ -113,12 +149,18 @@ const Select = ({ options, name, label, selectedOptionKey }: SelectProps) => {
               <li
                 key={option.key}
                 role="option"
-                aria-selected={selectedOption?.key === option.key}
-                className={optionClasses}
-                data-selected={selectedOption?.key === option.key}
-                onClick={() => handleChange(option.key)}
-                onKeyDown={(e) => handleOptionKeyDown(e, option.key)}
-                tabIndex={0}
+                aria-selected={selectedKey === option.key}
+                aria-disabled={option.disabled}
+                className={twMerge(
+                  optionClasses,
+                  option.disabled && "opacity-50 cursor-not-allowed"
+                )}
+                data-selected={selectedKey === option.key}
+                onClick={() => !option.disabled && handleChange(option.key)}
+                onKeyDown={(e) =>
+                  !option.disabled && handleOptionKeyDown(e, option.key)
+                }
+                tabIndex={option.disabled ? -1 : 0}
                 aria-label={option.value}
               >
                 {option.value}

@@ -17,13 +17,7 @@ const Input = ({
   const isPasswordType = type === "password";
   const passwordValue = props.value as string | undefined;
   const isPasswordHidden = isPasswordType && !showPassword;
-  // Use "text" when we have a value (for proper cursor positioning with custom mask)
-  // Keep "password" when empty to maintain browser autofill hints
-  const inputType = isPasswordType
-    ? passwordValue
-      ? "text"
-      : "password"
-    : type;
+
 
   const errorId = error?.length ? `${id}-error` : undefined;
   const hasError = Boolean(error?.length);
@@ -36,7 +30,6 @@ const Input = ({
     "border border-[var(--border-color)] rounded-[10px]",
     "outline-[var(--color-primary)]",
     "disabled:opacity-50 disabled:cursor-not-allowed",
-    // Make text and cursor invisible when showing custom password mask
     isPasswordHidden && passwordValue && "text-transparent caret-transparent",
     hasError && "border-red-500 outline-red-500",
     className
@@ -80,7 +73,7 @@ const Input = ({
       )}
       <div className="relative">
         <input
-          type={inputType}
+          type={type}
           id={id}
           className={classes}
           aria-invalid={hasError}
@@ -118,7 +111,7 @@ const Input = ({
           <button
             type="button"
             onClick={togglePasswordVisibility}
-            className="absolute right-[15px] top-1/2 -translate-y-1/2 w-[20px] h-[20px] text-[var(--text-color-3)] opacity-60 hover:opacity-100 transition-opacity cursor-pointer"
+            className="absolute right-[15px] top-1/2 -translate-y-1/2 w-[20px] h-[20px] text-3 opacity-60 hover:opacity-100 transition-opacity cursor-pointer"
             aria-label={showPassword ? "Hide password" : "Show password"}
           >
             {showPassword ? <EyeOffIcon /> : <EyeIcon />}

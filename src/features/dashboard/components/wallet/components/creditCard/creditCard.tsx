@@ -55,7 +55,7 @@ const CreditCard = ({ cardData }: CreditCardProps) => {
   const cardClasses = twMerge(
     commanCardClasses,
     !isDefault
-      ? "bg-gradient-to-br from-[##959595]/0 to-[#324000]/10 backdrop-blur-[8px]"
+      ? "bg-gradient-to-br from-[#959595]/0 to-[#324000]/10 backdrop-blur-[8px]"
       : "bg-gradient-to-br from-[#4A4A49] to-[#20201F] shadow-lg"
   );
   return (
