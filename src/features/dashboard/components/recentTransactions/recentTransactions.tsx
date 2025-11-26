@@ -115,10 +115,18 @@ const RecentTransactions = () => {
   }
 
   return (
-    <div className={widgetClasses}>
-      <div className="flex flex-row justify-between items-center gap-[20px] w-full shrink-0 h-[22px]">
-        <h1 className="widget-header-title">Recent Transactions</h1>
-        <div className="flex flex-row items-center justify-end gap-[10px] shrink-0">
+    <section
+      className={widgetClasses}
+      aria-labelledby="recent-transactions-title"
+    >
+      <header className="flex flex-row justify-between items-center gap-[20px] w-full shrink-0 h-[22px]">
+        <h2 id="recent-transactions-title" className="widget-header-title">
+          Recent Transactions
+        </h2>
+        <nav
+          className="flex flex-row items-center justify-end gap-[10px] shrink-0"
+          aria-label="Transaction actions"
+        >
           <Button
             variant="text"
             buttonSize="small"
@@ -128,15 +136,16 @@ const RecentTransactions = () => {
             iconSize="xxs"
             iconPosition="right"
             iconRotation="270"
+            aria-label="View all recent transactions"
           >
             View All
           </Button>
-        </div>
-      </div>
+        </nav>
+      </header>
       <div className="w-full flex-1 overflow-y-auto min-h-0 relative">
         <Table<FinancialTransaction> tableObject={recentTransactionsTable} />
       </div>
-    </div>
+    </section>
   );
 };
 

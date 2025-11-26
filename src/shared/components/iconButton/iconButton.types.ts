@@ -7,4 +7,5 @@ export interface IconButtonProps
   onClick?: () => void;
   disabled?: boolean;
   className?: string;
+  ariaLabel?: string;
 }

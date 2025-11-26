@@ -52,35 +52,39 @@ const CreditCard = ({ cardData }: CreditCardProps) => {
       : "bg-gradient-to-br from-[#4A4A49] to-[#20201F] shadow-lg"
   );
   return (
-    <div className={wrapperClasses}>
+    <article
+      className={wrapperClasses}
+      aria-label={`${bankName} ${network} card ending in ${cardNumber.slice(-4)}`}
+    >
       <div className={containerClasses}>
         <div className={cardClasses}>
           <div className="flex flex-col justify-between items-center gap-[20px] w-full h-full">
-            <div className="w-full flex flex-col items-start justify-start gap-[27px]">
+            <header className="w-full flex flex-col items-start justify-start gap-[27px]">
               <div className="w-full flex flex-row items-center justify-start gap-[10px]">
-                <div className="w-[56px] h-[18px] text-white">
+                <div className="w-[56px] h-[18px] text-white" aria-hidden="true">
                   {MagloLogotype}
                 </div>
-                <p
+                <span
                   className={twMerge(
                     "font-gordita-medium text-[12px]/[20px] text-[#626260] border-l border-l-[#626260] pl-[10px]",
                     !isDefault && "text-white border-l-white"
                   )}
                 >
                   {bankName}
-                </p>
+                </span>
               </div>
               <div className="flex flex-row items-center justify-between gap-[10px] w-full">
                 <img
                   src="/src/assets/images/card-chip.png"
-                  alt="credit card chip"
+                  alt=""
+                  role="presentation"
                 />
-                <div className="w-[34px] h-[34px] text-[#363B41]">
+                <div className="w-[34px] h-[34px] text-[#363B41]" aria-hidden="true">
                   <CreditCardWirelessIcon />
                 </div>
               </div>
-            </div>
-            <div className="w-full flex flex-1 flex-col items-start justify-start gap-[5px]">
+            </header>
+            <footer className="w-full flex flex-1 flex-col items-start justify-start gap-[5px]">
               <div className="flex flex-col items-start">
                 <p
                   className={twMerge(
@@ -88,6 +92,7 @@ const CreditCard = ({ cardData }: CreditCardProps) => {
                     !isDefault && "text-1"
                   )}
                 >
+                  <span className="sr-only">Card number: </span>
                   {cardNumber}
                 </p>
               </div>
@@ -98,6 +103,7 @@ const CreditCard = ({ cardData }: CreditCardProps) => {
                     !isDefault && "text-2"
                   )}
                 >
+                  <span className="sr-only">Expiry date: </span>
                   {expiryDate}
                 </span>
                 <div
@@ -105,15 +111,16 @@ const CreditCard = ({ cardData }: CreditCardProps) => {
                     "text-[#ffffff] self-end",
                     !isDefault && "text-[#1A1F71]"
                   )}
+                  aria-label={`${network} network`}
                 >
                   {cardNetworkIcon[network]}
                 </div>
               </div>
-            </div>
+            </footer>
           </div>
         </div>
       </div>
-    </div>
+    </article>
   );
 };
 

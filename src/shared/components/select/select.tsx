@@ -24,6 +24,8 @@ const Select = ({ options, name, label, selectedOptionKey }: SelectProps) => {
     SelectOption | undefined
   >(options.find((option) => option.key === selectedOptionKey));
 
+  const listboxId = `${name}-listbox`;
+
   const handleChange = (key: string) => {
     const selectedOption = options.find((option) => option.key === key);
     if (selectedOption) {
@@ -34,6 +36,22 @@ const Select = ({ options, name, label, selectedOptionKey }: SelectProps) => {
 
   const handleSelectClick = () => {
     setIsOpen((prev) => !prev);
+  };
+
+  const handleKeyDown = (e: React.KeyboardEvent) => {
+    if (e.key === "Enter" || e.key === " ") {
+      e.preventDefault();
+      handleSelectClick();
+    } else if (e.key === "Escape" && isOpen) {
+      setIsOpen(false);
+    }
+  };
+
+  const handleOptionKeyDown = (e: React.KeyboardEvent, key: string) => {
+    if (e.key === "Enter" || e.key === " ") {
+      e.preventDefault();
+      handleChange(key);
+    }
   };
 
   const classes = twMerge(
@@ -66,28 +84,47 @@ const Select = ({ options, name, label, selectedOptionKey }: SelectProps) => {
   return (
     <div className={classes}>
       {label && (
-        <label htmlFor={name} className={labelClasses}>
+        <label id={`${name}-label`} className={labelClasses}>
           {label}
         </label>
       )}
       <div className="relative">
-        <div className={selectClasses} onClick={handleSelectClick}>
-          {selectedOption?.value || "Select an option"}
-          <Icon src={ArrowDownIcon} size="xxs" />
-        </div>
+        <button
+          type="button"
+          className={selectClasses}
+          onClick={handleSelectClick}
+          onKeyDown={handleKeyDown}
+          aria-haspopup="listbox"
+          aria-expanded={isOpen}
+          aria-labelledby={label ? `${name}-label` : undefined}
+          aria-controls={listboxId}
+        >
+          <span>{selectedOption?.value || "Select an option"}</span>
+          <Icon src={ArrowDownIcon} size="xxs" aria-hidden="true" />
+        </button>
         {isOpen && (
-          <div className="absolute z-50 left-0 min-w-full max-h-[200px] overflow-y-auto top-[calc(100%+10px)] flex flex-col shadow-md rounded-md bg-(--bg-color-1)">
+          <ul
+            id={listboxId}
+            role="listbox"
+            aria-labelledby={label ? `${name}-label` : undefined}
+            className="absolute z-50 left-0 min-w-full max-h-[200px] overflow-y-auto top-[calc(100%+10px)] flex flex-col shadow-md rounded-md bg-(--bg-color-1)"
+          >
             {options.map((option) => (
-              <div
+              <li
                 key={option.key}
+                role="option"
+                aria-selected={selectedOption?.key === option.key}
                 className={optionClasses}
                 data-selected={selectedOption?.key === option.key}
                 onClick={() => handleChange(option.key)}
+                onKeyDown={(e) => handleOptionKeyDown(e, option.key)}
+                tabIndex={0}
+                aria-label={option.value}
               >
                 {option.value}
-              </div>
+              </li>
             ))}
-          </div>
+          </ul>
         )}
       </div>
     </div>

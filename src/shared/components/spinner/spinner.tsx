@@ -24,6 +24,7 @@ const Spinner = ({ size = "small", mode = "iconOnly" }: SpinnerProps) => {
       height="24"
       viewBox="0 0 24 24"
       className={spinnerClasses}
+      aria-hidden="true"
     >
       <defs>
         <filter id="SVGp0LL3caJ">
@@ -69,7 +70,12 @@ const Spinner = ({ size = "small", mode = "iconOnly" }: SpinnerProps) => {
   );
 
   if (mode === "iconOnly") {
-    return <div className={classes}>{spinnerSvg}</div>;
+    return (
+      <div className={classes} role="status" aria-label="Loading">
+        {spinnerSvg}
+        <span className="sr-only">Loading...</span>
+      </div>
+    );
   }
 
   const coverContentClasses = twMerge(
@@ -81,7 +87,7 @@ const Spinner = ({ size = "small", mode = "iconOnly" }: SpinnerProps) => {
   );
 
   return (
-    <div className={coverContentClasses}>
+    <div className={coverContentClasses} role="status" aria-busy="true" aria-label="Loading content">
       <Spinner size="xlarge" />
     </div>
   );

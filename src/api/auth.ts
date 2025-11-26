@@ -40,6 +40,7 @@ export const logoutUser = async (): Promise<void> => {
 };
 
 export const refreshToken = async (): Promise<RefreshTokenResponse> => {
+  // TODO: Add toast notification for token refresh
   const response = await apiClient.post<RefreshTokenResponse>(
     "/users/refresh-token"
   );

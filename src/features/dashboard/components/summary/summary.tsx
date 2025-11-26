@@ -18,7 +18,10 @@ const Summary = () => {
   }
 
   return (
-    <div className="flex flex-row flex-wrap gap-[25px] md:flex-nowrap">
+    <section
+      className="flex flex-row flex-wrap gap-[25px] md:flex-nowrap"
+      aria-label="Financial summary"
+    >
       <SummaryCard
         isLoading={isLoading}
         title="Total Balance"
@@ -38,7 +41,7 @@ const Summary = () => {
         data={summary?.totalSavings}
         icon={WalletAddIcon}
       />
-    </div>
+    </section>
   );
 };
 

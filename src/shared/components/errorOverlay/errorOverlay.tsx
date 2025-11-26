@@ -36,17 +36,26 @@ const ErrorOverlay = ({
   );
 
   return (
-    <div className={classes}>
+    <section
+      className={classes}
+      role="alert"
+      aria-live="assertive"
+      aria-labelledby="error-title"
+    >
       <Icon
         src={ErrorIcon}
         size="large"
         className="text-red-600 animate-pulse"
+        aria-hidden="true"
       />
       <div className={contentClasses}>
         <div className={textContainerClasses}>
-          <h1 className="text-red-600 text-[14px]/[100%] font-bold mb-[10px]">
+          <h2
+            id="error-title"
+            className="text-red-600 text-[14px]/[100%] font-bold mb-[10px]"
+          >
             {title}
-          </h1>
+          </h2>
           <p
             className={twMerge(
               "text-red-600 text-[12px]/[100%] font-regular mb-[20px]",
@@ -64,13 +73,14 @@ const ErrorOverlay = ({
               className="w-auto"
               textColor="danger"
               buttonSize="small"
+              aria-label={buttonText}
             >
               {buttonText}
             </Button>
           </div>
         )}
       </div>
-    </div>
+    </section>
   );
 };
 

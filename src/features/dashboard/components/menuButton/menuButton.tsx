@@ -13,6 +13,7 @@ const MenuButton = ({ mode, size = "medium", className }: MenuButtonProps) => {
   const { isSidebarOpen, setIsSidebarOpen } = useCommonStore();
 
   const icon = mode === "open" ? MenuIcon : CloseIcon;
+  const ariaLabel = mode === "open" ? "Open menu" : "Close menu";
 
   return (
     <IconButton
@@ -20,6 +21,8 @@ const MenuButton = ({ mode, size = "medium", className }: MenuButtonProps) => {
       size={size}
       onClick={() => setIsSidebarOpen(!isSidebarOpen)}
       className={className}
+      ariaLabel={ariaLabel}
+      aria-expanded={isSidebarOpen}
     />
   );
 };

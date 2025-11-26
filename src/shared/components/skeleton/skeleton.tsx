@@ -24,6 +24,8 @@ const Skeleton = ({
     <div
       className={`${baseClasses} ${variantClasses[variant]} ${className}`}
       style={style}
+      role="presentation"
+      aria-hidden="true"
     />
   );
 };

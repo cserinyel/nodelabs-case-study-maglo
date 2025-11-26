@@ -25,17 +25,19 @@ const Wallet = () => {
     );
   }
   return (
-    <div className={widgetClasses}>
-      <div className="flex flex-row justify-between items-center gap-[20px] w-full shrink-0 h-[22px]">
-        <h1 className="widget-header-title">Wallet</h1>
+    <section className={widgetClasses} aria-labelledby="wallet-title">
+      <header className="flex flex-row justify-between items-center gap-[20px] w-full shrink-0 h-[22px]">
+        <h2 id="wallet-title" className="widget-header-title">
+          Wallet
+        </h2>
         <div className="flex flex-row items-center justify-end gap-[10px] shrink-0"></div>
-      </div>
-      <div className="flex flex-col w-full flex-1 min-h-[300px] relative items-center justify-start">
+      </header>
+      <main className="flex flex-col w-full flex-1 min-h-[300px] relative items-center justify-start">
         {wallet.cards.map((card) => (
           <CreditCard key={card.id} cardData={card} />
         ))}
-      </div>
-    </div>
+      </main>
+    </section>
   );
 };
 

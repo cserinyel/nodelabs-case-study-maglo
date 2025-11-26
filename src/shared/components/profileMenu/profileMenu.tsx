@@ -12,21 +12,27 @@ const ProfileMenu = () => {
     "lg:min-w-[215px]"
   );
   return (
-    <div className={profileMenuWrapperClasses}>
+    <button
+      type="button"
+      className={profileMenuWrapperClasses}
+      aria-label="Open profile menu"
+      aria-haspopup="menu"
+    >
       <div className="flex flex-row items-center gap-[10px]">
         <img
           src="/src/assets/images/profile-image.png"
-          alt="profile menu avatar"
+          alt=""
           className="w-[36px] h-[36px] rounded-full object-cover"
+          aria-hidden="true"
         />
-        <div className="flex-col items-start justify-start hidden lg:flex">
-          <p className="text-[14px]/[100%] font-semibold">Mahfuzul Nabil</p>
-        </div>
+        <span className="flex-col items-start justify-start hidden lg:flex">
+          <span className="text-[14px]/[100%] font-semibold">Mahfuzul Nabil</span>
+        </span>
       </div>
-      <div className="items-center justify-center w-[36px] h-[36px] text-1 hidden lg:flex">
+      <span className="items-center justify-center w-[36px] h-[36px] text-1 hidden lg:flex" aria-hidden="true">
         <Icon src={ProfileMenuIcon} size="xs" className="" />
-      </div>
-    </div>
+      </span>
+    </button>
   );
 };
 

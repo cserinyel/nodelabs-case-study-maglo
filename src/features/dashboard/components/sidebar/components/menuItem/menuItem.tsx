@@ -11,6 +11,7 @@ const MenuItem = ({
   icon,
   className,
   end,
+  ariaLabel,
 }: SidebarMenuItem) => {
   if (to) {
     return (
@@ -18,6 +19,7 @@ const MenuItem = ({
         key={label}
         to={to}
         end={end}
+        aria-label={ariaLabel}
         className={({ isActive }) =>
           twMerge(
             "h-[48px]",
@@ -34,16 +36,18 @@ const MenuItem = ({
           )
         }
       >
-        {icon && <Icon src={icon} size="xs" className="" />}
-        {label}
+        {icon && <Icon src={icon} size="xs" className="" aria-hidden="true" />}
+        <span>{label}</span>
       </NavLink>
     );
   }
 
   return (
     <button
+      type="button"
       onClick={onClick}
       disabled={disabled}
+      aria-disabled={disabled}
       className={twMerge(
         "flex items-center justify-start gap-2",
         "h-[48px]",
@@ -56,9 +60,10 @@ const MenuItem = ({
         "text-2 hover:bg-(--border-color-2) hover:text-1 hover:fill-(--text-color-1)",
         disabled && "opacity-50 cursor-default pointer-events-none"
       )}
+      aria-label={ariaLabel}
     >
-      {icon && <Icon src={icon} size="xs" className="" />}
-      {label}
+      {icon && <Icon src={icon} size="xs" className="" aria-hidden="true" />}
+      <span>{label}</span>
     </button>
   );
 };

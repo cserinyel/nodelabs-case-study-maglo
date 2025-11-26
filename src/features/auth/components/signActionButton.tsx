@@ -37,22 +37,29 @@ const SignActionButton = ({ mode }: SignActionButtonProps) => {
     "group-hover:translate-y-[2px]"
   );
   return (
-    <div className={classes}>
+    <p className={classes}>
       <span>
         {mode === "signIn"
           ? "Don't have an account?"
           : "Already have an account?"}
       </span>
-      <div className="relative group">
+      <span className="relative group">
         <NavLink
           to={mode === "signIn" ? "/auth/signup" : "/auth/signin"}
           className={buttonClass}
+          aria-label={
+            mode === "signIn"
+              ? "Navigate to sign up page"
+              : "Navigate to sign in page"
+          }
         >
           {mode === "signIn" ? "Sign up" : "Sign in"}
         </NavLink>
-        <div className={swooshClasses}>{swooshSvg}</div>
-      </div>
-    </div>
+        <span className={swooshClasses} aria-hidden="true">
+          {swooshSvg}
+        </span>
+      </span>
+    </p>
   );
 };
 

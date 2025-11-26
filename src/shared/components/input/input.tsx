@@ -10,6 +10,9 @@ const Input = ({
   error,
   ...props
 }: InputProps) => {
+  const errorId = error?.length ? `${id}-error` : undefined;
+  const hasError = Boolean(error?.length);
+
   const classes = twMerge(
     "w-full",
     "text-[var(--text-color-3)]",
@@ -17,7 +20,7 @@ const Input = ({
     "border border-[var(--border-color)] rounded-[10px]",
     "outline-[var(--color-primary)]",
     "disabled:opacity-50 disabled:cursor-not-allowed",
-    error?.length && "border-red-500 outline-red-500",
+    hasError && "border-red-500 outline-red-500",
     className
   );
   const labelClasses = twMerge(
@@ -26,13 +29,20 @@ const Input = ({
     labelClassName
   );
 
-  const getErrorList = (errors: string[]) => {
+  const getErrorList = (errors: string[], errorListId: string) => {
     if (!errors || errors.length === 0) return null;
     return (
-      <ul className="flex flex-col gap-1">
+      <ul
+        id={errorListId}
+        className="flex flex-col"
+        role="alert"
+        aria-live="polite"
+      >
         {errors.map((error) => (
-          <li key={error}>
-            <p className="text-red-500 text-[12px] font-normal">{error}</p>
+          <li key={error} className="h-[20px]">
+            <span className="text-red-500 text-[12px]/[16px] font-normal">
+              {error}
+            </span>
           </li>
         ))}
       </ul>
@@ -46,8 +56,15 @@ const Input = ({
           {label}
         </label>
       )}
-      <input type={type} id={id} className={classes} {...props} />
-      {error && getErrorList(error)}
+      <input
+        type={type}
+        id={id}
+        className={classes}
+        aria-invalid={hasError}
+        aria-describedby={errorId}
+        {...props}
+      />
+      {error && errorId && getErrorList(error, errorId)}
     </div>
   );
 };

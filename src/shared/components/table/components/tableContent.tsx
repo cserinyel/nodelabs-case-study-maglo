@@ -51,8 +51,8 @@ const TableContent = ({ props }: TableContentProps) => {
     <div className={classes}>
       {image && <img src={image} alt={title} className={imageClasses} />}
       <div className={titleClasses}>
-        <p>{title}</p>
-        {subtitle && <p className={subtitleClasses}>{subtitle}</p>}
+        <span>{title}</span>
+        {subtitle && <span className={subtitleClasses}>{subtitle}</span>}
       </div>
     </div>
   );

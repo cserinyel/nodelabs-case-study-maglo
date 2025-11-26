@@ -7,4 +7,5 @@ export interface SidebarMenuItem extends Omit<NavLinkProps, "to"> {
   icon?: React.ComponentType;
   className?: string;
   to?: To;
+  ariaLabel?: string;
 }

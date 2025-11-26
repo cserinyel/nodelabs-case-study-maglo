@@ -19,25 +19,25 @@ const Dashboard = () => {
   );
   return (
     <>
-      <div className={dashboardLeftContentClasses}>
-        <div className="flex shrink-0 flex-col gap-[30px]">
+      <section className={dashboardLeftContentClasses} aria-label="Main dashboard content">
+        <section className="flex shrink-0 flex-col gap-[30px]">
           <Summary />
-        </div>
-        <div className="flex flex-col flex-1 h-full gap-[30px]">
+        </section>
+        <section className="flex flex-col flex-1 h-full gap-[30px]">
           <WorkingCapital />
-        </div>
-        <div className="flex flex-col flex-1 h-full gap-[30px]">
+        </section>
+        <section className="flex flex-col flex-1 h-full gap-[30px]">
           <RecentTransactions />
-        </div>
-      </div>
-      <div className={dashboardRightContentClasses}>
-        <div className="flex flex-col flex-1 gap-[30px]">
+        </section>
+      </section>
+      <aside className={dashboardRightContentClasses} aria-label="Dashboard sidebar widgets">
+        <section className="flex flex-col flex-1 gap-[30px]">
           <Wallet />
-        </div>
-        <div className="flex flex-col flex-1 gap-[30px]">
+        </section>
+        <section className="flex flex-col flex-1 gap-[30px]">
           <ScheduledTransfers />
-        </div>
-      </div>
+        </section>
+      </aside>
     </>
   );
 };

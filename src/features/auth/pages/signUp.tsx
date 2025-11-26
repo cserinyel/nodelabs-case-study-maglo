@@ -66,20 +66,27 @@ const SignUp = () => {
   };
 
   return (
-    <div className="relative flex flex-1 flex-col gap-[25px] justify-center w-full max-w-[404px]">
+    <section
+      className="relative flex flex-1 flex-col gap-[25px] justify-center w-full max-w-[404px]"
+      aria-labelledby="signup-heading"
+    >
       {isPending && <Spinner mode="coverContent" />}
-      <div className="flex flex-col gap-2">
-        <h1 className="text-title-1">Create new account</h1>
+      <header className="flex flex-col gap-2">
+        <h1 id="signup-heading" className="text-title-1">
+          Create new account
+        </h1>
         <p className="text-[16px] font-normal text-3">
-          Welcome back! Please enter your details
+          Welcome! Please enter your details to get started
         </p>
-      </div>
+      </header>
       <form
         className="flex flex-col gap-[25px]"
         onSubmit={handleSubmit}
         noValidate
+        aria-label="Sign up form"
       >
-        <div className="flex flex-col gap-2">
+        <fieldset className="flex flex-col gap-2 border-none p-0 m-0">
+          <legend className="sr-only">Account registration details</legend>
           <Input
             type="text"
             id="fullName"
@@ -89,6 +96,7 @@ const SignUp = () => {
             onChange={(e) => handleInputChange(e)}
             disabled={isPending}
             error={validationError?.fullName}
+            aria-label="Full Name"
           />
           <Input
             type="email"
@@ -99,6 +107,7 @@ const SignUp = () => {
             onChange={(e) => handleInputChange(e)}
             disabled={isPending}
             error={validationError?.email}
+            aria-label="Email"
           />
           <Input
             type="password"
@@ -109,15 +118,16 @@ const SignUp = () => {
             onChange={(e) => handleInputChange(e)}
             disabled={isPending}
             error={validationError?.password}
+            aria-label="Password"
           />
-        </div>
-        <Button type="submit" disabled={isPending}>
+        </fieldset>
+        <Button type="submit" disabled={isPending} aria-label="Create account">
           {isPending ? "Creating account..." : "Create Account"}
         </Button>
         <GoogleSignIn isPending={isPending} />
         <SignActionButton mode="signUp" />
       </form>
-    </div>
+    </section>
   );
 };
 

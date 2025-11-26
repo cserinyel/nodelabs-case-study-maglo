@@ -4,4 +4,5 @@ export interface IconProps {
   src: React.ComponentType;
   size?: IconSize;
   className?: string;
+  "aria-hidden"?: boolean | "true" | "false";
 }

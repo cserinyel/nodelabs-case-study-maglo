@@ -54,18 +54,18 @@ const DashboardLayout = () => {
   );
 
   return (
-    <div className={dashboardTemplateWrapperClasses}>
-      <div className={dashboardTemplateOverlayClasses}></div>
-      <div className={dashboardTemplateLeftPanelClasses}>
+    <section className={dashboardTemplateWrapperClasses}>
+      <aside className={dashboardTemplateOverlayClasses} aria-hidden="true" />
+      <section className={dashboardTemplateLeftPanelClasses}>
         <Sidebar />
-      </div>
-      <div className={dashboardTemplateRightPanelClasses}>
+      </section>
+      <main className={dashboardTemplateRightPanelClasses}>
         <TopBar />
-        <div className={dashboarContentdWrapperClasses}>
+        <main className={dashboarContentdWrapperClasses}>
           <Outlet />
-        </div>
-      </div>
-    </div>
+        </main>
+      </main>
+    </section>
   );
 };
 

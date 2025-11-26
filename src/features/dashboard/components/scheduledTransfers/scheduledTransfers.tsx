@@ -86,10 +86,18 @@ const ScheduledTransfers = () => {
     );
   }
   return (
-    <div className={widgetClasses}>
-      <div className="flex flex-row justify-between items-center gap-[20px] w-full shrink-0 h-[22px]">
-        <h1 className="widget-header-title">Scheduled Transfers</h1>
-        <div className="flex flex-row items-center justify-end gap-[10px] shrink-0">
+    <section
+      className={widgetClasses}
+      aria-labelledby="scheduled-transfers-title"
+    >
+      <header className="flex flex-row justify-between items-center gap-[20px] w-full shrink-0 h-[22px]">
+        <h2 id="scheduled-transfers-title" className="widget-header-title">
+          Scheduled Transfers
+        </h2>
+        <nav
+          className="flex flex-row items-center justify-end gap-[10px] shrink-0"
+          aria-label="Transfer actions"
+        >
           <Button
             variant="text"
             buttonSize="small"
@@ -99,18 +107,19 @@ const ScheduledTransfers = () => {
             iconSize="xxs"
             iconPosition="right"
             iconRotation="270"
+            aria-label="View all scheduled transfers"
           >
             View All
           </Button>
-        </div>
-      </div>
+        </nav>
+      </header>
       <div className="w-full flex-1 overflow-y-auto relative ">
         <Table<FinancialTransfer>
           tableObject={scheduledTransfersTable}
           showHeader={false}
         />
       </div>
-    </div>
+    </section>
   );
 };
 

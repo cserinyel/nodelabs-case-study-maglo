@@ -9,6 +9,7 @@ const GoogleSignIn = ({ isPending }: { isPending: boolean }) => {
       variant="border"
       type="button"
       disabled={isPending}
+      aria-label="Sign in with Google"
     >
       Sign In with Google
     </Button>

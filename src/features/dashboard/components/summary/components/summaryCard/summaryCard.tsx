@@ -34,19 +34,20 @@ const SummaryCard = ({
       "bg-(--accent-color-2) fill-(--color-primary) text-(--color-primary)"
   );
   return (
-    <div
+    <article
       className={twMerge(
         "flex flex-1 min-h-[105px] w-full",
         isFocused && "basis-full md:basis-0"
       )}
+      aria-label={title}
     >
       {isLoading || !data ? (
         <Skeleton variant="rectangular" width="100%" height="100%" />
       ) : (
         <div className={cardClasses}>
-          <div className={iconClasses}>
+          <figure className={iconClasses} aria-hidden="true">
             <Icon src={icon} />
-          </div>
+          </figure>
           <div className="flex flex-col justify-center items-baseline gap-[10px]">
             <h3
               className={twMerge(
@@ -71,7 +72,7 @@ const SummaryCard = ({
           </div>
         </div>
       )}
-    </div>
+    </article>
   );
 };
 

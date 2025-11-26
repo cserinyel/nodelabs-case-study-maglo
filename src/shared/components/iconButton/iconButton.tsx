@@ -8,6 +8,7 @@ const IconButton = ({
   className,
   onClick,
   disabled,
+  ariaLabel,
   ...props
 }: IconButtonProps) => {
   const sizeClass = {
@@ -28,12 +29,14 @@ const IconButton = ({
 
   return (
     <button
+      type="button"
       className={classes}
       onClick={onClick}
       disabled={disabled}
+      aria-label={ariaLabel}
       {...props}
     >
-      <Icon src={icon} size="xs" className="" />
+      <Icon src={icon} size="xs" className="" aria-hidden="true" />
     </button>
   );
 };

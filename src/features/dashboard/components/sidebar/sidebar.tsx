@@ -32,20 +32,24 @@ const Sidebar = () => {
   );
 
   return (
-    <div className={sidebarClasses}>
+    <aside className={sidebarClasses} aria-label="Main sidebar">
       <div className="flex flex-col w-full gap-[30px]">
         {/* Logo */}
-        <div className="flex flex-row gap-[10px] w-full justify-between">
+        <header className="flex flex-row gap-[10px] w-full justify-between">
           <img
             src="/src/assets/images/maglo-logo.svg"
-            alt="logo"
+            alt="Maglo - Home"
             className="min-w-[122px] h-auto"
+            aria-label="Maglo - Home"
           />
           <MenuButton mode="close" className="xl:hidden" />
-        </div>
+        </header>
 
         {/* Navigation Menu */}
-        <nav className="flex flex-col gap-[8px] w-full">
+        <nav
+          className="flex flex-col gap-[8px] w-full"
+          aria-label="Main navigation"
+        >
           {sidebarMainMenuItems.map((item) => (
             <MenuItem key={item.label} {...item} />
           ))}
@@ -56,28 +60,31 @@ const Sidebar = () => {
         {/* <Button variant="primary" onClick={handleLogout} disabled={isPending}>
           {isPending ? "Logging out..." : "Log Out"}
         </Button> */}
-        <nav className="flex flex-col gap-[8px] w-full">
+        <nav className="flex flex-col gap-[8px] w-full" aria-label="User menu">
           <MenuItem
             label="Notifications"
             to="/"
             icon={NotificationIcon}
             className="flex lg:hidden"
+            ariaLabel="Notifications"
           />
-          <MenuItem label="Help" to="/" icon={HelpIcon} />
+          <MenuItem label="Help" to="/" icon={HelpIcon} ariaLabel="Help" />
           <MenuItem
             to={ROUTES.DASHBOARD.SETTINGS}
             label="Settings"
             icon={SettingsIcon}
+            ariaLabel="Settings"
           />
           <MenuItem
             label={isPending ? "Logging out..." : "Log Out"}
             onClick={handleLogout}
             disabled={isPending}
             icon={LogoutIcon}
+            ariaLabel="Log out"
           />
         </nav>
       </div>
-    </div>
+    </aside>
   );
 };
 

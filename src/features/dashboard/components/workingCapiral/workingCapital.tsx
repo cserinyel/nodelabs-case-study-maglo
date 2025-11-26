@@ -42,24 +42,24 @@ const WorkingCapital = () => {
   );
 
   return (
-    <div className={widgetClasses}>
-      <div className={contentClasses}>
-        <h1 className="widget-header-title">Working Capital</h1>
+    <section className={widgetClasses} aria-labelledby="working-capital-title">
+      <header className={contentClasses}>
+        <h2 id="working-capital-title" className="widget-header-title">Working Capital</h2>
         <div className="flex flex-row items-center justify-between shrink-0 w-full gap-[10px] lg:w-[340px]">
-          <div className="flex flex-row items-center justify-between gap-[30px]">
-            <div className="flex flex-row items-center gap-[10px] text-[12px]/[100%]">
-              <svg width={10} height={10}>
+          <ul className="flex flex-row items-center justify-between gap-[30px]" aria-label="Chart legend">
+            <li className="flex flex-row items-center gap-[10px] text-[12px]/[100%]">
+              <svg width={10} height={10} aria-hidden="true">
                 <circle cx={5} cy={5} r={5} fill="var(--color-secondary)" />
               </svg>
-              Income
-            </div>
-            <div className="flex flex-row items-center gap-[10px] text-[12px]/[100%]">
-              <svg width={10} height={10}>
+              <span>Income</span>
+            </li>
+            <li className="flex flex-row items-center gap-[10px] text-[12px]/[100%]">
+              <svg width={10} height={10} aria-hidden="true">
                 <circle cx={5} cy={5} r={5} fill="var(--color-primary)" />
               </svg>
-              Expense
-            </div>
-          </div>
+              <span>Expense</span>
+            </li>
+          </ul>
           <Select
             name="timeRange"
             selectedOptionKey="lastSevenDays"
@@ -73,11 +73,11 @@ const WorkingCapital = () => {
             ]}
           />
         </div>
-      </div>
-      <div className="w-full flex-1 overflow-visible min-h-[200px]">
+      </header>
+      <figure className="w-full flex-1 overflow-visible min-h-[200px]" aria-label="Working capital chart">
         <LineChart {...convertedData} />
-      </div>
-    </div>
+      </figure>
+    </section>
   );
 };
 

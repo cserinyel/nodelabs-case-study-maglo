@@ -29,15 +29,15 @@ export default function ErrorPage() {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center p-4">
-      <div className="w-full max-w-2xl">
+    <main className="min-h-screen flex items-center justify-center p-4" role="main">
+      <article className="w-full max-w-2xl">
         <ErrorOverlay
           error={new Error(errorMessage)}
           onClick={handleGoHome}
           buttonText="Go Home"
           title={errorTitle}
         />
-      </div>
-    </div>
+      </article>
+    </main>
   );
 }
