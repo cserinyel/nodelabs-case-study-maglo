@@ -9,10 +9,8 @@ import {
 } from "../utils/constants";
 import { ROUTES } from "../routes/utils/constants";
 
-// Use proxy in dev mode, direct URL in production
-const API_BASE_URL = import.meta.env.DEV
-  ? "/api"
-  : import.meta.env.VITE_API_URL || "https://case.nodelabs.dev/api";
+// Always use /api - Vite proxy in dev, Netlify proxy in production
+const API_BASE_URL = "/api";
 
 export const apiClient = axios.create({
   baseURL: API_BASE_URL,
