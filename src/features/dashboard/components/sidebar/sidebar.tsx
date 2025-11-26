@@ -62,13 +62,19 @@ const Sidebar = () => {
         </Button> */}
         <nav className="flex flex-col gap-[8px] w-full" aria-label="User menu">
           <MenuItem
+            label="Help"
+            to="/"
+            icon={HelpIcon}
+            ariaLabel="Help"
+            disabled
+          />
+          <MenuItem
             label="Notifications"
             to="/"
             icon={NotificationIcon}
             className="flex lg:hidden"
             ariaLabel="Notifications"
           />
-          <MenuItem label="Help" to="/" icon={HelpIcon} ariaLabel="Help" />
           <MenuItem
             to={ROUTES.DASHBOARD.SETTINGS}
             label="Settings"

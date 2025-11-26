@@ -12,6 +12,7 @@ import type {
   RefreshTokenResponse,
 } from "../types/auth";
 import useAuthStore from "../store/authStore";
+import toast from "react-hot-toast";
 
 // API function
 export const loginUser = async (
@@ -40,11 +41,13 @@ export const logoutUser = async (): Promise<void> => {
 };
 
 export const refreshToken = async (): Promise<RefreshTokenResponse> => {
-  // TODO: Add toast notification for token refresh
-  const response = await apiClient.post<RefreshTokenResponse>(
-    "/users/refresh-token"
-  );
-  return response.data;
+  return toast
+    .promise(apiClient.post<RefreshTokenResponse>("/users/refresh-token"), {
+      loading: "Refreshing token...",
+      success: "Token refreshed successfully!",
+      error: (err) => err?.message || "Failed to refresh token.",
+    })
+    .then((response) => response.data);
 };
 
 // React Query hook
