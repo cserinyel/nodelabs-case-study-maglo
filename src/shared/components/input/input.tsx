@@ -14,8 +14,8 @@ const Input = ({
   const hasError = Boolean(error?.length);
 
   const classes = twMerge(
-    "w-full",
-    "text-[var(--text-color-3)]",
+    "w-full h-[48px]",
+    "text-[var(--text-color-3)] text-[14px]/[100%] font-[500]",
     "pt-[15px] pr-[25px] pb-[16px] pl-[20px]",
     "border border-[var(--border-color)] rounded-[10px]",
     "outline-[var(--color-primary)]",

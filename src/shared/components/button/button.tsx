@@ -20,8 +20,8 @@ const Button = ({
       "hover:bg-[var(--color-primary-600)]"
     ),
     border: twMerge(
-      "text-[var(--text-color-3)] bg-[var(--light-color)] border border-[var(--border-color)]",
-      "hover:border-[var(--border-color-2)]",
+      "text-[var(--text-color-3)] border border-[var(--border-color)]",
+      "hover:border-[var(--color-primary)]",
       textColor === "danger" &&
         "text-red-500 border-red-500 hover:border-red-600 hover:text-red-600"
     ),

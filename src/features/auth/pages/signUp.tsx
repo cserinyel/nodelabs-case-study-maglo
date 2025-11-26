@@ -72,7 +72,7 @@ const SignUp = () => {
 
   return (
     <section
-      className="relative flex flex-1 flex-col gap-[25px] justify-center w-full max-w-[404px]"
+      className="relative flex flex-1 flex-col gap-[25px] w-full max-w-[404px] justify-center lg:mt-[158px] lg:justify-start"
       aria-labelledby="signup-heading"
     >
       {isPending && <Spinner mode="coverContent" />}
