@@ -6,7 +6,7 @@ const AuthLayout = () => {
   return (
     <div className="flex h-screen flex-row">
       <main className="flex flex-col flex-1 items-center justify-center w-full my-[40px] mx-[20px] lg:items-baseline lg:mx-[60px] xl:mx-[135px] ">
-        <section className="flex flex-col flex-1 items-center justify-center max-w-[400px]">
+        <section className="flex flex-col flex-1 items-center justify-center w-full max-w-[400px]">
           <img
             src={magloLogo}
             alt="Maglo Logo"
