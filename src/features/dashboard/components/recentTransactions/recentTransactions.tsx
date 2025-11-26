@@ -137,6 +137,8 @@ const RecentTransactions = () => {
             iconPosition="right"
             iconRotation="270"
             aria-label="View all recent transactions"
+            data-tooltip-id="global-tooltip"
+            data-tooltip-content="View all recent transactions"
           >
             View All
           </Button>

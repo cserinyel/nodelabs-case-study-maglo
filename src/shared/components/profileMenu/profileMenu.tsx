@@ -26,10 +26,15 @@ const ProfileMenu = () => {
           aria-hidden="true"
         />
         <span className="flex-col items-start justify-start hidden lg:flex">
-          <span className="text-[14px]/[100%] font-semibold">Mahfuzul Nabil</span>
+          <span className="text-[14px]/[100%] font-semibold">
+            Mahfuzul Nabil
+          </span>
         </span>
       </div>
-      <span className="items-center justify-center w-[36px] h-[36px] text-1 hidden lg:flex" aria-hidden="true">
+      <span
+        className="items-center justify-center w-[36px] h-[36px] text-1 hidden lg:flex"
+        aria-hidden="true"
+      >
         <Icon src={ProfileMenuIcon} size="xs" className="" />
       </span>
     </button>

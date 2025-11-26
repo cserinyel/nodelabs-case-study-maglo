@@ -8,4 +8,5 @@ export interface IconButtonProps
   disabled?: boolean;
   className?: string;
   ariaLabel?: string;
+  tooltipContent?: string;
 }

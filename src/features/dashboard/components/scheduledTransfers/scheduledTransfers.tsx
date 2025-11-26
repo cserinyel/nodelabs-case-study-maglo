@@ -108,6 +108,8 @@ const ScheduledTransfers = () => {
             iconPosition="right"
             iconRotation="270"
             aria-label="View all scheduled transfers"
+            data-tooltip-id="global-tooltip"
+            data-tooltip-content="View all scheduled transfers"
           >
             View All
           </Button>

@@ -19,7 +19,10 @@ const Dashboard = () => {
   );
   return (
     <>
-      <section className={dashboardLeftContentClasses} aria-label="Main dashboard content">
+      <section
+        className={dashboardLeftContentClasses}
+        aria-label="Main dashboard content"
+      >
         <section className="flex shrink-0 flex-col gap-[30px]">
           <Summary />
         </section>
@@ -30,7 +33,10 @@ const Dashboard = () => {
           <RecentTransactions />
         </section>
       </section>
-      <aside className={dashboardRightContentClasses} aria-label="Dashboard sidebar widgets">
+      <aside
+        className={dashboardRightContentClasses}
+        aria-label="Dashboard sidebar widgets"
+      >
         <section className="flex flex-col flex-1 gap-[30px]">
           <Wallet />
         </section>

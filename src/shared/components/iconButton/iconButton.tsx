@@ -9,6 +9,7 @@ const IconButton = ({
   onClick,
   disabled,
   ariaLabel,
+  tooltipContent,
   ...props
 }: IconButtonProps) => {
   const sizeClass = {
@@ -34,6 +35,12 @@ const IconButton = ({
       onClick={onClick}
       disabled={disabled}
       aria-label={ariaLabel}
+      {...(tooltipContent && {
+        "data-tooltip-id": "global-tooltip",
+        "data-tooltip-content": tooltipContent,
+      })}
+      data-tooltip-id="global-tooltip"
+      data-tooltip-content={tooltipContent}
       {...props}
     >
       <Icon src={icon} size="xs" className="" aria-hidden="true" />
