@@ -5,11 +5,11 @@ import authBackground from "../../../assets/images/auth-background.png";
 const AuthLayout = () => {
   return (
     <div className="flex h-screen flex-row">
-      <main className="flex flex-col items-center flex-1 my-[40px] mx-[40px] lg:items-baseline lg:mr-[100px] lg:ml-[135px] xl:mx-[135px]">
+      <main className="flex flex-col items-baseline justify-center w-full my-[40px] mx-[135px] ">
         <img
           src={magloLogo}
           alt="Maglo Logo"
-          className="min-w-[122px] h-auto"
+          className="min-w-[122px] h-auto fixxed"
         />
         <Outlet />
       </main>

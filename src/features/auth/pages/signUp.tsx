@@ -26,7 +26,7 @@ const SignUp = () => {
       initialData: {
         fullName: "",
         email: "",
-        password: "Pa$w0rd123",
+        password: "",
       } as RegisterCredentials,
       validate: signUpValidator,
       onSubmit: registerMutation,
@@ -39,7 +39,7 @@ const SignUp = () => {
 
   return (
     <section
-      className="relative flex flex-1 flex-col gap-[25px] w-full max-w-[404px] justify-center lg:mt-[158px] lg:justify-start"
+      className="relative flex flex-1 flex-col gap-[25px] w-full max-w-[404px] justify-center "
       aria-labelledby="signup-heading"
     >
       {isPending && <Spinner mode="coverContent" />}

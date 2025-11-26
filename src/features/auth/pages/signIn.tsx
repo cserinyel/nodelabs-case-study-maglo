@@ -19,8 +19,8 @@ const SignIn = () => {
   const { formData, validationError, handleInputChange, handleSubmit } =
     useAuthForm({
       initialData: {
-        email: "can@example.com",
-        password: "Pa$w0rd123",
+        email: "",
+        password: "",
       } as LoginCredentials,
       validate: signInValidator,
       onSubmit: loginMutation,
@@ -33,7 +33,7 @@ const SignIn = () => {
 
   return (
     <section
-      className="relative flex flex-1 flex-col gap-[25px] w-full max-w-[404px] justify-center lg:my-[158px] lg:justify-start"
+      className="relative flex flex-1 flex-col gap-[25px] w-full max-w-[404px] justify-center"
       aria-labelledby="signin-heading"
     >
       {isPending && <Spinner mode="coverContent" />}

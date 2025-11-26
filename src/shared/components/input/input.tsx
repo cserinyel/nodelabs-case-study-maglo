@@ -13,8 +13,17 @@ const Input = ({
   ...props
 }: InputProps) => {
   const [showPassword, setShowPassword] = useState(false);
+  const [isFocused, setIsFocused] = useState(false);
   const isPasswordType = type === "password";
-  const inputType = isPasswordType && showPassword ? "text" : type;
+  const passwordValue = props.value as string | undefined;
+  const isPasswordHidden = isPasswordType && !showPassword;
+  // Use "text" when we have a value (for proper cursor positioning with custom mask)
+  // Keep "password" when empty to maintain browser autofill hints
+  const inputType = isPasswordType
+    ? passwordValue
+      ? "text"
+      : "password"
+    : type;
 
   const errorId = error?.length ? `${id}-error` : undefined;
   const hasError = Boolean(error?.length);
@@ -27,9 +36,8 @@ const Input = ({
     "border border-[var(--border-color)] rounded-[10px]",
     "outline-[var(--color-primary)]",
     "disabled:opacity-50 disabled:cursor-not-allowed",
-    isPasswordType &&
-      !showPassword &&
-      "tracking-[0.15em] font-[800] text-[26px]",
+    // Make text and cursor invisible when showing custom password mask
+    isPasswordHidden && passwordValue && "text-transparent caret-transparent",
     hasError && "border-red-500 outline-red-500",
     className
   );
@@ -77,8 +85,35 @@ const Input = ({
           className={classes}
           aria-invalid={hasError}
           aria-describedby={errorId}
+          onFocus={(e) => {
+            setIsFocused(true);
+            props.onFocus?.(e);
+          }}
+          onBlur={(e) => {
+            setIsFocused(false);
+            props.onBlur?.(e);
+          }}
           {...props}
         />
+        {/* Custom password mask overlay with larger bullets and artificial cursor */}
+        {isPasswordHidden && (
+          <div
+            className="absolute left-[20px] top-1/2 -translate-y-1/2 pointer-events-none select-none flex items-center"
+            aria-hidden="true"
+          >
+            <span className="text-3 text-[14px] tracking-[0.2em]">
+              {passwordValue ? "●".repeat(passwordValue.length) : ""}
+            </span>
+            {isFocused && passwordValue && (
+              <span
+                className="inline-block w-px h-[18px] bg-(--text-color-1) ml-[2px]"
+                style={{
+                  animation: "blink 1s step-end infinite",
+                }}
+              />
+            )}
+          </div>
+        )}
         {isPasswordType && (
           <button
             type="button"
