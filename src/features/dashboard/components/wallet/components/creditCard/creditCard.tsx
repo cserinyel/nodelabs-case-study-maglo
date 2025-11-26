@@ -7,6 +7,7 @@ import type { FinancialWalletCard } from "../../../../../../types/financial";
 import { twMerge } from "tailwind-merge";
 import { FinancialWalletCardNetwork } from "../../../../../../utils/constants";
 import { MagloLogotype } from "../../../../../../assets/images/logos";
+import cardChipImage from "../../../../../../assets/images/card-chip.png";
 
 interface CreditCardProps {
   cardData: FinancialWalletCard;
@@ -39,9 +40,15 @@ const CreditCard = ({ cardData }: CreditCardProps) => {
     "overflow-hidden",
     !isDefault && "bg-gradient-to-b from-white/40 to-white/10"
   );
+  // Aspect ratio wrapper classes (padding-bottom hack for Safari compatibility)
+  // 1.685:1 ratio = (1/1.685) * 100 = 59.35%
+  const aspectWrapperClasses = twMerge(
+    "relative w-full max-w-[400px]",
+    "pb-[59.35%]" // padding-bottom for aspect ratio fallback
+  );
+
   const commanCardClasses = twMerge(
-    "w-full max-w-[400px]",
-    "aspect-[1.685/1]",
+    "absolute inset-0",
     "flex flex-col gap-[10px]",
     "px-[30px] py-[20px]"
   );
@@ -54,69 +61,75 @@ const CreditCard = ({ cardData }: CreditCardProps) => {
   return (
     <article
       className={wrapperClasses}
-      aria-label={`${bankName} ${network} card ending in ${cardNumber.slice(-4)}`}
+      aria-label={`${bankName} ${network} card ending in ${cardNumber.slice(
+        -4
+      )}`}
     >
       <div className={containerClasses}>
-        <div className={cardClasses}>
-          <div className="flex flex-col justify-between items-center gap-[20px] w-full h-full">
-            <header className="w-full flex flex-col items-start justify-start gap-[27px]">
-              <div className="w-full flex flex-row items-center justify-start gap-[10px]">
-                <div className="w-[56px] h-[18px] text-white" aria-hidden="true">
-                  {MagloLogotype}
+        <div className={aspectWrapperClasses}>
+          <div className={cardClasses}>
+            <div className="flex flex-col justify-between items-center gap-[20px] w-full h-full">
+              <header className="w-full flex flex-col items-start justify-start gap-[27px]">
+                <div className="w-full flex flex-row items-center justify-start gap-[10px]">
+                  <div
+                    className="w-[56px] h-[18px] text-white"
+                    aria-hidden="true"
+                  >
+                    {MagloLogotype}
+                  </div>
+                  <span
+                    className={twMerge(
+                      "font-gordita-medium text-[12px]/[20px] text-[#626260] border-l border-l-[#626260] pl-[10px]",
+                      !isDefault && "text-white border-l-white"
+                    )}
+                  >
+                    {bankName}
+                  </span>
                 </div>
-                <span
-                  className={twMerge(
-                    "font-gordita-medium text-[12px]/[20px] text-[#626260] border-l border-l-[#626260] pl-[10px]",
-                    !isDefault && "text-white border-l-white"
-                  )}
-                >
-                  {bankName}
-                </span>
-              </div>
-              <div className="flex flex-row items-center justify-between gap-[10px] w-full">
-                <img
-                  src="/src/assets/images/card-chip.png"
-                  alt=""
-                  role="presentation"
-                />
-                <div className="w-[34px] h-[34px] text-[#363B41]" aria-hidden="true">
-                  <CreditCardWirelessIcon />
+                <div className="flex flex-row items-center justify-between gap-[10px] w-full">
+                  <img src={cardChipImage} alt="" role="presentation" />
+                  <div
+                    className="w-[34px] h-[34px] text-[#363B41]"
+                    aria-hidden="true"
+                  >
+                    <CreditCardWirelessIcon />
+                  </div>
                 </div>
-              </div>
-            </header>
-            <footer className="w-full flex flex-1 flex-col items-start justify-start gap-[5px]">
-              <div className="flex flex-col items-start">
-                <p
-                  className={twMerge(
-                    "font-gordita-bold text-white text-[17px]/[24px] tracking-widest [word-spacing:0.5rem]",
-                    !isDefault && "text-1"
-                  )}
-                >
-                  <span className="sr-only">Card number: </span>
-                  {cardNumber}
-                </p>
-              </div>
-              <div className="flex flex-row flex-1 justify-between w-full">
-                <span
-                  className={twMerge(
-                    "font-gordita-medium text-[#868685] text-[14px]/[100%]",
-                    !isDefault && "text-2"
-                  )}
-                >
-                  <span className="sr-only">Expiry date: </span>
-                  {expiryDate}
-                </span>
-                <div
-                  className={twMerge(
-                    "text-[#ffffff] self-end",
-                    !isDefault && "text-[#1A1F71]"
-                  )}
-                  aria-label={`${network} network`}
-                >
-                  {cardNetworkIcon[network]}
+              </header>
+              <footer className="w-full flex flex-1 flex-col items-start justify-start gap-[5px]">
+                <div className="flex flex-col items-start">
+                  <p
+                    className={twMerge(
+                      "font-gordita-bold text-white text-[17px]/[24px] tracking-widest [word-spacing:0.5rem]",
+                      !isDefault && "text-1"
+                    )}
+                  >
+                    <span className="sr-only">Card number: </span>
+                    {cardNumber}
+                  </p>
                 </div>
-              </div>
-            </footer>
+                <div className="flex flex-row flex-1 justify-between w-full">
+                  <span
+                    className={twMerge(
+                      "font-gordita-medium text-[#868685] text-[14px]/[100%]",
+                      !isDefault && "text-2"
+                    )}
+                  >
+                    <span className="sr-only">Expiry date: </span>
+                    {expiryDate}
+                  </span>
+                  <div
+                    className={twMerge(
+                      "text-[#ffffff] self-end",
+                      !isDefault && "text-[#1A1F71]"
+                    )}
+                    aria-label={`${network} network`}
+                  >
+                    {cardNetworkIcon[network]}
+                  </div>
+                </div>
+              </footer>
+            </div>
           </div>
         </div>
       </div>

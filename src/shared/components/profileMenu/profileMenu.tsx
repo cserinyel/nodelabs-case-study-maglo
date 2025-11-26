@@ -1,6 +1,7 @@
 import Icon from "../icon/icon";
 import { ProfileMenuIcon } from "../../../assets/icons/icons";
 import { twMerge } from "tailwind-merge";
+import profileImage from "../../../assets/images/profile-image.png";
 
 const ProfileMenu = () => {
   const profileMenuWrapperClasses = twMerge(
@@ -20,7 +21,7 @@ const ProfileMenu = () => {
     >
       <div className="flex flex-row items-center gap-[10px]">
         <img
-          src="/src/assets/images/profile-image.png"
+          src={profileImage}
           alt=""
           className="w-[36px] h-[36px] rounded-full object-cover"
           aria-hidden="true"
