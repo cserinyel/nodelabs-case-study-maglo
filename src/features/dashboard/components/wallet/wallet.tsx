@@ -1,16 +1,22 @@
-import { useFinancialWallet } from "../../../../hooks/useFinancialData";
+import { useFinancialStore } from "../../../../store/financialStore";
 import CreditCard from "./components/creditCard/creditCard";
 import Widget from "../../../../shared/components/widget/widget";
 import { WIDGET_DELAYS } from "../../../../utils/animations";
+import { useCallback } from "react";
 
 const Wallet = () => {
-  const { wallet, isLoading, error, refetchWallet } = useFinancialWallet();
+  const wallet = useFinancialStore((state) => state.wallet);
+  const isLoading = useFinancialStore((state) => state.isLoading.wallet);
+  const error = useFinancialStore((state) => state.errors.wallet);
+  const refetch = useFinancialStore((state) => state.refetch);
+
+  const handleRefetch = useCallback(() => refetch("wallet"), [refetch]);
 
   return (
     <Widget
       isLoading={isLoading || !wallet}
       error={error}
-      onRetry={refetchWallet}
+      onRetry={handleRefetch}
       className="gap-[15px]"
       animationDelay={WIDGET_DELAYS.wallet}
       ariaLabelledBy="wallet-title"

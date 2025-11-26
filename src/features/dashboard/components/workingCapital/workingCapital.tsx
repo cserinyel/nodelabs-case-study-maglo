@@ -1,14 +1,21 @@
-import { useFinancialWorkingCapital } from "../../../../hooks/useFinancialData";
+import { useFinancialStore } from "../../../../store/financialStore";
 import { LineChart } from "./components/lineChart/lineChart";
 import { workingCapitalDataConverter } from "./utils/helpers";
 import Select from "../../../../shared/components/select/select";
 import { twMerge } from "tailwind-merge";
 import Widget from "../../../../shared/components/widget/widget";
 import { WIDGET_DELAYS } from "../../../../utils/animations";
+import { useCallback } from "react";
 
 const WorkingCapital = () => {
-  const { workingCapital, isLoading, error, refetchWorkingCapital } =
-    useFinancialWorkingCapital();
+  const workingCapital = useFinancialStore((state) => state.workingCapital);
+  const isLoading = useFinancialStore(
+    (state) => state.isLoading.workingCapital
+  );
+  const error = useFinancialStore((state) => state.errors.workingCapital);
+  const refetch = useFinancialStore((state) => state.refetch);
+
+  const handleRefetch = useCallback(() => refetch("workingCapital"), [refetch]);
 
   const convertedData = workingCapital
     ? workingCapitalDataConverter(workingCapital)
@@ -23,7 +30,7 @@ const WorkingCapital = () => {
     <Widget
       isLoading={isLoading || !workingCapital}
       error={error}
-      onRetry={refetchWorkingCapital}
+      onRetry={handleRefetch}
       className="shrink-0 pt-[15px] pb-[20px] pl-[25px] pr-[20px] border border-gray-200 rounded-md"
       animationDelay={WIDGET_DELAYS.workingCapital}
       ariaLabelledBy="working-capital-title"

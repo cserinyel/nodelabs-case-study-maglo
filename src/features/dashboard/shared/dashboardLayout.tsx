@@ -1,13 +1,21 @@
 import { Outlet } from "react-router";
+import { useEffect } from "react";
 import Sidebar from "../components/sidebar/sidebar";
 import TopBar from "../components/topbar/topBar";
 import { twMerge } from "tailwind-merge";
 import useCommonStore from "../../../store/commonStore";
+import { useFinancialStore } from "../../../store/financialStore";
 import { useMediaQuery } from "../../../hooks/useMediaQuery";
 
 const DashboardLayout = () => {
   const { isSidebarOpen } = useCommonStore();
+  const fetchAll = useFinancialStore((state) => state.fetchAll);
   const isXlOrAbove = useMediaQuery("xl");
+
+  useEffect(() => {
+    fetchAll();
+  }, [fetchAll]);
+
   const shouldShowSidebar = isXlOrAbove || isSidebarOpen;
 
   const dashboardTemplateWrapperClasses = twMerge("flex flex-row");

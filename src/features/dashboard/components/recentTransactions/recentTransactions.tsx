@@ -1,5 +1,5 @@
 import { getCoreRowModel, useReactTable } from "@tanstack/react-table";
-import { useFinancialRecentTransactions } from "../../../../hooks/useFinancialData";
+import { useFinancialStore } from "../../../../store/financialStore";
 import Button from "../../../../shared/components/button/button";
 import {
   recentTransactionsColumnHelper,
@@ -8,7 +8,7 @@ import {
 import TableHeading from "../../../../shared/components/table/components/tableHeading";
 import TableContent from "../../../../shared/components/table/components/tableContent";
 import Table from "../../../../shared/components/table/table";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useCallback } from "react";
 import type { FinancialTransaction } from "../../../../types/financial";
 import { ArrowDownIcon } from "../../../../assets/icons/icons";
 import { formatDate } from "../../../../utils/helpers";
@@ -68,8 +68,19 @@ const recentTransactionsTableColumns = [
 ];
 
 const RecentTransactions = () => {
-  const { recentTransactions, isLoading, error, refetchRecentTransactions } =
-    useFinancialRecentTransactions();
+  const recentTransactions = useFinancialStore(
+    (state) => state.recentTransactions
+  );
+  const isLoading = useFinancialStore(
+    (state) => state.isLoading.recentTransactions
+  );
+  const error = useFinancialStore((state) => state.errors.recentTransactions);
+  const refetch = useFinancialStore((state) => state.refetch);
+
+  const handleRefetch = useCallback(
+    () => refetch("recentTransactions"),
+    [refetch]
+  );
 
   const [data, setData] = useState<FinancialTransaction[]>([]);
 
@@ -96,7 +107,7 @@ const RecentTransactions = () => {
         isLoading || !recentTransactions || !recentTransactions.transactions
       }
       error={error}
-      onRetry={refetchRecentTransactions}
+      onRetry={handleRefetch}
       className="pt-[15px] pb-[5px] pl-[25px] pr-[20px] border border-gray-200 rounded-md overflow-hidden"
       animationDelay={WIDGET_DELAYS.recentTransactions}
       ariaLabelledBy="recent-transactions-title"

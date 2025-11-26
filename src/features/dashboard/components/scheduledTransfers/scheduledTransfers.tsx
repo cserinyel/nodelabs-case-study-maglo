@@ -1,5 +1,5 @@
-import { useEffect, useState } from "react";
-import { useFinancialScheduledTransfers } from "../../../../hooks/useFinancialData";
+import { useEffect, useState, useCallback } from "react";
+import { useFinancialStore } from "../../../../store/financialStore";
 import Button from "../../../../shared/components/button/button";
 import type { FinancialTransfer } from "../../../../types/financial";
 import { getCoreRowModel, useReactTable } from "@tanstack/react-table";
@@ -45,8 +45,19 @@ const scheduledTransfersTableColumns = [
 ];
 
 const ScheduledTransfers = () => {
-  const { scheduledTransfers, isLoading, error, refetchScheduledTransfers } =
-    useFinancialScheduledTransfers();
+  const scheduledTransfers = useFinancialStore(
+    (state) => state.scheduledTransfers
+  );
+  const isLoading = useFinancialStore(
+    (state) => state.isLoading.scheduledTransfers
+  );
+  const error = useFinancialStore((state) => state.errors.scheduledTransfers);
+  const refetch = useFinancialStore((state) => state.refetch);
+
+  const handleRefetch = useCallback(
+    () => refetch("scheduledTransfers"),
+    [refetch]
+  );
 
   const [data, setData] = useState<FinancialTransfer[]>([]);
 
@@ -67,7 +78,7 @@ const ScheduledTransfers = () => {
     <Widget
       isLoading={isLoading || !scheduledTransfers}
       error={error}
-      onRetry={refetchScheduledTransfers}
+      onRetry={handleRefetch}
       className="gap-[10px]"
       animationDelay={WIDGET_DELAYS.scheduledTransfers}
       ariaLabelledBy="scheduled-transfers-title"

@@ -1,16 +1,22 @@
-import { useFinancialSummary } from "../../../../hooks/useFinancialData";
+import { useFinancialStore } from "../../../../store/financialStore";
 import SummaryCard from "./components/summaryCard/summaryCard";
 import { WalletAddIcon, WalletIcon } from "../../../../assets/icons/icons";
 import ErrorOverlay from "../../../../shared/components/errorOverlay/errorOverlay";
+import { useCallback } from "react";
 
 const Summary = () => {
-  const { summary, isLoading, error, refetchSummary } = useFinancialSummary();
+  const summary = useFinancialStore((state) => state.summary);
+  const isLoading = useFinancialStore((state) => state.isLoading.summary);
+  const error = useFinancialStore((state) => state.errors.summary);
+  const refetch = useFinancialStore((state) => state.refetch);
+
+  const handleRefetch = useCallback(() => refetch("summary"), [refetch]);
 
   if (error) {
     return (
       <ErrorOverlay
         error={error}
-        onClick={refetchSummary}
+        onClick={handleRefetch}
         buttonText="Retry"
         orientation="horizontal"
       />

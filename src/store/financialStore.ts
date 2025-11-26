@@ -15,6 +15,41 @@ import {
   getFinancialScheduledTransfers,
 } from "../api/financial";
 
+// Data type keys for type safety
+type DataKey =
+  | "summary"
+  | "workingCapital"
+  | "wallet"
+  | "recentTransactions"
+  | "scheduledTransfers";
+
+// Map of data types to their respective types
+interface DataTypeMap {
+  summary: FinancialSummary;
+  workingCapital: FinancialWorkingCapital;
+  wallet: FinancialWallet;
+  recentTransactions: FinancialRecentTransactions;
+  scheduledTransfers: FinancialScheduledTransfers;
+}
+
+// API functions map
+const apiFunctions = {
+  summary: getFinancialSummary,
+  workingCapital: getFinancialWorkingCapital,
+  wallet: getFinancialWallet,
+  recentTransactions: getFinancialRecentTransactions,
+  scheduledTransfers: getFinancialScheduledTransfers,
+} as const;
+
+// Display names for toast messages
+const displayNames: Record<DataKey, string> = {
+  summary: "Summary",
+  workingCapital: "Working Capital",
+  wallet: "Wallet",
+  recentTransactions: "Recent Transactions",
+  scheduledTransfers: "Scheduled Transfers",
+};
+
 interface FinancialState {
   // Data
   summary: FinancialSummary | null;
@@ -24,47 +59,45 @@ interface FinancialState {
   scheduledTransfers: FinancialScheduledTransfers | null;
 
   // Loading states
-  isLoading: {
-    summary: boolean;
-    workingCapital: boolean;
-    wallet: boolean;
-    recentTransactions: boolean;
-    scheduledTransfers: boolean;
-  };
+  isLoading: Record<DataKey, boolean>;
 
   // Error states
-  errors: {
-    summary: Error | null;
-    workingCapital: Error | null;
-    wallet: Error | null;
-    recentTransactions: Error | null;
-    scheduledTransfers: Error | null;
-  };
+  errors: Record<DataKey, Error | null>;
 
-  // Fetch Actions
-  fetchSummary: () => Promise<void>;
-  fetchWorkingCapital: () => Promise<void>;
-  fetchWallet: () => Promise<void>;
-  fetchRecentTransactions: () => Promise<void>;
-  fetchScheduledTransfers: () => Promise<void>;
+  // Generic fetch action
+  fetch: <K extends DataKey>(key: K) => Promise<void>;
+
+  // Generic refetch action (with toast)
+  refetch: <K extends DataKey>(key: K) => Promise<void>;
+
+  // Fetch all data
   fetchAll: () => Promise<void>;
 
-  // Refetch actions
-  refetchSummary: () => Promise<void>;
-  refetchWorkingCapital: () => Promise<void>;
-  refetchWallet: () => Promise<void>;
-  refetchRecentTransactions: () => Promise<void>;
-  refetchScheduledTransfers: () => Promise<void>;
+  // Refetch all data
   refetchAll: () => Promise<void>;
 
-  // Reset actions
-  resetSummary: () => void;
-  resetWorkingCapital: () => void;
-  resetWallet: () => void;
-  resetRecentTransactions: () => void;
-  resetScheduledTransfers: () => void;
+  // Reset specific data
+  reset: <K extends DataKey>(key: K) => void;
+
+  // Reset all data
   resetAll: () => void;
 }
+
+const initialLoadingState: Record<DataKey, boolean> = {
+  summary: false,
+  workingCapital: false,
+  wallet: false,
+  recentTransactions: false,
+  scheduledTransfers: false,
+};
+
+const initialErrorState: Record<DataKey, Error | null> = {
+  summary: null,
+  workingCapital: null,
+  wallet: null,
+  recentTransactions: null,
+  scheduledTransfers: null,
+};
 
 export const useFinancialStore = create<FinancialState>((set, get) => ({
   // Initial state
@@ -74,147 +107,79 @@ export const useFinancialStore = create<FinancialState>((set, get) => ({
   recentTransactions: null,
   scheduledTransfers: null,
 
-  isLoading: {
-    summary: false,
-    workingCapital: false,
-    wallet: false,
-    recentTransactions: false,
-    scheduledTransfers: false,
-  },
+  isLoading: { ...initialLoadingState },
+  errors: { ...initialErrorState },
 
-  errors: {
-    summary: null,
-    workingCapital: null,
-    wallet: null,
-    recentTransactions: null,
-    scheduledTransfers: null,
-  },
-
-  // Fetch actions
-  fetchSummary: async () => {
+  // Generic fetch action
+  fetch: async <K extends DataKey>(key: K) => {
     set((state) => ({
-      isLoading: { ...state.isLoading, summary: true },
-      errors: { ...state.errors, summary: null },
+      isLoading: { ...state.isLoading, [key]: true },
+      errors: { ...state.errors, [key]: null },
     }));
 
     try {
-      const response = await getFinancialSummary();
+      const response = await apiFunctions[key]();
       set((state) => ({
-        summary: response.data,
-        isLoading: { ...state.isLoading, summary: false },
+        [key]: response.data as DataTypeMap[K],
+        isLoading: { ...state.isLoading, [key]: false },
       }));
     } catch (error) {
       set((state) => ({
-        isLoading: { ...state.isLoading, summary: false },
-        errors: { ...state.errors, summary: error as Error },
+        isLoading: { ...state.isLoading, [key]: false },
+        errors: { ...state.errors, [key]: error as Error },
       }));
       throw error;
     }
   },
 
-  fetchWorkingCapital: async () => {
+  // Generic refetch action with toast
+  refetch: async <K extends DataKey>(key: K) => {
+    const displayName = displayNames[key];
+
     set((state) => ({
-      isLoading: { ...state.isLoading, workingCapital: true },
-      errors: { ...state.errors, workingCapital: null },
+      isLoading: { ...state.isLoading, [key]: true },
+      errors: { ...state.errors, [key]: null },
     }));
-
-    try {
-      const response = await getFinancialWorkingCapital();
-      set((state) => ({
-        workingCapital: response.data,
-        isLoading: { ...state.isLoading, workingCapital: false },
-      }));
-    } catch (error) {
-      set((state) => ({
-        isLoading: { ...state.isLoading, workingCapital: false },
-        errors: { ...state.errors, workingCapital: error as Error },
-      }));
-      throw error;
-    }
-  },
-
-  fetchWallet: async () => {
-    set((state) => ({
-      isLoading: { ...state.isLoading, wallet: true },
-      errors: { ...state.errors, wallet: null },
-    }));
-
-    try {
-      const response = await getFinancialWallet();
-      set((state) => ({
-        wallet: response.data,
-        isLoading: { ...state.isLoading, wallet: false },
-      }));
-    } catch (error) {
-      set((state) => ({
-        isLoading: { ...state.isLoading, wallet: false },
-        errors: { ...state.errors, wallet: error as Error },
-      }));
-      throw error;
-    }
-  },
-
-  fetchRecentTransactions: async () => {
-    set((state) => ({
-      isLoading: { ...state.isLoading, recentTransactions: true },
-      errors: { ...state.errors, recentTransactions: null },
-    }));
-
-    try {
-      const response = await getFinancialRecentTransactions();
-      set((state) => ({
-        recentTransactions: response.data,
-        isLoading: { ...state.isLoading, recentTransactions: false },
-      }));
-    } catch (error) {
-      set((state) => ({
-        isLoading: { ...state.isLoading, recentTransactions: false },
-        errors: { ...state.errors, recentTransactions: error as Error },
-      }));
-      throw error;
-    }
-  },
-
-  fetchScheduledTransfers: async () => {
-    set((state) => ({
-      isLoading: { ...state.isLoading, scheduledTransfers: true },
-      errors: { ...state.errors, scheduledTransfers: null },
-    }));
-
-    try {
-      const response = await getFinancialScheduledTransfers();
-      set((state) => ({
-        scheduledTransfers: response.data,
-        isLoading: { ...state.isLoading, scheduledTransfers: false },
-      }));
-    } catch (error) {
-      set((state) => ({
-        isLoading: { ...state.isLoading, scheduledTransfers: false },
-        errors: { ...state.errors, scheduledTransfers: error as Error },
-      }));
-      throw error;
-    }
-  },
-
-  fetchAll: async () => {
-    const {
-      fetchSummary,
-      fetchWorkingCapital,
-      fetchWallet,
-      fetchRecentTransactions,
-      fetchScheduledTransfers,
-    } = get();
 
     await toast.promise(
       (async () => {
-        // Fetch all in parallel
-        const results = await Promise.allSettled([
-          fetchSummary(),
-          fetchWorkingCapital(),
-          fetchWallet(),
-          fetchRecentTransactions(),
-          fetchScheduledTransfers(),
-        ]);
+        try {
+          const response = await apiFunctions[key]();
+          set((state) => ({
+            [key]: response.data as DataTypeMap[K],
+            isLoading: { ...state.isLoading, [key]: false },
+          }));
+        } catch (error) {
+          set((state) => ({
+            isLoading: { ...state.isLoading, [key]: false },
+            errors: { ...state.errors, [key]: error as Error },
+          }));
+          throw error;
+        }
+      })(),
+      {
+        loading: `Refetching ${displayName}...`,
+        success: `${displayName} refetched successfully!`,
+        error: (err: Error) =>
+          err?.message || `Failed to refetch ${displayName}. Please try again.`,
+      }
+    );
+  },
+
+  // Fetch all data
+  fetchAll: async () => {
+    const { fetch } = get();
+    const keys: DataKey[] = [
+      "summary",
+      "workingCapital",
+      "wallet",
+      "recentTransactions",
+      "scheduledTransfers",
+    ];
+
+    await toast.promise(
+      (async () => {
+        const results = await Promise.allSettled(keys.map((key) => fetch(key)));
         if (results.some((result) => result.status === "rejected")) {
           throw new Error("Failed to fetch all financial data");
         }
@@ -227,218 +192,37 @@ export const useFinancialStore = create<FinancialState>((set, get) => ({
     );
   },
 
-  // Refetch actions
-  refetchSummary: async () => {
-    set((state) => ({
-      isLoading: { ...state.isLoading, summary: true },
-      errors: { ...state.errors, summary: null },
-    }));
-
-    await toast.promise(
-      (async () => {
-        try {
-          const response = await getFinancialSummary();
-          set((state) => ({
-            summary: response.data,
-            isLoading: { ...state.isLoading, summary: false },
-          }));
-        } catch (error) {
-          set((state) => ({
-            isLoading: { ...state.isLoading, summary: false },
-            errors: { ...state.errors, summary: error as Error },
-          }));
-          throw error;
-        }
-      })(),
-      {
-        loading: "Refetching summary...",
-        success: "Summary refetched successfully!",
-        error: (err: Error) =>
-          err?.message || "Failed to refetch summary. Please try again.",
-      }
-    );
-  },
-
-  refetchWorkingCapital: async () => {
-    set((state) => ({
-      isLoading: { ...state.isLoading, workingCapital: true },
-      errors: { ...state.errors, workingCapital: null },
-    }));
-
-    await toast.promise(
-      (async () => {
-        try {
-          const response = await getFinancialWorkingCapital();
-          set((state) => ({
-            workingCapital: response.data,
-            isLoading: { ...state.isLoading, workingCapital: false },
-          }));
-        } catch (error) {
-          set((state) => ({
-            isLoading: { ...state.isLoading, workingCapital: false },
-            errors: { ...state.errors, workingCapital: error as Error },
-          }));
-          throw error;
-        }
-      })(),
-      {
-        loading: "Refetching working capital...",
-        success: "Working capital refetched successfully!",
-        error: (err: Error) =>
-          err?.message ||
-          "Failed to refetch working capital. Please try again.",
-      }
-    );
-  },
-
-  refetchWallet: async () => {
-    set((state) => ({
-      isLoading: { ...state.isLoading, wallet: true },
-      errors: { ...state.errors, wallet: null },
-    }));
-
-    await toast.promise(
-      (async () => {
-        try {
-          const response = await getFinancialWallet();
-          set((state) => ({
-            wallet: response.data,
-            isLoading: { ...state.isLoading, wallet: false },
-          }));
-        } catch (error) {
-          set((state) => ({
-            isLoading: { ...state.isLoading, wallet: false },
-            errors: { ...state.errors, wallet: error as Error },
-          }));
-          throw error;
-        }
-      })(),
-      {
-        loading: "Refetching wallet...",
-        success: "Wallet refetched successfully!",
-        error: (err: Error) =>
-          err?.message || "Failed to refetch wallet. Please try again.",
-      }
-    );
-  },
-
-  refetchRecentTransactions: async () => {
-    set((state) => ({
-      isLoading: { ...state.isLoading, recentTransactions: true },
-      errors: { ...state.errors, recentTransactions: null },
-    }));
-
-    await toast.promise(
-      (async () => {
-        try {
-          const response = await getFinancialRecentTransactions();
-          set((state) => ({
-            recentTransactions: response.data,
-            isLoading: { ...state.isLoading, recentTransactions: false },
-          }));
-        } catch (error) {
-          set((state) => ({
-            isLoading: { ...state.isLoading, recentTransactions: false },
-            errors: { ...state.errors, recentTransactions: error as Error },
-          }));
-          throw error;
-        }
-      })(),
-      {
-        loading: "Refetching recent transactions...",
-        success: "Recent transactions refetched successfully!",
-        error: (err: Error) =>
-          err?.message ||
-          "Failed to refetch recent transactions. Please try again.",
-      }
-    );
-  },
-
-  refetchScheduledTransfers: async () => {
-    set((state) => ({
-      isLoading: { ...state.isLoading, scheduledTransfers: true },
-      errors: { ...state.errors, scheduledTransfers: null },
-    }));
-
-    await toast.promise(
-      (async () => {
-        try {
-          const response = await getFinancialScheduledTransfers();
-          set((state) => ({
-            scheduledTransfers: response.data,
-            isLoading: { ...state.isLoading, scheduledTransfers: false },
-          }));
-        } catch (error) {
-          set((state) => ({
-            isLoading: { ...state.isLoading, scheduledTransfers: false },
-            errors: { ...state.errors, scheduledTransfers: error as Error },
-          }));
-          throw error;
-        }
-      })(),
-      {
-        loading: "Refetching scheduled transfers...",
-        success: "Scheduled transfers refetched successfully!",
-        error: (err: Error) =>
-          err?.message ||
-          "Failed to refetch scheduled transfers. Please try again.",
-      }
-    );
-  },
-
+  // Refetch all data
   refetchAll: async () => {
-    const {
-      refetchSummary,
-      refetchWorkingCapital,
-      refetchWallet,
-      refetchRecentTransactions,
-      refetchScheduledTransfers,
-    } = get();
+    const { refetch } = get();
+    const keys: DataKey[] = [
+      "summary",
+      "workingCapital",
+      "wallet",
+      "recentTransactions",
+      "scheduledTransfers",
+    ];
 
-    // Refetch all in parallel
-    await Promise.allSettled([
-      refetchSummary(),
-      refetchWorkingCapital(),
-      refetchWallet(),
-      refetchRecentTransactions(),
-      refetchScheduledTransfers(),
-    ]);
+    await Promise.allSettled(keys.map((key) => refetch(key)));
   },
 
-  // Reset actions
-  resetSummary: () =>
-    set({ summary: null, errors: { ...get().errors, summary: null } }),
-  resetWorkingCapital: () =>
-    set({
-      workingCapital: null,
-      errors: { ...get().errors, workingCapital: null },
-    }),
-  resetWallet: () =>
-    set({ wallet: null, errors: { ...get().errors, wallet: null } }),
-  resetRecentTransactions: () =>
-    set({
-      recentTransactions: null,
-      errors: { ...get().errors, recentTransactions: null },
-    }),
-  resetScheduledTransfers: () =>
-    set({
-      scheduledTransfers: null,
-      errors: { ...get().errors, scheduledTransfers: null },
-    }),
+  // Reset specific data
+  reset: <K extends DataKey>(key: K) => {
+    set((state) => ({
+      [key]: null,
+      errors: { ...state.errors, [key]: null },
+    }));
+  },
 
-  resetAll: () =>
+  // Reset all data
+  resetAll: () => {
     set({
       summary: null,
       workingCapital: null,
       wallet: null,
       recentTransactions: null,
       scheduledTransfers: null,
-      errors: {
-        summary: null,
-        workingCapital: null,
-        wallet: null,
-        recentTransactions: null,
-        scheduledTransfers: null,
-      },
-    }),
+      errors: { ...initialErrorState },
+    });
+  },
 }));
