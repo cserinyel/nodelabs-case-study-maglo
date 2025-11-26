@@ -2,15 +2,15 @@
   command = "npm run build"
   publish = "dist"
 
-# SPA routing - fixes page not found on refresh
-[[redirects]]
-  from = "/*"
-  to = "/index.html"
-  status = 200
-
-# API Proxy - fixes cookie issues (must come BEFORE the SPA redirect)
+# API Proxy - MUST come FIRST
 [[redirects]]
   from = "/api/*"
   to = "https://case.nodelabs.dev/api/:splat"
   status = 200
   force = true
+
+# SPA routing - catch-all comes LAST
+[[redirects]]
+  from = "/*"
+  to = "/index.html"
+  status = 200
