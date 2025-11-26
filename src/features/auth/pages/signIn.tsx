@@ -1,65 +1,35 @@
-import { useState } from "react";
 import { useLogin } from "../../../api/auth";
 import Button from "../../../shared/components/button/button";
 import Input from "../../../shared/components/input/input";
 import SignActionButton from "../components/signActionButton";
 import type { LoginCredentials } from "../../../types/auth";
 import { validateEmail, validatePasswordEntry } from "../utils/helpers";
-import toast from "react-hot-toast";
 import Spinner from "../../../shared/components/spinner/spinner";
 import GoogleSignIn from "../components/googleSignIn";
+import { useAuthForm, createValidator } from "../../../hooks/useAuthForm.tsx";
+
+const signInValidator = createValidator<LoginCredentials>({
+  email: validateEmail,
+  password: validatePasswordEntry,
+});
 
 const SignIn = () => {
   const { mutateAsync: loginMutation, isPending } = useLogin();
-  const [formData, setFormData] = useState<LoginCredentials>({
-    email: "can@example.com",
-    password: "Pa$w0rd123",
-  });
-  const [validationError, setValidationError] =
-    useState<Record<string, string[] | undefined>>();
 
-  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const { id, value } = e.target;
-    setFormData((prev) => ({ ...prev, [id]: value }));
-  };
-
-  const handleValidation = (data: LoginCredentials): boolean => {
-    const emailResult = validateEmail(data.email);
-    const passwordResult = validatePasswordEntry(data.password);
-
-    const isValid = emailResult.isValid && passwordResult.isValid;
-
-    setValidationError(
-      isValid
-        ? undefined
-        : {
-            email: emailResult.errors,
-            password: passwordResult.errors,
-          }
-    );
-
-    return isValid;
-  };
-
-  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    const isValid = handleValidation(formData);
-    if (!isValid) {
-      toast.error("Please fill in all fields correctly");
-      return;
-    }
-    toast.promise(loginMutation(formData), {
-      loading: "Signing in...",
-      success: "Signed in successfully!",
-      error: (err) => (
-        <b>
-          {err?.response?.data?.message ||
-            err?.message ||
-            "Failed to sign in. Please try again."}
-        </b>
-      ),
+  const { formData, validationError, handleInputChange, handleSubmit } =
+    useAuthForm({
+      initialData: {
+        email: "can@example.com",
+        password: "Pa$w0rd123",
+      } as LoginCredentials,
+      validate: signInValidator,
+      onSubmit: loginMutation,
+      toastMessages: {
+        loadingText: "Signing in...",
+        successText: "Signed in successfully!",
+        errorText: "Failed to sign in. Please try again.",
+      },
     });
-  };
 
   return (
     <section
@@ -89,7 +59,7 @@ const SignIn = () => {
             label="Email"
             placeholder="Enter your email"
             value={formData.email}
-            onChange={(e) => handleInputChange(e)}
+            onChange={handleInputChange}
             disabled={isPending}
             error={validationError?.email}
             aria-label="Email"
@@ -100,7 +70,7 @@ const SignIn = () => {
             label="Password"
             placeholder="Enter your password"
             value={formData.password}
-            onChange={(e) => handleInputChange(e)}
+            onChange={handleInputChange}
             disabled={isPending}
             error={validationError?.password}
             aria-label="Password"

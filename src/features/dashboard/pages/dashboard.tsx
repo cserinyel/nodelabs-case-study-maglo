@@ -1,5 +1,5 @@
 import Summary from "../components/summary/summary";
-import WorkingCapital from "../components/workingCapiral/workingCapital";
+import WorkingCapital from "../components/workingCapital/workingCapital";
 import RecentTransactions from "../components/recentTransactions/recentTransactions";
 import Wallet from "../components/wallet/wallet";
 import ScheduledTransfers from "../components/scheduledTransfers/scheduledTransfers";

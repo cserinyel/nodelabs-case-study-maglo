@@ -1,7 +1,6 @@
 import { getCoreRowModel, useReactTable } from "@tanstack/react-table";
 import { useFinancialRecentTransactions } from "../../../../hooks/useFinancialData";
 import Button from "../../../../shared/components/button/button";
-import Skeleton from "../../../../shared/components/skeleton/skeleton";
 import {
   recentTransactionsColumnHelper,
   recentTransactionsTableItemPicker,
@@ -11,12 +10,11 @@ import TableContent from "../../../../shared/components/table/components/tableCo
 import Table from "../../../../shared/components/table/table";
 import { useEffect, useState } from "react";
 import type { FinancialTransaction } from "../../../../types/financial";
-import { twMerge } from "tailwind-merge";
 import { ArrowDownIcon } from "../../../../assets/icons/icons";
 import { formatDate } from "../../../../utils/helpers";
 import { getCurrencyWithSymbol } from "../../../finance/utils/helpers";
-import ErrorOverlay from "../../../../shared/components/errorOverlay/errorOverlay";
-import { motion } from "framer-motion";
+import Widget from "../../../../shared/components/widget/widget";
+import { WIDGET_DELAYS } from "../../../../utils/animations";
 
 const recentTransactionsTableColumns = [
   recentTransactionsColumnHelper.accessor("name", {
@@ -92,36 +90,16 @@ const RecentTransactions = () => {
     getCoreRowModel: getCoreRowModel(),
   });
 
-  const widgetClasses = twMerge(
-    "flex flex-col flex-1 gap-[20px] min-h-0",
-    "w-full pt-[15px] pb-[5px] pl-[25px] pr-[20px]",
-    " border border-gray-200 rounded-md overflow-hidden"
-  );
-
-  if (error) {
-    return (
-      <ErrorOverlay
-        error={error}
-        onClick={refetchRecentTransactions}
-        buttonText="Retry"
-      />
-    );
-  }
-  if (isLoading || !recentTransactions || !recentTransactions.transactions) {
-    return (
-      <div className={twMerge("w-full h-full flex-1 min-h-[300px] xl:min-h-0")}>
-        <Skeleton variant="rectangular" width="100%" height="100%" />
-      </div>
-    );
-  }
-
   return (
-    <motion.section
-      className={widgetClasses}
-      initial={{ opacity: 0, y: 20 }}
-      animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.4, ease: "easeOut", delay: 0.5 }}
-      aria-labelledby="recent-transactions-title"
+    <Widget
+      isLoading={
+        isLoading || !recentTransactions || !recentTransactions.transactions
+      }
+      error={error}
+      onRetry={refetchRecentTransactions}
+      className="pt-[15px] pb-[5px] pl-[25px] pr-[20px] border border-gray-200 rounded-md overflow-hidden"
+      animationDelay={WIDGET_DELAYS.recentTransactions}
+      ariaLabelledBy="recent-transactions-title"
     >
       <header className="flex flex-row justify-between items-center gap-[20px] w-full shrink-0 h-[22px]">
         <h2 id="recent-transactions-title" className="widget-header-title">
@@ -151,7 +129,7 @@ const RecentTransactions = () => {
       <div className="w-full flex-1 overflow-y-auto min-h-0 relative">
         <Table<FinancialTransaction> tableObject={recentTransactionsTable} />
       </div>
-    </motion.section>
+    </Widget>
   );
 };
 

@@ -1,6 +1,4 @@
 import { Outlet } from "react-router";
-import { useFinancialStore } from "../../../store/financialStore";
-import { useEffect } from "react";
 import Sidebar from "../components/sidebar/sidebar";
 import TopBar from "../components/topbar/topBar";
 import { twMerge } from "tailwind-merge";
@@ -8,15 +6,8 @@ import useCommonStore from "../../../store/commonStore";
 import { useMediaQuery } from "../../../hooks/useMediaQuery";
 
 const DashboardLayout = () => {
-  const { fetchAll } = useFinancialStore();
   const { isSidebarOpen } = useCommonStore();
   const isXlOrAbove = useMediaQuery("xl");
-
-  useEffect(() => {
-    // fetch all financial data once on mount
-    fetchAll();
-  }, [fetchAll]);
-
   const shouldShowSidebar = isXlOrAbove || isSidebarOpen;
 
   const dashboardTemplateWrapperClasses = twMerge("flex flex-row");

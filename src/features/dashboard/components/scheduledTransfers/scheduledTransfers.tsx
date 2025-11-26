@@ -1,9 +1,7 @@
 import { useEffect, useState } from "react";
 import { useFinancialScheduledTransfers } from "../../../../hooks/useFinancialData";
 import Button from "../../../../shared/components/button/button";
-import Skeleton from "../../../../shared/components/skeleton/skeleton";
 import type { FinancialTransfer } from "../../../../types/financial";
-import { twMerge } from "tailwind-merge";
 import { getCoreRowModel, useReactTable } from "@tanstack/react-table";
 import TableContent from "../../../../shared/components/table/components/tableContent";
 import { getCurrencyWithSymbol } from "../../../finance/utils/helpers";
@@ -11,8 +9,8 @@ import { formatDate } from "../../../../utils/helpers";
 import { scheduledTransfersColumnHelper } from "./utils/helpers";
 import { ArrowDownIcon } from "../../../../assets/icons/icons";
 import Table from "../../../../shared/components/table/table";
-import ErrorOverlay from "../../../../shared/components/errorOverlay/errorOverlay";
-import { motion } from "motion/react";
+import Widget from "../../../../shared/components/widget/widget";
+import { WIDGET_DELAYS } from "../../../../utils/animations";
 
 const scheduledTransfersTableColumns = [
   scheduledTransfersColumnHelper.accessor("name", {
@@ -65,34 +63,14 @@ const ScheduledTransfers = () => {
     getCoreRowModel: getCoreRowModel(),
   });
 
-  const widgetClasses = twMerge(
-    "flex flex-col flex-1 gap-[10px] min-h-0",
-    "w-full"
-  );
-
-  if (error) {
-    return (
-      <ErrorOverlay
-        error={error}
-        onClick={refetchScheduledTransfers}
-        buttonText="Retry"
-      />
-    );
-  }
-  if (isLoading || !scheduledTransfers) {
-    return (
-      <div className={twMerge("w-full h-full flex-1 min-h-[300px] xl:min-h-0")}>
-        <Skeleton variant="rectangular" width="100%" height="100%" />
-      </div>
-    );
-  }
   return (
-    <motion.section
-      className={widgetClasses}
-      initial={{ opacity: 0, y: 20 }}
-      animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.4, ease: "easeOut", delay: 0.7 }}
-      aria-labelledby="scheduled-transfers-title"
+    <Widget
+      isLoading={isLoading || !scheduledTransfers}
+      error={error}
+      onRetry={refetchScheduledTransfers}
+      className="gap-[10px]"
+      animationDelay={WIDGET_DELAYS.scheduledTransfers}
+      ariaLabelledBy="scheduled-transfers-title"
     >
       <header className="flex flex-row justify-between items-center gap-[20px] w-full shrink-0 h-[22px]">
         <h2 id="scheduled-transfers-title" className="widget-header-title">
@@ -125,7 +103,7 @@ const ScheduledTransfers = () => {
           showHeader={false}
         />
       </div>
-    </motion.section>
+    </Widget>
   );
 };
 

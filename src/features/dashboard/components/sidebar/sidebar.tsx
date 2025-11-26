@@ -11,6 +11,7 @@ import {
 } from "../../../../assets/icons/icons";
 import MenuButton from "../menuButton/menuButton";
 import { ROUTES } from "../../../../routes/utils/constants";
+import magloLogo from "../../../../assets/images/maglo-logo.svg";
 
 const Sidebar = () => {
   const { mutateAsync: logoutMutation, isPending } = useLogout();
@@ -41,7 +42,7 @@ const Sidebar = () => {
         {/* Logo */}
         <header className="flex flex-row gap-[10px] w-full justify-between">
           <img
-            src="/src/assets/images/maglo-logo.svg"
+            src={magloLogo}
             alt="Maglo - Home"
             className="min-w-[122px] h-auto"
             aria-label="Maglo - Home"

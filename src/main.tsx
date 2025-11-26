@@ -39,7 +39,7 @@ createRoot(document.getElementById("root")!).render(
         fontSize: "14px",
         lineHeight: "100%",
         fontWeight: "500",
-        backgroundColor: "var(--accent-color))",
+        backgroundColor: "var(--accent-color)",
         borderRadius: "5px",
         padding: "10px 15px",
         border: "none",

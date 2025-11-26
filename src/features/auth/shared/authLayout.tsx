@@ -1,11 +1,13 @@
 import { Outlet } from "react-router";
+import magloLogo from "../../../assets/images/maglo-logo.svg";
+import authBackground from "../../../assets/images/auth-background.png";
 
 const AuthLayout = () => {
   return (
     <div className="flex h-screen flex-row">
       <main className="flex flex-col items-center flex-1 my-[40px] mx-[40px] lg:items-baseline lg:mr-[100px] lg:ml-[135px] xl:mx-[135px]">
         <img
-          src="/src/assets/images/maglo-logo.svg"
+          src={magloLogo}
           alt="Maglo Logo"
           className="min-w-[122px] h-auto"
         />
@@ -17,7 +19,7 @@ const AuthLayout = () => {
         aria-hidden="true"
       >
         <img
-          src="/src/assets/images/auth-background.png"
+          src={authBackground}
           alt=""
           role="presentation"
           className="w-full h-full object-cover"

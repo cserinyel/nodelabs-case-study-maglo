@@ -1,37 +1,19 @@
-import { twMerge } from "tailwind-merge";
 import { useFinancialWallet } from "../../../../hooks/useFinancialData";
-import Skeleton from "../../../../shared/components/skeleton/skeleton";
 import CreditCard from "./components/creditCard/creditCard";
-import ErrorOverlay from "../../../../shared/components/errorOverlay/errorOverlay";
-import { motion } from "motion/react";
+import Widget from "../../../../shared/components/widget/widget";
+import { WIDGET_DELAYS } from "../../../../utils/animations";
 
 const Wallet = () => {
   const { wallet, isLoading, error, refetchWallet } = useFinancialWallet();
 
-  const widgetClasses = twMerge(
-    "flex flex-col flex-1 gap-[15px] min-h-0",
-    "w-full"
-  );
-
-  if (error) {
-    return (
-      <ErrorOverlay error={error} onClick={refetchWallet} buttonText="Retry" />
-    );
-  }
-  if (isLoading || !wallet) {
-    return (
-      <div className={twMerge("w-full h-full flex-1 min-h-[300px] xl:min-h-0")}>
-        <Skeleton variant="rectangular" width="100%" height="100%" />
-      </div>
-    );
-  }
   return (
-    <motion.section
-      className={widgetClasses}
-      aria-labelledby="wallet-title"
-      initial={{ opacity: 0, y: 20 }}
-      animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.4, ease: "easeOut", delay: 0.6 }}
+    <Widget
+      isLoading={isLoading || !wallet}
+      error={error}
+      onRetry={refetchWallet}
+      className="gap-[15px]"
+      animationDelay={WIDGET_DELAYS.wallet}
+      ariaLabelledBy="wallet-title"
     >
       <header className="flex flex-row justify-between items-center gap-[20px] w-full shrink-0 h-[22px]">
         <h2 id="wallet-title" className="widget-header-title">
@@ -40,11 +22,11 @@ const Wallet = () => {
         <div className="flex flex-row items-center justify-end gap-[10px] shrink-0"></div>
       </header>
       <main className="flex flex-col w-full flex-1 min-h-[300px] relative items-center justify-start">
-        {wallet.cards.map((card) => (
+        {wallet?.cards.map((card) => (
           <CreditCard key={card.id} cardData={card} />
         ))}
       </main>
-    </motion.section>
+    </Widget>
   );
 };
 

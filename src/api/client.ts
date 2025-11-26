@@ -165,13 +165,11 @@ apiClient.interceptors.response.use(
     // For auth endpoints, pass through all errors without session handling
     // These errors (like INVALID_CREDENTIALS) should be handled by the calling code
     if (isAuthEndpoint(originalRequest?.url)) {
-      console.log("auth endpoint error");
       return Promise.reject(error);
     }
 
     // Handle known auth error codes that shouldn't trigger session handling
     if (AUTH_ERROR_CODES.includes(errorCode)) {
-      console.log("auth endpoint error");
       return Promise.reject(error);
     }
 
