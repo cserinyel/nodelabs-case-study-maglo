@@ -1,4 +1,4 @@
-import { Outlet } from "react-router";
+import { Outlet, useLocation } from "react-router";
 import { useEffect } from "react";
 import Sidebar from "../components/sidebar/sidebar";
 import TopBar from "../components/topbar/topBar";
@@ -8,13 +8,21 @@ import { useFinancialStore } from "../../../store/financialStore";
 import { useMediaQuery } from "../../../hooks/useMediaQuery";
 
 const DashboardLayout = () => {
-  const { isSidebarOpen } = useCommonStore();
+  const { isSidebarOpen, setIsSidebarOpen } = useCommonStore();
   const fetchAll = useFinancialStore((state) => state.fetchAll);
   const isXlOrAbove = useMediaQuery("xl");
+  const { pathname } = useLocation();
 
   useEffect(() => {
     fetchAll();
   }, [fetchAll]);
+
+  useEffect(() => {
+    if (isSidebarOpen && !isXlOrAbove) {
+      setIsSidebarOpen(false);
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [pathname]);
 
   const shouldShowSidebar = isXlOrAbove || isSidebarOpen;
 

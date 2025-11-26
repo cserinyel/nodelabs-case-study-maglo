@@ -33,7 +33,7 @@ const SignIn = () => {
 
   return (
     <section
-      className="relative flex flex-1 flex-col gap-[25px] w-full max-w-[404px] justify-center"
+      className="relative flex flex-1 flex-col gap-[25px] w-full justify-center"
       aria-labelledby="signin-heading"
     >
       {isPending && <Spinner mode="coverContent" />}
