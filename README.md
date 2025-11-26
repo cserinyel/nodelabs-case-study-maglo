@@ -1,73 +1,100 @@
-# React + TypeScript + Vite
+# Maglo
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A modern financial dashboard application built with React and TypeScript.
 
-Currently, two official plugins are available:
+## Features
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+- 🔐 **Authentication** - Sign in/Sign up with form validation
+- 📊 **Dashboard** - Financial summaries, working capital charts, and analytics
+- 💳 **Wallet** - Credit card management and visualization
+- 💸 **Transactions** - Recent transactions table with sorting and filtering
+- 📅 **Scheduled Transfers** - View and manage upcoming transfers
+- ⚙️ **Settings** - User preferences and configuration
 
-## React Compiler
+## Tech Stack
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+### Core
 
-## Expanding the ESLint configuration
+- **React 19** - UI library with latest features
+- **TypeScript** - Type-safe JavaScript
+- **Vite 7** - Next-gen build tool with HMR
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+### Styling
 
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+- **Tailwind CSS 4** - Utility-first CSS framework
+- **tailwind-merge** - Utility for merging Tailwind classes
 
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
+### State Management & Data Fetching
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+- **Zustand 5** - Lightweight state management
+- **TanStack Query 5** - Server state management and data fetching
+- **Axios** - HTTP client for API requests
+
+### Routing
+
+- **React Router 7** - Client-side routing with lazy loading
+
+### UI Components
+
+- **TanStack Table 8** - Headless table library
+- **Nivo** - Data visualization (line charts)
+- **Motion** - Animation library
+- **React Hot Toast** - Toast notifications
+- **React Tooltip** - Tooltips
+
+### Utilities
+
+- **Day.js** - Date manipulation
+- **Currency.js** - Currency formatting
+
+## Getting Started
+
+### Prerequisites
+
+- Node.js 18+
+- Yarn or npm
+
+### Installation
+
+```bash
+# Install dependencies
+yarn install
+
+# Start development server
+yarn dev
+
+# Build for production
+yarn build
+
+# Preview production build
+yarn preview
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+## Project Structure
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
-
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
 ```
+src/
+├── api/           # API client and endpoints
+├── assets/        # Fonts, icons, and images
+├── features/      # Feature-based modules
+│   ├── auth/      # Authentication pages and components
+│   ├── dashboard/ # Dashboard with widgets
+│   ├── finance/   # Financial utilities
+│   ├── settings/  # Settings page
+│   └── toast/     # Toast notifications
+├── hooks/         # Custom React hooks
+├── routes/        # App routing configuration
+├── shared/        # Reusable components
+├── store/         # Zustand stores
+├── types/         # TypeScript type definitions
+└── utils/         # Helper functions and constants
+```
+
+## Scripts
+
+| Command        | Description                    |
+| -------------- | ------------------------------ |
+| `yarn dev`     | Start development server       |
+| `yarn build`   | Build for production           |
+| `yarn preview` | Preview production build       |
+| `yarn lint`    | Run ESLint                     |
