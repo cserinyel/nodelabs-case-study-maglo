@@ -1,8 +1,8 @@
 import {
+  ErrorIcon,
   HomeIcon,
   InvoicesIcon,
   MyWalletsIcon,
-  SettingsIcon,
   TransactionsIcon,
 } from "../../../../../assets/icons/icons";
 import { ROUTES } from "../../../../../routes/utils/constants";
@@ -34,14 +34,9 @@ export const sidebarMainMenuItems: SidebarMenuItem[] = [
     disabled: true,
   },
   {
-    to: ROUTES.DASHBOARD.SETTINGS,
-    label: "Settings",
-    icon: SettingsIcon,
-  },
-  {
     to: "/",
     label: "Disabled",
+    icon: ErrorIcon,
     disabled: true,
-    icon: SettingsIcon,
   },
 ];

@@ -1,7 +1,7 @@
 // Auth constants
 export const ACCESS_TOKEN_KEY = "accessToken";
 
-export const SIMULATED_ERROR_RATE = 0.1;
+export const SIMULATED_ERROR_RATE = 0.2; // 20% chance of simulated error
 
 export const AUTH_ENDPOINTS = [
   "/users/login",

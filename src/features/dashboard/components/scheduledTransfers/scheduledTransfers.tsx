@@ -57,6 +57,7 @@ const ScheduledTransfers = () => {
     }
   }, [scheduledTransfers]);
 
+  // eslint-disable-next-line react-hooks/incompatible-library
   const scheduledTransfersTable = useReactTable<FinancialTransfer>({
     data,
     columns: scheduledTransfersTableColumns,

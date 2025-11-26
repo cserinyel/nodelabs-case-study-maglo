@@ -33,7 +33,10 @@ export const useMediaQuery = (
   const [matches, setMatches] = useState<boolean>(() => {
     if (typeof window === "undefined") return false;
     const width = breakpoints[breakpoint];
-    const query = `(min-width: ${width}px)`;
+    const query =
+      direction === "min"
+        ? `(min-width: ${width}px)`
+        : `(max-width: ${width - 1}px)`;
     return window.matchMedia(query).matches;
   });
 
@@ -47,9 +50,6 @@ export const useMediaQuery = (
         : `(max-width: ${width - 1}px)`;
 
     const mediaQuery = window.matchMedia(query);
-
-    // Set initial value
-    setMatches(mediaQuery.matches);
 
     // Create event listener
     const handler = (event: MediaQueryListEvent) => {

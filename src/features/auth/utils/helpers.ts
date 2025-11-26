@@ -12,8 +12,7 @@ const PASSWORD_MIN_LENGTH = 8;
 const PASSWORD_MAX_LENGTH = 128;
 const PASSWORD_UPPERCASE_PATTERN = /[A-Z]/;
 const PASSWORD_LOWERCASE_PATTERN = /[a-z]/;
-const PASSWORD_SPECIAL_CHARACTERS_PATTERN =
-  /[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]/;
+const PASSWORD_SPECIAL_CHARACTERS_PATTERN = /[!@#$%^&*()_+\-={};':"\\|,.<>/?]/;
 
 export const validateName = (name: string): ValidationResult => {
   // Required check

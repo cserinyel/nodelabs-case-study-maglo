@@ -20,7 +20,7 @@ const DashboardLayout = () => {
       success: "All financial data fetched successfully!",
       error: "Error fetching all financial data",
     });
-  }, []);
+  }, [fetchAll]);
 
   const shouldShowSidebar = isXlOrAbove || isSidebarOpen;
 

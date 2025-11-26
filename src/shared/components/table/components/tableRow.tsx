@@ -2,7 +2,7 @@ import { flexRender, type Row } from "@tanstack/react-table";
 import { twMerge } from "tailwind-merge";
 
 interface TableRowProps {
-  row: Row<any>;
+  row: Row<unknown>;
 }
 
 const TableRow = ({ row }: TableRowProps) => {

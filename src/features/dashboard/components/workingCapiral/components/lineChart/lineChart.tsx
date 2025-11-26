@@ -2,6 +2,7 @@ import {
   ResponsiveLine,
   type LineCustomSvgLayerProps,
   type LineSeries,
+  type Point,
 } from "@nivo/line";
 import { getCurrencyWithSymbol } from "../../../../../finance/utils/helpers";
 import { useState } from "react";
@@ -23,7 +24,7 @@ export const LineChart = ({ graphData, currency }: LineGraphData) => {
 
     // Only show crosshair if hovering very close to an actual point position
     const threshold = THRESHOLD; // Threshold to detect when hovering near a point
-    const closestPoint = points?.find((point: any) => {
+    const closestPoint = points?.find((point: Point<LineSeries>) => {
       const distance = Math.sqrt(
         Math.pow(point.x - mousePos.x, 2) + Math.pow(point.y - mousePos.y, 2)
       );
@@ -77,7 +78,7 @@ export const LineChart = ({ graphData, currency }: LineGraphData) => {
 
     // Only show the specific point(s) that are being hovered, not all at that x position
     // Check if we're hovering directly over a point (both x and y must be close)
-    const pointsToShow = points.filter((point: any) => {
+    const pointsToShow = points.filter((point: Point<LineSeries>) => {
       const distance = Math.sqrt(
         Math.pow(point.x - mousePos.x, 2) + Math.pow(point.y - mousePos.y, 2)
       );
@@ -103,10 +104,10 @@ export const LineChart = ({ graphData, currency }: LineGraphData) => {
           </filter>
         </defs>
         <g>
-          {pointsToShow.map((point: any) => {
+          {pointsToShow.map((point: Point<LineSeries>) => {
             const tooltipText = getCurrencyWithSymbol({
               currency,
-              value: point.data.y,
+              value: point.data.y as number,
               removeZeroDecimals: true,
             });
             const tooltipPadding = 10;

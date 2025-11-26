@@ -7,7 +7,6 @@ import type { LoginCredentials } from "../../../types/auth";
 import { validateEmail, validatePasswordEntry } from "../utils/helpers";
 import toast from "react-hot-toast";
 import Spinner from "../../../shared/components/spinner/spinner";
-import { GoogleIcon } from "../../../assets/icons/icons";
 import GoogleSignIn from "../components/googleSignIn";
 
 const SignIn = () => {

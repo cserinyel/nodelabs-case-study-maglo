@@ -6,9 +6,11 @@ import MenuItem from "./components/menuItem/menuItem";
 import {
   HelpIcon,
   LogoutIcon,
-  notificationIcon,
+  NotificationIcon,
+  SettingsIcon,
 } from "../../../../assets/icons/icons";
 import MenuButton from "../menuButton/menuButton";
+import { ROUTES } from "../../../../routes/utils/constants";
 
 const Sidebar = () => {
   const { mutateAsync: logoutMutation, isPending } = useLogout();
@@ -39,7 +41,7 @@ const Sidebar = () => {
             alt="logo"
             className="min-w-[122px] h-auto"
           />
-          <MenuButton className="xl:hidden" />
+          <MenuButton mode="close" className="xl:hidden" />
         </div>
 
         {/* Navigation Menu */}
@@ -57,11 +59,16 @@ const Sidebar = () => {
         <nav className="flex flex-col gap-[8px] w-full">
           <MenuItem
             label="Notifications"
-            path="/"
-            icon={notificationIcon}
+            to="/"
+            icon={NotificationIcon}
             className="flex lg:hidden"
           />
-          <MenuItem label="Help" path="/" icon={HelpIcon} />
+          <MenuItem label="Help" to="/" icon={HelpIcon} />
+          <MenuItem
+            to={ROUTES.DASHBOARD.SETTINGS}
+            label="Settings"
+            icon={SettingsIcon}
+          />
           <MenuItem
             label={isPending ? "Logging out..." : "Log Out"}
             onClick={handleLogout}

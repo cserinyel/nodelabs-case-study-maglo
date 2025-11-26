@@ -8,7 +8,7 @@ interface SummaryCardProps {
   isLoading: boolean;
   title: string;
   data?: FinancialBalance;
-  icon: React.ReactNode;
+  icon: React.ComponentType;
   isFocused?: boolean;
 }
 

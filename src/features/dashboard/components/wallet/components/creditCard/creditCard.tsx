@@ -20,8 +20,8 @@ const CreditCard = ({ cardData }: CreditCardProps) => {
     .slice(-2)}`;
   const bankName = bank.split("Maglo |")[1];
   const cardNetworkIcon = {
-    [FinancialWalletCardNetwork.VISA]: VisaIcon,
-    [FinancialWalletCardNetwork.MASTERCARD]: MastercardIcon,
+    [FinancialWalletCardNetwork.VISA]: <VisaIcon />,
+    [FinancialWalletCardNetwork.MASTERCARD]: <MastercardIcon />,
   };
 
   // Calculate wrapper styles and classes
@@ -76,7 +76,7 @@ const CreditCard = ({ cardData }: CreditCardProps) => {
                   alt="credit card chip"
                 />
                 <div className="w-[34px] h-[34px] text-[#363B41]">
-                  {CreditCardWirelessIcon}
+                  <CreditCardWirelessIcon />
                 </div>
               </div>
             </div>

@@ -1,7 +1,7 @@
 import { twMerge } from "tailwind-merge";
 import type { IconProps } from "./icon.types";
 
-const Icon = ({ src, size = "small", className }: IconProps) => {
+const Icon = ({ src: IconComponent, size = "small", className }: IconProps) => {
   const sizeClass = {
     xxs: "w-[18px] h-[18px]",
     xs: "w-[20px] h-[20px]",
@@ -10,7 +10,11 @@ const Icon = ({ src, size = "small", className }: IconProps) => {
     large: "w-[40px] h-[40px]",
   };
   const classes = twMerge(sizeClass[size], "object-cover", className);
-  return <div className={classes}>{src}</div>;
+  return (
+    <div className={classes}>
+      <IconComponent />
+    </div>
+  );
 };
 
 export default Icon;

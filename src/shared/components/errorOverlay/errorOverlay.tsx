@@ -38,7 +38,7 @@ const ErrorOverlay = ({
   return (
     <div className={classes}>
       <Icon
-        src={<ErrorIcon />}
+        src={ErrorIcon}
         size="large"
         className="text-red-600 animate-pulse"
       />

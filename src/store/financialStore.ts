@@ -243,7 +243,7 @@ export const useFinancialStore = create<FinancialState>((set, get) => ({
       {
         loading: "Refetching summary...",
         success: "Summary refetched successfully!",
-        error: (err: any) =>
+        error: (err: Error) =>
           err?.message || "Failed to refetch summary. Please try again.",
       }
     );
@@ -274,7 +274,7 @@ export const useFinancialStore = create<FinancialState>((set, get) => ({
       {
         loading: "Refetching working capital...",
         success: "Working capital refetched successfully!",
-        error: (err: any) =>
+        error: (err: Error) =>
           err?.message ||
           "Failed to refetch working capital. Please try again.",
       }
@@ -306,7 +306,7 @@ export const useFinancialStore = create<FinancialState>((set, get) => ({
       {
         loading: "Refetching wallet...",
         success: "Wallet refetched successfully!",
-        error: (err: any) =>
+        error: (err: Error) =>
           err?.message || "Failed to refetch wallet. Please try again.",
       }
     );
@@ -337,7 +337,7 @@ export const useFinancialStore = create<FinancialState>((set, get) => ({
       {
         loading: "Refetching recent transactions...",
         success: "Recent transactions refetched successfully!",
-        error: (err: any) =>
+        error: (err: Error) =>
           err?.message ||
           "Failed to refetch recent transactions. Please try again.",
       }
@@ -369,7 +369,7 @@ export const useFinancialStore = create<FinancialState>((set, get) => ({
       {
         loading: "Refetching scheduled transfers...",
         success: "Scheduled transfers refetched successfully!",
-        error: (err: any) =>
+        error: (err: Error) =>
           err?.message ||
           "Failed to refetch scheduled transfers. Please try again.",
       }

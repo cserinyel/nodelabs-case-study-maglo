@@ -84,6 +84,7 @@ const RecentTransactions = () => {
     }
   }, [recentTransactions]);
 
+  // eslint-disable-next-line react-hooks/incompatible-library
   const recentTransactionsTable = useReactTable<FinancialTransaction>({
     data,
     columns: recentTransactionsTableColumns,

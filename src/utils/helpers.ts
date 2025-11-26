@@ -1,5 +1,4 @@
 import dayjs from "dayjs";
-import { twMerge } from "tailwind-merge";
 
 export const delay = async (ms: number = 1000): Promise<void> =>
   await new Promise((resolve) => setTimeout(resolve, ms));

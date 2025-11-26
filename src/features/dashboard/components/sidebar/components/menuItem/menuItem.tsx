@@ -1,4 +1,4 @@
-import { NavLink, useMatch } from "react-router";
+import { NavLink } from "react-router";
 import { twMerge } from "tailwind-merge";
 import type { SidebarMenuItem } from "../../utils/types";
 import Icon from "../../../../../../shared/components/icon/icon";
@@ -46,6 +46,7 @@ const MenuItem = ({
       disabled={disabled}
       className={twMerge(
         "flex items-center justify-start gap-2",
+        "h-[48px]",
         "cursor-pointer",
         "px-[12px] py-[10px] rounded-[8px]",
         "text-[14px] font-medium",
