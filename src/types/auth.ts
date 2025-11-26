@@ -37,3 +37,11 @@ export interface RegisterResponse {
     email: string;
   };
 }
+
+export interface RefreshTokenResponse {
+  success: boolean;
+  message: string;
+  data: {
+    accessToken: string;
+  };
+}

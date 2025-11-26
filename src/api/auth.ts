@@ -3,12 +3,15 @@ import type { UseMutationOptions } from "@tanstack/react-query";
 import apiClient from "./client";
 import { useNavigate } from "react-router";
 import { ROUTES } from "../routes/utils/constants";
+import { ACCESS_TOKEN_KEY } from "../utils/constants";
 import type {
   LoginCredentials,
   LoginResponse,
   RegisterCredentials,
   RegisterResponse,
+  RefreshTokenResponse,
 } from "../types/auth";
+import useAuthStore from "../store/authStore";
 
 // API function
 export const loginUser = async (
@@ -36,6 +39,13 @@ export const logoutUser = async (): Promise<void> => {
   return response.data;
 };
 
+export const refreshToken = async (): Promise<RefreshTokenResponse> => {
+  const response = await apiClient.post<RefreshTokenResponse>(
+    "/users/refresh-token"
+  );
+  return response.data;
+};
+
 // React Query hook
 export const useLogin = (
   options?: Omit<
@@ -44,11 +54,14 @@ export const useLogin = (
   >
 ) => {
   const navigate = useNavigate();
+  const setUser = useAuthStore((state) => state.setUser);
   return useMutation({
     mutationFn: loginUser,
     onSuccess: (data) => {
       // Store token if provided
-      localStorage.setItem("accessToken", data?.data.accessToken);
+      localStorage.setItem(ACCESS_TOKEN_KEY, data?.data.accessToken);
+      // Store user in Zustand
+      setUser(data?.data.user);
       navigate(ROUTES.DASHBOARD.BASE);
     },
     onError: (error) => {
@@ -68,7 +81,6 @@ export const useRegister = (
   return useMutation({
     mutationFn: registerUser,
     onSuccess: () => {
-      console.log("Register successful");
       navigate(ROUTES.AUTH.SIGNIN);
     },
     onError: (error) => {
@@ -81,16 +93,30 @@ export const useRegister = (
 export const useLogout = () => {
   const navigate = useNavigate();
   const queryClient = useQueryClient();
+  const clearUser = useAuthStore((state) => state.clearUser);
 
   return useMutation({
     mutationFn: logoutUser,
     onSuccess: () => {
-      localStorage.removeItem("accessToken");
+      localStorage.removeItem(ACCESS_TOKEN_KEY);
+      clearUser();
       queryClient.clear(); // Clear all React Query cache
       navigate(ROUTES.AUTH.SIGNIN, { replace: true });
     },
     onError: (error) => {
       console.error("Logout failed:", error);
+    },
+  });
+};
+
+export const useRefreshToken = () => {
+  return useMutation({
+    mutationFn: refreshToken,
+    onSuccess: (data) => {
+      localStorage.setItem(ACCESS_TOKEN_KEY, data?.data.accessToken);
+    },
+    onError: (error) => {
+      console.error("Token refresh failed:", error);
     },
   });
 };

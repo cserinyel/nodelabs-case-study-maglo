@@ -1,3 +1,14 @@
+// Auth constants
+export const ACCESS_TOKEN_KEY = "accessToken";
+
+export const SIMULATED_ERROR_RATE = 0.1;
+
+export const AUTH_ENDPOINTS = [
+  "/users/login",
+  "/users/register",
+  "/users/refresh-token",
+] as const;
+
 export const FinancialTrend = {
   UP: "up",
   DOWN: "down",
