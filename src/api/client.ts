@@ -4,6 +4,7 @@ import { delay } from "../utils/helpers";
 import {
   ACCESS_TOKEN_KEY,
   AUTH_ENDPOINTS,
+  AUTH_ERROR_CODES,
   SIMULATED_ERROR_RATE,
 } from "../utils/constants";
 import { ROUTES } from "../routes/utils/constants";
@@ -129,6 +130,11 @@ apiClient.interceptors.request.use(
 // Response interceptor for error handling
 apiClient.interceptors.response.use(
   async (response) => {
+    // Skip simulated delay and errors for auth endpoints
+    if (isAuthEndpoint(response.config?.url)) {
+      return response;
+    }
+
     // Dev only: simulate network delay
     if (import.meta.env.DEV) {
       await delay(1000);
@@ -137,6 +143,7 @@ apiClient.interceptors.response.use(
     // Dev only: simulate random errors (10% chance)
     if (import.meta.env.DEV && Math.random() < SIMULATED_ERROR_RATE) {
       const simulatedError = {
+        config: response.config,
         response: {
           status: 500,
           statusText: "Internal Server Error",
@@ -153,6 +160,20 @@ apiClient.interceptors.response.use(
     const originalRequest = error.config as AxiosRequestConfig & {
       _retry?: boolean;
     };
+    const errorCode = error.response?.data?.code;
+
+    // For auth endpoints, pass through all errors without session handling
+    // These errors (like INVALID_CREDENTIALS) should be handled by the calling code
+    if (isAuthEndpoint(originalRequest?.url)) {
+      console.log("auth endpoint error");
+      return Promise.reject(error);
+    }
+
+    // Handle known auth error codes that shouldn't trigger session handling
+    if (AUTH_ERROR_CODES.includes(errorCode)) {
+      console.log("auth endpoint error");
+      return Promise.reject(error);
+    }
 
     // Handle 400 with TOKEN_MISSING - no refresh token cookie
     if (

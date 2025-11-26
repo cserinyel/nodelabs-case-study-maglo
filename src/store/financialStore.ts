@@ -204,17 +204,27 @@ export const useFinancialStore = create<FinancialState>((set, get) => ({
       fetchRecentTransactions,
       fetchScheduledTransfers,
     } = get();
-    // Fetch all in parallel
-    const results = await Promise.allSettled([
-      fetchSummary(),
-      fetchWorkingCapital(),
-      fetchWallet(),
-      fetchRecentTransactions(),
-      fetchScheduledTransfers(),
-    ]);
-    if (results.some((result) => result.status === "rejected")) {
-      throw new Error("Failed to fetch all financial data");
-    }
+
+    await toast.promise(
+      (async () => {
+        // Fetch all in parallel
+        const results = await Promise.allSettled([
+          fetchSummary(),
+          fetchWorkingCapital(),
+          fetchWallet(),
+          fetchRecentTransactions(),
+          fetchScheduledTransfers(),
+        ]);
+        if (results.some((result) => result.status === "rejected")) {
+          throw new Error("Failed to fetch all financial data");
+        }
+      })(),
+      {
+        loading: "Fetching all financial data...",
+        success: "All financial data fetched successfully!",
+        error: (err) => err?.message || "Error fetching all financial data",
+      }
+    );
   },
 
   // Refetch actions

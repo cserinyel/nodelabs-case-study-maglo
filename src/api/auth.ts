@@ -61,6 +61,7 @@ export const useLogin = (
   const setUser = useAuthStore((state) => state.setUser);
   return useMutation({
     mutationFn: loginUser,
+    retry: false,
     onSuccess: (data) => {
       // Store token if provided
       localStorage.setItem(ACCESS_TOKEN_KEY, data?.data.accessToken);
@@ -84,6 +85,7 @@ export const useRegister = (
   const navigate = useNavigate();
   return useMutation({
     mutationFn: registerUser,
+    retry: false,
     onSuccess: () => {
       navigate(ROUTES.AUTH.SIGNIN);
     },

@@ -1,5 +1,4 @@
 import { Outlet } from "react-router";
-import toast from "react-hot-toast";
 import { useFinancialStore } from "../../../store/financialStore";
 import { useEffect } from "react";
 import Sidebar from "../components/sidebar/sidebar";
@@ -15,11 +14,7 @@ const DashboardLayout = () => {
 
   useEffect(() => {
     // fetch all financial data once on mount
-    toast.promise(fetchAll(), {
-      loading: "Fetching all financial data...",
-      success: "All financial data fetched successfully!",
-      error: "Error fetching all financial data",
-    });
+    fetchAll();
   }, [fetchAll]);
 
   const shouldShowSidebar = isXlOrAbove || isSidebarOpen;

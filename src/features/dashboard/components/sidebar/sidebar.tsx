@@ -19,7 +19,11 @@ const Sidebar = () => {
       loading: "Logging out...",
       success: "Logged out successfully!",
       error: (err) => (
-        <b>{err?.message || "Failed to log out. Please try again."}</b>
+        <b>
+          {err?.response?.data?.message ||
+            err?.message ||
+            "Failed to log out. Please try again."}
+        </b>
       ),
     });
   };

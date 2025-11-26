@@ -53,6 +53,7 @@ const SignUp = () => {
     e.preventDefault();
     const isValid = handleValidation(formData);
     if (!isValid) {
+      toast.error("Please fill in all fields correctly");
       return;
     }
 
@@ -60,7 +61,11 @@ const SignUp = () => {
       loading: "Creating account...",
       success: <b>Account created successfully! Redirecting to sign in...</b>,
       error: (err) => (
-        <b>{err?.message || "Account creation failed. Please try again."}</b>
+        <b>
+          {err?.response?.data?.message ||
+            err?.message ||
+            "Account creation failed. Please try again."}
+        </b>
       ),
     });
   };

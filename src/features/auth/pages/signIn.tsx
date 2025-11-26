@@ -45,13 +45,18 @@ const SignIn = () => {
     e.preventDefault();
     const isValid = handleValidation(formData);
     if (!isValid) {
+      toast.error("Please fill in all fields correctly");
       return;
     }
     toast.promise(loginMutation(formData), {
       loading: "Signing in...",
       success: "Signed in successfully!",
       error: (err) => (
-        <b>{err?.message || "Failed to sign in. Please try again."}</b>
+        <b>
+          {err?.response?.data?.message ||
+            err?.message ||
+            "Failed to sign in. Please try again."}
+        </b>
       ),
     });
   };

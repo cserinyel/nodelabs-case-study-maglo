@@ -9,6 +9,12 @@ export const AUTH_ENDPOINTS = [
   "/users/refresh-token",
 ] as const;
 
+export const AUTH_ERROR_CODES = [
+  "INVALID_CREDENTIALS",
+  "INVALID_INPUT",
+  "ACCOUNT_DEACTIVATED",
+];
+
 export const FinancialTrend = {
   UP: "up",
   DOWN: "down",
