@@ -92,9 +92,9 @@ src/
 
 ## Scripts
 
-| Command        | Description                    |
-| -------------- | ------------------------------ |
-| `yarn dev`     | Start development server       |
-| `yarn build`   | Build for production           |
-| `yarn preview` | Preview production build       |
-| `yarn lint`    | Run ESLint                     |
+| Command        | Description              |
+| -------------- | ------------------------ |
+| `yarn dev`     | Start development server |
+| `yarn build`   | Build for production     |
+| `yarn preview` | Preview production build |
+| `yarn lint`    | Run ESLint               |
