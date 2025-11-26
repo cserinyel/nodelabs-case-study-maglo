@@ -17,7 +17,11 @@ const Input = ({
   const isPasswordType = type === "password";
   const passwordValue = props.value as string | undefined;
   const isPasswordHidden = isPasswordType && !showPassword;
-
+  const inputType = isPasswordType
+    ? passwordValue
+      ? "text"
+      : "password"
+    : type;
 
   const errorId = error?.length ? `${id}-error` : undefined;
   const hasError = Boolean(error?.length);
@@ -30,6 +34,7 @@ const Input = ({
     "border border-[var(--border-color)] rounded-[10px]",
     "outline-[var(--color-primary)]",
     "disabled:opacity-50 disabled:cursor-not-allowed",
+    // Make text and cursor invisible when showing custom password mask
     isPasswordHidden && passwordValue && "text-transparent caret-transparent",
     hasError && "border-red-500 outline-red-500",
     className
@@ -73,7 +78,7 @@ const Input = ({
       )}
       <div className="relative">
         <input
-          type={type}
+          type={inputType}
           id={id}
           className={classes}
           aria-invalid={hasError}
