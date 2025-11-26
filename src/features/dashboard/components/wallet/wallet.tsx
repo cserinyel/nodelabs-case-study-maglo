@@ -3,6 +3,7 @@ import { useFinancialWallet } from "../../../../hooks/useFinancialData";
 import Skeleton from "../../../../shared/components/skeleton/skeleton";
 import CreditCard from "./components/creditCard/creditCard";
 import ErrorOverlay from "../../../../shared/components/errorOverlay/errorOverlay";
+import { motion } from "motion/react";
 
 const Wallet = () => {
   const { wallet, isLoading, error, refetchWallet } = useFinancialWallet();
@@ -25,7 +26,13 @@ const Wallet = () => {
     );
   }
   return (
-    <section className={widgetClasses} aria-labelledby="wallet-title">
+    <motion.section
+      className={widgetClasses}
+      aria-labelledby="wallet-title"
+      initial={{ opacity: 0, y: 20 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.4, ease: "easeOut", delay: 0.6 }}
+    >
       <header className="flex flex-row justify-between items-center gap-[20px] w-full shrink-0 h-[22px]">
         <h2 id="wallet-title" className="widget-header-title">
           Wallet
@@ -37,7 +44,7 @@ const Wallet = () => {
           <CreditCard key={card.id} cardData={card} />
         ))}
       </main>
-    </section>
+    </motion.section>
   );
 };
 

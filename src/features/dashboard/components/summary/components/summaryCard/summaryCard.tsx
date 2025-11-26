@@ -1,4 +1,5 @@
 import { twMerge } from "tailwind-merge";
+import { motion } from "motion/react";
 import Skeleton from "../../../../../../shared/components/skeleton/skeleton";
 import type { FinancialBalance } from "../../../../../../types/financial";
 import { getCurrencyWithSymbol } from "../../../../../finance/utils/helpers";
@@ -10,6 +11,7 @@ interface SummaryCardProps {
   data?: FinancialBalance;
   icon: React.ComponentType;
   isFocused?: boolean;
+  index?: number;
 }
 
 const SummaryCard = ({
@@ -18,6 +20,7 @@ const SummaryCard = ({
   title,
   icon,
   isFocused = false,
+  index = 0,
 }: SummaryCardProps) => {
   const cardClasses = twMerge(
     "min-h-[105px] w-full",
@@ -44,7 +47,12 @@ const SummaryCard = ({
       {isLoading || !data ? (
         <Skeleton variant="rectangular" width="100%" height="100%" />
       ) : (
-        <div className={cardClasses}>
+        <motion.div
+          className={cardClasses}
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.4, ease: "easeOut", delay: index * 0.1 }}
+        >
           <figure className={iconClasses} aria-hidden="true">
             <Icon src={icon} />
           </figure>
@@ -70,7 +78,7 @@ const SummaryCard = ({
               })}
             </p>
           </div>
-        </div>
+        </motion.div>
       )}
     </article>
   );

@@ -28,18 +28,21 @@ const Summary = () => {
         data={summary?.totalBalance}
         icon={WalletIcon}
         isFocused={true}
+        index={0}
       />
       <SummaryCard
         isLoading={isLoading}
         title="Total Expense"
         data={summary?.totalExpense}
         icon={WalletIcon}
+        index={1}
       />
       <SummaryCard
         isLoading={isLoading}
         title="Total Savings"
         data={summary?.totalSavings}
         icon={WalletAddIcon}
+        index={2}
       />
     </section>
   );

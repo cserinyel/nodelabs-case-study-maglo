@@ -5,6 +5,7 @@ import { workingCapitalDataConverter } from "./utils/helpers";
 import Select from "../../../../shared/components/select/select";
 import { twMerge } from "tailwind-merge";
 import ErrorOverlay from "../../../../shared/components/errorOverlay/errorOverlay";
+import { motion } from "framer-motion";
 
 const WorkingCapital = () => {
   const { workingCapital, isLoading, error, refetchWorkingCapital } =
@@ -42,11 +43,22 @@ const WorkingCapital = () => {
   );
 
   return (
-    <section className={widgetClasses} aria-labelledby="working-capital-title">
+    <motion.section
+      className={widgetClasses}
+      initial={{ opacity: 0, y: 20 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.4, ease: "easeOut", delay: 0.4 }}
+      aria-labelledby="working-capital-title"
+    >
       <header className={contentClasses}>
-        <h2 id="working-capital-title" className="widget-header-title">Working Capital</h2>
+        <h2 id="working-capital-title" className="widget-header-title">
+          Working Capital
+        </h2>
         <div className="flex flex-row items-center justify-between shrink-0 w-full gap-[10px] lg:w-[340px]">
-          <ul className="flex flex-row items-center justify-between gap-[30px]" aria-label="Chart legend">
+          <ul
+            className="flex flex-row items-center justify-between gap-[30px]"
+            aria-label="Chart legend"
+          >
             <li className="flex flex-row items-center gap-[10px] text-[12px]/[100%]">
               <svg width={10} height={10} aria-hidden="true">
                 <circle cx={5} cy={5} r={5} fill="var(--color-secondary)" />
@@ -74,10 +86,13 @@ const WorkingCapital = () => {
           />
         </div>
       </header>
-      <figure className="w-full flex-1 overflow-visible min-h-[200px]" aria-label="Working capital chart">
+      <figure
+        className="w-full flex-1 overflow-visible min-h-[200px]"
+        aria-label="Working capital chart"
+      >
         <LineChart {...convertedData} />
       </figure>
-    </section>
+    </motion.section>
   );
 };
 

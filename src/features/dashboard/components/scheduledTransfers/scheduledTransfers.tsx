@@ -12,6 +12,7 @@ import { scheduledTransfersColumnHelper } from "./utils/helpers";
 import { ArrowDownIcon } from "../../../../assets/icons/icons";
 import Table from "../../../../shared/components/table/table";
 import ErrorOverlay from "../../../../shared/components/errorOverlay/errorOverlay";
+import { motion } from "motion/react";
 
 const scheduledTransfersTableColumns = [
   scheduledTransfersColumnHelper.accessor("name", {
@@ -86,8 +87,11 @@ const ScheduledTransfers = () => {
     );
   }
   return (
-    <section
+    <motion.section
       className={widgetClasses}
+      initial={{ opacity: 0, y: 20 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.4, ease: "easeOut", delay: 0.7 }}
       aria-labelledby="scheduled-transfers-title"
     >
       <header className="flex flex-row justify-between items-center gap-[20px] w-full shrink-0 h-[22px]">
@@ -121,7 +125,7 @@ const ScheduledTransfers = () => {
           showHeader={false}
         />
       </div>
-    </section>
+    </motion.section>
   );
 };
 

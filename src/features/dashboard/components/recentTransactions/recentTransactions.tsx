@@ -16,6 +16,7 @@ import { ArrowDownIcon } from "../../../../assets/icons/icons";
 import { formatDate } from "../../../../utils/helpers";
 import { getCurrencyWithSymbol } from "../../../finance/utils/helpers";
 import ErrorOverlay from "../../../../shared/components/errorOverlay/errorOverlay";
+import { motion } from "framer-motion";
 
 const recentTransactionsTableColumns = [
   recentTransactionsColumnHelper.accessor("name", {
@@ -115,8 +116,11 @@ const RecentTransactions = () => {
   }
 
   return (
-    <section
+    <motion.section
       className={widgetClasses}
+      initial={{ opacity: 0, y: 20 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.4, ease: "easeOut", delay: 0.5 }}
       aria-labelledby="recent-transactions-title"
     >
       <header className="flex flex-row justify-between items-center gap-[20px] w-full shrink-0 h-[22px]">
@@ -147,7 +151,7 @@ const RecentTransactions = () => {
       <div className="w-full flex-1 overflow-y-auto min-h-0 relative">
         <Table<FinancialTransaction> tableObject={recentTransactionsTable} />
       </div>
-    </section>
+    </motion.section>
   );
 };
 
